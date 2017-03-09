@@ -52,7 +52,61 @@ public class SecurityGUI implements ActionListener{
         ARMHomeOrBackButton.addActionListener(this);
         ARMAwayOrEnterButton.addActionListener(this);
 
+        //Add Listener to Code Field
+        codeField.addActionListener(this);
+
     }
+
+    public void armAway(){
+        System.out.println("Requesting to ARM - AWAY..");
+        //TODO Confirm action
+        System.out.println("Setting ThermoPi status to: ARM - AWAY..");
+        Config.STATUS = Config.STATUS_ARMED_AWAY;
+        variableStatusLabel.setName("ARM - AWAY");
+        variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+    }
+
+    public void armHome(){
+        System.out.println("Requesting to ARM - HOME..");
+        //TODO Confirm action
+        System.out.println("Setting ThermoPi status to: ARM - HOME..");
+        Config.STATUS = Config.STATUS_ARMED_HOME;
+        variableStatusLabel.setName("ARM - HOME");
+        variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+    }
+
+    public void unlockAndUnArm(char[] code){
+        if(Config.STATUS == Config.STATUS_UNARMED){
+            System.out.println("ThermoPi is already UNARMED");
+            //TODO PopUp Warning Dialog Box
+        }
+        codeField.setText("");
+        isTyping = false;
+        System.out.println("Attempting to UNARM ThermoPi with inputted code..");
+        //TODO Send code and wait for response.
+        //TODO Add failed unlock attempt counter.
+        System.out.println("Code ACCEPTED - Unlocking ThermoPi..");
+        Config.STATUS = Config.STATUS_UNARMED;
+        variableStatusLabel.setText("UNARMED");
+        variableStatusLabel.setForeground(Config.COLOR_TEXT_GREEN);
+    }
+
+    public void setTyping(boolean typing){
+        isTyping = typing;
+        if(typing){
+            ARMHomeOrBackButton.setText("Backspace");
+            ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_GREEN);
+            ARMAwayOrEnterButton.setText("Enter");
+            ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_GREEN);
+        }
+    }
+
+    public void backspaceCode(){
+        char[] pass = codeField.getPassword();
+        if (pass.length <= 0) return;
+        codeField.setText(String.copyValueOf(codeField.getPassword()).substring(0, pass.length - 1));
+    }
+
 
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
@@ -94,36 +148,36 @@ public class SecurityGUI implements ActionListener{
 
             if(src.equals(ARMHomeOrBackButton)){
                 if(isTyping){
-                    char[] pass = codeField.getPassword();
-                    if (pass.length <= 0) return;
-                    codeField.setText(String.copyValueOf(codeField.getPassword()).substring(0, pass.length - 1));
+                    backspaceCode();
                     Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-                }else{
-                    //TODO Implement ARM HOME
+                }else if(Config.STATUS == Config.STATUS_UNARMED){
+                    //TODO ARM HOME
+                    armHome();
                 }
             }else if(src.equals(ARMAwayOrEnterButton)){
                 if(isTyping){
-                    //TODO Send code to Security Receiver
+                    unlockAndUnArm(codeField.getPassword());
                 }else{
                     //TODO Implement ARM AWAY
+                    armAway();
                 }
             }
 
             //TODO Implement rest of the buttons
 
         }
-        if(codeField.getPassword().length <= 0){
+
+        if(codeField.getPassword().length <= 0 && Config.STATUS == Config.STATUS_UNARMED){
             isTyping = false;
             ARMHomeOrBackButton.setText("ARM - Home");
             ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_RED);
             ARMAwayOrEnterButton.setText("ARM - Away");
             ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_RED);
+        }else if(codeField.getPassword().length >= 0){
+            setTyping(true);
         }else{
-            isTyping = true;
-            ARMHomeOrBackButton.setText("Backspace");
-            ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_GREEN);
-            ARMAwayOrEnterButton.setText("Enter");
-            ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_GREEN);
+            ARMHomeOrBackButton.setVisible(false);
+            ARMAwayOrEnterButton.setVisible(false);
         }
         System.out.println(codeField.getPassword()); //TODO Remove this for security reasons
     }

@@ -8,7 +8,7 @@ import com.pi4j.io.gpio.GpioFactory;
 import javax.swing.*;
 
 /**
- * Created by Marku on 2017-03-07.
+ * Created by Markus Tonsaker on 2017-03-07.
  */
 public class Main extends JFrame{
 

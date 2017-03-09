@@ -5,7 +5,7 @@ import com.pi4j.wiringpi.SoftTone;
 import javax.swing.*;
 
 /**
- * Created by Marku on 2017-03-08.
+ * Created by Markus Tonsaker on 2017-03-08.
  */
 public class Utilities{
 
