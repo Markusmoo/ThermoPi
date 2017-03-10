@@ -163,8 +163,6 @@ public class SecurityGUI implements ActionListener{
                 }
             }
 
-            //TODO Implement rest of the buttons
-
         }
 
         if(codeField.getPassword().length <= 0 && Config.STATUS == Config.STATUS_UNARMED){
