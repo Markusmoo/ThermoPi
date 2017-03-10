@@ -17,7 +17,7 @@ public class Main extends JFrame{
     public static void main(String[] args) throws UnsupportedLookAndFeelException{
         UIManager.setLookAndFeel(new DarculaLaf());
         new Main().setVisible(true);
-
+        //TODO On ThermoPi startup, contact ThermoHQ and receive current ThermoPi Security State
     }
 
     public Main(){

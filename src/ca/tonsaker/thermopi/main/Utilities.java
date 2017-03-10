@@ -10,10 +10,9 @@ import javax.swing.*;
 public class Utilities{
 
     public static void tone(int pin, int durationMillis, int freq){
-        if(Config.NON_PI_DEBUG){
-            System.out.println("Playing tone.. Pin: " + pin + ", Duration: " + durationMillis + " milliseconds, Frequency: " + freq + " hz");
-            return;
-        }
+        Debug.println(Debug.LOW, "Playing tone.. Pin: " + pin + ", Duration: " + durationMillis + " milliseconds, Frequency: " + freq + " hz");
+        if(Config.debugMode) return;
+
         SoftTone.softToneWrite(pin, freq);
         Timer delay = new Timer(durationMillis, e -> SoftTone.softToneStop(pin));
         delay.start();

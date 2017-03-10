@@ -8,7 +8,7 @@ import java.awt.*;
 public class Config {
 
     //Debug
-    public static final boolean NON_PI_DEBUG = true;
+    public static final boolean debugMode = true;
 
     //Pins
     public static final int SPEAKER_PIN = 17;
@@ -29,6 +29,6 @@ public class Config {
 
 
     //Status
-    public static int STATUS = -1;
+    public static int STATUS = STATUS_ARMED_HOME;
 
 }

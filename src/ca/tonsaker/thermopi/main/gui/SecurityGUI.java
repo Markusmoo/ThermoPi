@@ -1,6 +1,7 @@
 package ca.tonsaker.thermopi.main.gui;
 
 import ca.tonsaker.thermopi.main.Config;
+import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
@@ -58,8 +59,8 @@ public class SecurityGUI implements ActionListener{
     }
 
     public void armAway(){
-        System.out.println("Requesting to ARM - AWAY..");
-        //TODO Confirm action
+        Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
+        if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION) return;
         System.out.println("Setting ThermoPi status to: ARM - AWAY..");
         Config.STATUS = Config.STATUS_ARMED_AWAY;
         variableStatusLabel.setName("ARM - AWAY");
@@ -67,9 +68,9 @@ public class SecurityGUI implements ActionListener{
     }
 
     public void armHome(){
-        System.out.println("Requesting to ARM - HOME..");
-        //TODO Confirm action
-        System.out.println("Setting ThermoPi status to: ARM - HOME..");
+        Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
+        if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION) return;
+        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
         Config.STATUS = Config.STATUS_ARMED_HOME;
         variableStatusLabel.setName("ARM - HOME");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
@@ -77,15 +78,16 @@ public class SecurityGUI implements ActionListener{
 
     public void unlockAndUnArm(char[] code){
         if(Config.STATUS == Config.STATUS_UNARMED){
-            System.out.println("ThermoPi is already UNARMED");
-            //TODO PopUp Warning Dialog Box
+            Debug.println(Debug.LOW, "ThermoPi is already UNARMED");
+            JOptionPane.showMessageDialog(securityPanel, "ThermoPi is already unarmed!");
+            return;
         }
         codeField.setText("");
         isTyping = false;
-        System.out.println("Attempting to UNARM ThermoPi with inputted code..");
+        Debug.println(Debug.HIGH, "Attempting to UNARM ThermoPi with inputted code..");
         //TODO Send code and wait for response.
         //TODO Add failed unlock attempt counter.
-        System.out.println("Code ACCEPTED - Unlocking ThermoPi..");
+        Debug.println(Debug.HIGH, "Code ACCEPTED - Unlocking ThermoPi..");
         Config.STATUS = Config.STATUS_UNARMED;
         variableStatusLabel.setText("UNARMED");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_GREEN);
@@ -177,6 +179,6 @@ public class SecurityGUI implements ActionListener{
             ARMHomeOrBackButton.setVisible(false);
             ARMAwayOrEnterButton.setVisible(false);
         }
-        System.out.println(codeField.getPassword()); //TODO Remove this for security reasons
+        Debug.println(Debug.DEBUG, String.valueOf(codeField.getPassword())); //TODO Remove this for security reasons
     }
 }
