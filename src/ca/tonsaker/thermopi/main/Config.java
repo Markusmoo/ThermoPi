@@ -1,5 +1,8 @@
 package ca.tonsaker.thermopi.main;
 
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.RaspiPin;
+
 import java.awt.*;
 
 /**
@@ -11,7 +14,8 @@ public class Config {
     public static final boolean debugMode = true;
 
     //Pins
-    public static final int SPEAKER_PIN = 17;
+    public static final Pin SPEAKER_PIN = RaspiPin.GPIO_27;
+    //public final int
 
     //Tone frequencies
     public static final int BUTTON_TONE = 1047;  //C6
@@ -20,12 +24,18 @@ public class Config {
     public static final Color COLOR_TEXT_RED = new Color(100, 0 ,0);
     public static final Color COLOR_TEXT_WHITE = new Color(187, 187, 187);
     public static final Color COLOR_TEXT_GREEN = new Color(50, 110, 50);
+    public static final Color COLOR_TEXT_CYAN = new Color(85, 222, 255);
+    public static final Color COLOR_TEXT_YELLOW = Color.YELLOW;
+    public static final Color COLOR_TEXT_BLUE = new Color(0, 0, 100);
+
+
+    //Console Colour
+    public static Color CONSOLE_COLOR = COLOR_TEXT_WHITE;
 
     //Status States
     public static final int STATUS_UNARMED = -1;
     public static final int STATUS_ARMED_AWAY = 0;
     public static final int STATUS_ARMED_HOME = 0;
-    //public static final int STATUS_ = 0; TODO
 
 
     //Status

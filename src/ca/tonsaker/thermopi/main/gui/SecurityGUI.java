@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Markus Tonsaker on 2017-03-07.
  */
-public class SecurityGUI implements ActionListener{
+public class SecurityGUI implements GUI, ActionListener{
 
     private JButton a0Button;
     private JButton a7Button;
@@ -32,22 +32,17 @@ public class SecurityGUI implements ActionListener{
     private JLabel statusLabel;
     private JLabel variableStatusLabel;
 
+    private JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
+
     boolean isTyping = false;
 
     public SecurityGUI(){
         super();
 
         //Add listeners to keypad 0-9
-        a0Button.addActionListener(this);
-        a1Button.addActionListener(this);
-        a2Button.addActionListener(this);
-        a3Button.addActionListener(this);
-        a4Button.addActionListener(this);
-        a5Button.addActionListener(this);
-        a6Button.addActionListener(this);
-        a7Button.addActionListener(this);
-        a8Button.addActionListener(this);
-        a9Button.addActionListener(this);
+        for(JButton b : numPad){
+            b.addActionListener(this);
+        }
 
         //Add Listeners to keypad Enter/ARMAway and Back/ARMHome
         ARMHomeOrBackButton.addActionListener(this);
@@ -56,24 +51,37 @@ public class SecurityGUI implements ActionListener{
         //Add Listener to Code Field
         codeField.addActionListener(this);
 
+        //TODO Receive current state
+
+        this.actionPerformed(new ActionEvent(new Object(), 0, "")); //Initialize
     }
 
-    public void armAway(){
+    public void init(){
+
+    }
+
+    private void armAway(){
         Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION) return;
         System.out.println("Setting ThermoPi status to: ARM - AWAY..");
-        Config.STATUS = Config.STATUS_ARMED_AWAY;
-        variableStatusLabel.setName("ARM - AWAY");
+        Config.STATUS = Config.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
+        variableStatusLabel.setText("ARM - AWAY");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+        for(JButton b : numPad){
+            b.setEnabled(true);
+        }
     }
 
-    public void armHome(){
+    private  void armHome(){
         Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION) return;
         Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
-        Config.STATUS = Config.STATUS_ARMED_HOME;
-        variableStatusLabel.setName("ARM - HOME");
+        Config.STATUS = Config.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
+        variableStatusLabel.setText("ARM - HOME");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+        for(JButton b : numPad){
+            b.setEnabled(true);
+        }
     }
 
     public void unlockAndUnArm(char[] code){
@@ -91,6 +99,10 @@ public class SecurityGUI implements ActionListener{
         Config.STATUS = Config.STATUS_UNARMED;
         variableStatusLabel.setText("UNARMED");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_GREEN);
+        for(JButton b : numPad){
+            b.setEnabled(false);
+        }
+        JOptionPane.showMessageDialog(securityPanel, "ThermoPi is now UNARMED!");
     }
 
     public void setTyping(boolean typing){
@@ -100,6 +112,8 @@ public class SecurityGUI implements ActionListener{
             ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_GREEN);
             ARMAwayOrEnterButton.setText("Enter");
             ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_GREEN);
+        }else{
+
         }
     }
 
@@ -109,49 +123,27 @@ public class SecurityGUI implements ActionListener{
         codeField.setText(String.copyValueOf(codeField.getPassword()).substring(0, pass.length - 1));
     }
 
+    public JPanel getGUI(){
+        return securityPanel;
+    }
 
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
 
         if(src instanceof JButton){
             //KeyPad 0-9
-            if(src.equals(a0Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"0");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a1Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"1");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a2Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"2");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a3Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"3");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a4Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"4");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a5Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"5");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a6Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"6");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a7Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"7");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a8Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"8");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
-            }else if(src.equals(a9Button)){
-                codeField.setText(String.copyValueOf(codeField.getPassword())+"9");
-                Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
+            for(int idx = 0; idx < numPad.length; idx++){
+                if(src.equals(numPad[idx])){
+                    codeField.setText(String.copyValueOf(codeField.getPassword())+idx);
+                    Utilities.buttonTone();
+                    break;
+                }
             }
-
 
             if(src.equals(ARMHomeOrBackButton)){
                 if(isTyping){
                     backspaceCode();
-                    Utilities.tone(Config.SPEAKER_PIN, 100, Config.BUTTON_TONE);
+                    Utilities.tone(100, Config.BUTTON_TONE);
                 }else if(Config.STATUS == Config.STATUS_UNARMED){
                     //TODO ARM HOME
                     armHome();
@@ -173,12 +165,14 @@ public class SecurityGUI implements ActionListener{
             ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_RED);
             ARMAwayOrEnterButton.setText("ARM - Away");
             ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_RED);
-        }else if(codeField.getPassword().length >= 0){
-            setTyping(true);
+        }else if(codeField.getPassword().length > 0){
+            if(!isTyping) setTyping(true);
+            ARMHomeOrBackButton.setVisible(true);
+            ARMAwayOrEnterButton.setVisible(true);
         }else{
             ARMHomeOrBackButton.setVisible(false);
             ARMAwayOrEnterButton.setVisible(false);
         }
-        Debug.println(Debug.DEBUG, String.valueOf(codeField.getPassword())); //TODO Remove this for security reasons
+        //Debug.println(Debug.DEBUG, String.valueOf(codeField.getPassword())); //TODO Remove this for security reasons
     }
 }
