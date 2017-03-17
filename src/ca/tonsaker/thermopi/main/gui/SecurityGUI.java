@@ -63,7 +63,7 @@ public class SecurityGUI implements GUI, ActionListener{
     private void armAway(){
         Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION) return;
-        System.out.println("Setting ThermoPi status to: ARM - AWAY..");
+        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - AWAY..");
         Config.STATUS = Config.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
         variableStatusLabel.setText("ARM - AWAY");
         variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
