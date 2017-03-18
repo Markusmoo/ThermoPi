@@ -56,11 +56,9 @@ public abstract class Debug {
             if(showConsoleColors){
                 System.out.println(Debug.ANSI_BLUE + "[LOW]: " + txt + Debug.ANSI_RESET);
                 debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_BLUE, "[LOW]: " + txt);
-                System.out.println(1);
             }else{
                 System.out.println("[LOW]: " + txt);
                 debugGUI.getConsole().appendToPane("[LOW]: " + txt);
-                System.out.println(2);
             }
         }else if(lvl == Debug.MEDIUM && Debug.showMedium) {
             if(showConsoleColors){

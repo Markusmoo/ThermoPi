@@ -22,7 +22,6 @@ public class JColorTextPane extends JTextPane{
     }
 
     public void appendToPane(Color color, String txt){
-        System.out.println("NO");
         StyleContext sc = StyleContext.getDefaultStyleContext();
         SimpleAttributeSet aset = new SimpleAttributeSet();
         StyleConstants.setForeground(aset, color);
@@ -37,7 +36,6 @@ public class JColorTextPane extends JTextPane{
     }
 
     public void appendToPane(String txt){
-        System.out.println("YES");
         this.appendToPane(defaultForegroundColor, txt);
     }
 }
