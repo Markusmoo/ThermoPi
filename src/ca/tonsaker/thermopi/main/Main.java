@@ -1,9 +1,6 @@
 package ca.tonsaker.thermopi.main;
 
-import ca.tonsaker.thermopi.main.gui.DebugGUI;
-import ca.tonsaker.thermopi.main.gui.GUI;
-import ca.tonsaker.thermopi.main.gui.HomescreenGUI;
-import ca.tonsaker.thermopi.main.gui.SecurityGUI;
+import ca.tonsaker.thermopi.main.gui.*;
 import com.bulenkov.darcula.DarculaLaf;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -26,8 +23,12 @@ public class Main extends JFrame{
 
     //public static final GpioController gpio = GpioFactory.getInstance();  //TODO DEBUG
 
+    public GUI currentGUI;
+
+    public KeyboardGUI keyboardGUI;
     public HomescreenGUI homescreenGUI;
     public SecurityGUI securityGUI;
+    public SettingsGUI settingsGUI;
     public static DebugGUI debugGUI;
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException{
@@ -54,8 +55,10 @@ public class Main extends JFrame{
         //Initiate in this order: helper classes > GUI > exc.
         Utilities.init();
 
+        keyboardGUI = new KeyboardGUI(this);
         homescreenGUI = new HomescreenGUI(this);
         securityGUI = new SecurityGUI();
+        settingsGUI = new SettingsGUI(this);
 
         this.switchGUI(homescreenGUI);
         if(Config.debugMode){
@@ -66,8 +69,13 @@ public class Main extends JFrame{
     public void switchGUI(GUI gui){
         getContentPane().setVisible(false);
         setContentPane(gui.getGUI());
+        currentGUI = gui;
         getContentPane().setVisible(true);
         pack();
+    }
+
+    public GUI getCurrentGUI(){
+        return currentGUI;
     }
 
 }
