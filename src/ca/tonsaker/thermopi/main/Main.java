@@ -21,7 +21,7 @@ public class Main extends JFrame{
     TODO  - Finish all TODOs
      */
 
-    //public static final GpioController gpio = GpioFactory.getInstance();  //TODO DEBUG
+    public static GpioController gpio;
 
     public GUI currentGUI;
 
@@ -34,6 +34,8 @@ public class Main extends JFrame{
     public static void main(String[] args) throws UnsupportedLookAndFeelException{
         UIManager.getFont("Label.font"); //TODO Temp work-around
         UIManager.setLookAndFeel(new DarculaLaf()); //TODO Resolve theme load error on PI
+
+        gpio = GpioFactory.getInstance();
 
         Main.debugGUI = new DebugGUI();
         Debug.setDebugGUI(Main.debugGUI);

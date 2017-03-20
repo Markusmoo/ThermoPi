@@ -30,34 +30,24 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     private JPanel settingsPanel;
     private JPanel zonePanel;
     private JPanel passcodePanel;
-    private JButton a7Button;
-    private JButton a9Button;
-    private JButton a8Button;
-    private JButton a4Button;
-    private JButton a5Button;
-    private JButton a6Button;
-    private JButton a1Button;
-    private JButton a2Button;
-    private JButton a3Button;
-    private JButton a0Button;
-    private JPasswordField passwordField1;
-    private JPasswordField passwordField2;
-    private JPasswordField passwordField3;
+    private JPasswordField confirmPasswordField;
+    private JPasswordField newPasswordField;
+    private JPasswordField oldPasswordField;
     private JPanel buttonPanel;
+    private JButton openDebuggerButton;
 
-    JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
+    JTextField[] passwordFields = {confirmPasswordField, newPasswordField, oldPasswordField};
     JTextField[] zones = {zoneTextField1, zoneTextField2, zoneTextField3, zoneTextField4, zoneTextField5, zoneTextField6};
 
     Main main;
 
     public SettingsGUI(Main main){
         this.main = main;
-        //TODO Add Listeners
-        for(JButton btn : numPad){
-            btn.addActionListener(this);
-        }
         for(JTextField zone : zones){
             zone.addFocusListener(this);
+        }
+        for(JTextField pass : passwordFields){
+            pass.addFocusListener(this);
         }
     }
 
@@ -94,6 +84,12 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
             for(JTextField zone : zones){
                 if(src.equals(zone)){
                     main.keyboardGUI.enterText(zone);
+                    break;
+                }
+            }
+            for(JTextField pass : passwordFields){
+                if(src.equals(pass)){
+                    main.keyboardGUI.enterText(pass, true);
                 }
             }
         }

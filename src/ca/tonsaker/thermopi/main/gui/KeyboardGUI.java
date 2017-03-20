@@ -51,16 +51,34 @@ public class KeyboardGUI implements ActionListener, GUI{
 
     private JPanel displayPanel;
     private JPanel keyboardPanel;
+    private JButton a1Button;
+    private JButton a2Button;
+    private JButton a3Button;
+    private JButton a4Button;
+    private JButton a5Button;
+    private JButton a6Button;
+    private JButton a7Button;
+    private JButton a8Button;
+    private JButton a9Button;
+    private JButton a0Button;
 
     private Main mainFrame;
     private GUI lastGUI;
     private JTextField projectTextfield;
 
     private boolean capsLock = false;
+    private boolean numOnly = false;
 
-    private JButton[] keyboardButtons = {qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton,
-                                        aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton,
-                                        zButton, xButton, cButton, vButton, bButton, nButton, mButton};
+    private JButton[] keyboardButtons = {
+            a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button, a0Button,
+            qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton,
+            aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton,
+            zButton, xButton, cButton, vButton, bButton, nButton, mButton};
+
+    private JButton[] keyboardLetterButtons = {
+            qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton,
+            aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton,
+            zButton, xButton, cButton, vButton, bButton, nButton, mButton};
 
     private JButton[] actionButtons = {ENTERButton, enterButton, CAPSButton, SPACEButton, deleteButton};
 
@@ -77,6 +95,16 @@ public class KeyboardGUI implements ActionListener, GUI{
     }
 
     public void enterText(JTextField textField){
+        enterText(textField, false);
+    }
+
+    public void enterText(JTextField textField, boolean numOnly){
+        this.numOnly = numOnly;
+        if(numOnly){
+            for(JButton btn : keyboardLetterButtons){
+                btn.setEnabled(false);
+            }
+        }
         lastGUI = mainFrame.getCurrentGUI();
         projectTextfield = textField;
         mainFrame.switchGUI(mainFrame.keyboardGUI);
@@ -113,6 +141,11 @@ public class KeyboardGUI implements ActionListener, GUI{
                 mainFrame.switchGUI(lastGUI);
                 lastGUI = null;
                 projectTextfield = null;
+                if(numOnly){
+                    for(JButton btn : keyboardLetterButtons){
+                        btn.setEnabled(true);
+                    }
+                }
             }else if(src.equals(CAPSButton)){
                 capsLock = !capsLock;
                 if(capsLock){
