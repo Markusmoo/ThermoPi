@@ -35,7 +35,7 @@ public class Main extends JFrame{
         UIManager.getFont("Label.font"); //TODO Temp work-around
         UIManager.setLookAndFeel(new DarculaLaf()); //TODO Resolve theme load error on PI
 
-        gpio = GpioFactory.getInstance();
+        if(!Config.debugMode) gpio = GpioFactory.getInstance();
 
         Main.debugGUI = new DebugGUI();
         Debug.setDebugGUI(Main.debugGUI);

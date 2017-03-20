@@ -30,7 +30,7 @@ public class Utilities{
 
     public static void init(){
         if(!Config.debugMode){
-            //soundPin = Main.gpio.provisionDigitalOutputPin(Config.SPEAKER_PIN, PinState.LOW); //TODO Enable for RPi Testing
+            soundPin = Main.gpio.provisionDigitalOutputPin(Config.SPEAKER_PIN, PinState.LOW); //TODO Enable for RPi Testing
         }
     }
 

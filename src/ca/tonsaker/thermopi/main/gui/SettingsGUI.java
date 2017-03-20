@@ -20,7 +20,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     private JCheckBox showConsoleColoursCheckBox;
     private JButton testThermoHQButton;
     private JButton testFurnaceButton;
-    private JButton testSirenButton;
+    private JButton testAlarmButton;
     private JTextField zoneTextField1;
     private JTextField zoneTextField2;
     private JTextField zoneTextField3;
