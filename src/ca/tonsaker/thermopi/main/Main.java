@@ -1,12 +1,14 @@
 package ca.tonsaker.thermopi.main;
 
 import ca.tonsaker.thermopi.main.gui.*;
+import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
+import ca.tonsaker.thermopi.main.gui.popup.OptionPaneGUI;
 import com.bulenkov.darcula.DarculaLaf;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.RaspiPin;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Markus Tonsaker on 2017-03-07.
@@ -21,10 +23,12 @@ public class Main extends JFrame{
     TODO  - Finish all TODOs
      */
 
+    GraphicsDevice graphicsDevice;
+
     public static GpioController gpio;
 
-    public GUI currentGUI;
-
+    public static GUI currentGUI;
+    public OptionPaneGUI optionPaneGUI;
     public KeyboardGUI keyboardGUI;
     public HomescreenGUI homescreenGUI;
     public SecurityGUI securityGUI;
@@ -49,7 +53,18 @@ public class Main extends JFrame{
     public Main(){
         super("SecurityGUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        pack();
+        //if(!Config.debugMode){ TODO ENABLE
+            try{
+                graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                if(!graphicsDevice.isFullScreenSupported()) {
+                    Debug.println(Debug.HIGH, "Fullscreen not supported.. Putting application into Fullscreen mode anyways.");
+                }
+                graphicsDevice.setFullScreenWindow(this);
+            }finally{
+                //graphicsDevice.setFullScreenWindow(null);
+            }
+        //}
+        revalidate();
         init();
     }
 
@@ -58,6 +73,7 @@ public class Main extends JFrame{
         Utilities.init();
 
         keyboardGUI = new KeyboardGUI(this);
+        optionPaneGUI = new OptionPaneGUI(this);
         homescreenGUI = new HomescreenGUI(this);
         securityGUI = new SecurityGUI();
         settingsGUI = new SettingsGUI(this);
@@ -73,11 +89,11 @@ public class Main extends JFrame{
         setContentPane(gui.getGUI());
         currentGUI = gui;
         getContentPane().setVisible(true);
-        pack();
+        revalidate();
     }
 
-    public GUI getCurrentGUI(){
-        return currentGUI;
+    public static GUI getCurrentGUI(){
+        return Main.currentGUI;
     }
 
 }

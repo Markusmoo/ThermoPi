@@ -16,7 +16,7 @@ public class Utilities{
 
     private static GpioPinDigitalOutput soundPin;
 
-    public static void tone(int durationMillis, int freq){
+    public static void tone(int durationMillis){
         Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.SPEAKER_PIN + ", Duration: " + durationMillis + " milliseconds");
         if(Config.debugMode) return;
         soundPin.pulse(durationMillis);
@@ -33,5 +33,4 @@ public class Utilities{
             soundPin = Main.gpio.provisionDigitalOutputPin(Config.SPEAKER_PIN, PinState.LOW); //TODO Enable for RPi Testing
         }
     }
-
 }

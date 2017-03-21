@@ -1,7 +1,8 @@
-package ca.tonsaker.thermopi.main.gui;
+package ca.tonsaker.thermopi.main.gui.popup;
 
 import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.gui.GUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Marku on 2017-03-19.
  */
-public class KeyboardGUI implements ActionListener, GUI{
+public class KeyboardGUI implements ActionListener, GUI {
     private JPanel keyboardAndDisplayPanel;
     private JTextField keyboardDisplay;
 

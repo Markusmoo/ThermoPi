@@ -2,7 +2,7 @@ package ca.tonsaker.thermopi.main.gui;
 
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
-import ca.tonsaker.thermopi.main.helper.JColorTextPane;
+import ca.tonsaker.thermopi.main.gui.helper.JColorTextPane;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

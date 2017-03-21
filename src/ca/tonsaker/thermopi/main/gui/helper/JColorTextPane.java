@@ -1,6 +1,4 @@
-package ca.tonsaker.thermopi.main.helper;
-
-import ca.tonsaker.thermopi.main.Config;
+package ca.tonsaker.thermopi.main.gui.helper;
 
 import javax.swing.*;
 import javax.swing.text.*;

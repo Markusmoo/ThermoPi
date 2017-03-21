@@ -143,7 +143,7 @@ public class SecurityGUI implements GUI, ActionListener{
             if(src.equals(ARMHomeOrBackButton)){
                 if(isTyping){
                     backspaceCode();
-                    Utilities.tone(100, Config.BUTTON_TONE);
+                    Utilities.tone(100);
                 }else if(Config.STATUS == Config.STATUS_UNARMED){
                     //TODO ARM HOME
                     armHome();

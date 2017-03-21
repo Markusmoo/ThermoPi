@@ -2,6 +2,7 @@ package ca.tonsaker.thermopi.main;
 
 import ca.tonsaker.thermopi.main.gui.DebugGUI;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -90,4 +91,8 @@ public abstract class Debug {
         Debug.showConsoleColors = isVisible;
     }
 
+
+    public static void wipPopup(){
+        JOptionPane.showMessageDialog(Main.getCurrentGUI().getGUI(), "Feature Unavailable (WIP)");
+    }
 }

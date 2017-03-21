@@ -15,7 +15,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="5b5ae" class="ca.tonsaker.thermopi.main.helper.JColorTextPane" binding="textPane">
+          <component id="5b5ae" class="ca.tonsaker.thermopi.main.gui.helper.JColorTextPane" binding="textPane">
             <constraints/>
             <properties>
               <editable value="true"/>
