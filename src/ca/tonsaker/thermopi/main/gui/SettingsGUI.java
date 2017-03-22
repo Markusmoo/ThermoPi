@@ -43,6 +43,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
 
     public SettingsGUI(Main main){
         this.main = main;
+        fullscreenToggleButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addFocusListener(this);
         }
@@ -58,7 +59,11 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
 
     @Override
     public void init() {
-
+        if(main.isFullscreen()){
+            fullscreenToggleButton.setText("Exit Fullscreen");
+        }else{
+            fullscreenToggleButton.setText("Enter Fullscreen");
+        }
     }
 
 
@@ -70,6 +75,17 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
+
+        if(src instanceof JButton){
+            if(src.equals(fullscreenToggleButton)){
+                main.setFullscreen(!main.isFullscreen());
+                if(main.isFullscreen()){
+                    fullscreenToggleButton.setText("Exit Fullscreen");
+                }else{
+                    fullscreenToggleButton.setText("Enter Fullscreen");
+                }
+            }
+        }
     }
 
     /**

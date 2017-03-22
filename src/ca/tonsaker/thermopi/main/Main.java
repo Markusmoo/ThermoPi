@@ -6,11 +6,16 @@ import ca.tonsaker.thermopi.main.gui.popup.OptionPaneGUI;
 import com.bulenkov.darcula.DarculaLaf;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
+import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Acceptable runtime parameters
+ *-debugmode :Disables GPIO
+ *-safemode :Disables Console Theme
+ *
  * Created by Markus Tonsaker on 2017-03-07.
  */
 public class Main extends JFrame{
@@ -35,14 +40,28 @@ public class Main extends JFrame{
     public SettingsGUI settingsGUI;
     public static DebugGUI debugGUI;
 
+    boolean isFullscreen;
+
     public static void main(String[] args) throws UnsupportedLookAndFeelException{
-        UIManager.getFont("Label.font"); //TODO Temp work-around
-        UIManager.setLookAndFeel(new DarculaLaf()); //TODO Resolve theme load error on PI
+        for(String arg : args){
+            if(arg.equals("-safemode")){
+                Main.debugGUI = new DebugGUI();
+                Debug.setDebugGUI(Main.debugGUI);
+                Config.safeMode = true;
+            }else if(arg.equals("-debugmode")){
+                Config.debugMode = true;
+            }
+        }
 
-        if(!Config.debugMode) gpio = GpioFactory.getInstance();
+        UIManager.getFont("Label.font");
+        UIManager.setLookAndFeel(new DarculaLaf());
 
-        Main.debugGUI = new DebugGUI();
-        Debug.setDebugGUI(Main.debugGUI);
+        if(!Config.safeMode) {
+            Main.debugGUI = new DebugGUI();
+            Debug.setDebugGUI(Main.debugGUI);
+        }
+
+        if (!Config.debugMode) gpio = GpioFactory.getInstance();
 
         Main main = new Main();
         Main.debugGUI.setMain(main);
@@ -53,19 +72,10 @@ public class Main extends JFrame{
     public Main(){
         super("SecurityGUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //if(!Config.debugMode){ TODO ENABLE
-            try{
-                graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-                if(!graphicsDevice.isFullScreenSupported()) {
-                    Debug.println(Debug.HIGH, "Fullscreen not supported.. Putting application into Fullscreen mode anyways.");
-                }
-                graphicsDevice.setFullScreenWindow(this);
-            }finally{
-                //graphicsDevice.setFullScreenWindow(null);
-            }
-        //}
-        revalidate();
+        this.setUndecorated(true);
         init();
+
+        setFullscreen(true);
     }
 
     public void init(){
@@ -78,6 +88,12 @@ public class Main extends JFrame{
         securityGUI = new SecurityGUI();
         settingsGUI = new SettingsGUI(this);
 
+        keyboardGUI.init();
+        optionPaneGUI.init();
+        homescreenGUI.init();
+        securityGUI.init();
+        settingsGUI.init();
+
         this.switchGUI(homescreenGUI);
         if(Config.debugMode){
             debugGUI.setVisible(true);
@@ -89,11 +105,44 @@ public class Main extends JFrame{
         setContentPane(gui.getGUI());
         currentGUI = gui;
         getContentPane().setVisible(true);
-        revalidate();
+        validate();
+        Debug.println(Debug.LOW, "Switching GUI to: "+gui.toString());
     }
 
     public static GUI getCurrentGUI(){
         return Main.currentGUI;
+    }
+
+    public boolean setFullscreen(boolean fullscreen) {
+        graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        if(fullscreen) {
+            try {
+                if (!graphicsDevice.isFullScreenSupported()) {
+                    Debug.println(Debug.HIGH, "Fullscreen not supported.. Attempting to put application into Fullscreen mode anyways");
+                }
+                Debug.println(Debug.MEDIUM, "Entering Fullscreen Mode");
+                graphicsDevice.setFullScreenWindow(this);
+                isFullscreen = true;
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally {
+                setVisible(true);
+                validate();
+            }
+            return true;
+        }else{
+            graphicsDevice.setFullScreenWindow(null); //TODO Test on RPi
+            this.pack();
+            this.setExtendedState(MAXIMIZED_BOTH);
+            this.setVisible(true);
+            isFullscreen = false;
+            Debug.println(Debug.HIGH, "Exiting Fullscreen Mode");
+            return true;
+        }
+    }
+
+    public boolean isFullscreen(){
+        return isFullscreen;
     }
 
 }

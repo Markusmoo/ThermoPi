@@ -16,6 +16,7 @@ public abstract class Debug {
     private static boolean showDebug = true;
 
     //If adding a new constant, change lvl scope in println()
+    public static final int ERROR = 3;
     public static final int HIGH = 2;
     public static final int MEDIUM = 1;
     public static final int LOW = 0;
@@ -41,7 +42,7 @@ public abstract class Debug {
     }
 
     public static void println(int lvl, String txt){
-        if(lvl > 2 || lvl < -1){ //lvl scope
+        if(lvl > 3 || lvl < -1){ //lvl scope
             System.err.println(lvl + " -Is not a valid lvl for println!");
         }
 
@@ -77,6 +78,9 @@ public abstract class Debug {
                 System.out.println("[HIGH]: " + txt);
                 debugGUI.getConsole().appendToPane("[HIGH]: " + txt);
             }
+        }else if(lvl == Debug.ERROR) {
+            System.out.println(Debug.ANSI_RED + "[ERROR]: " + txt + Debug.ANSI_RESET);
+            debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_RED, "[ERROR]: " + txt);
         }
     }
 

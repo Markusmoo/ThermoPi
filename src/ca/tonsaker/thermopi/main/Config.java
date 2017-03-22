@@ -10,12 +10,17 @@ import java.awt.*;
  */
 public class Config {
 
-    //Debug
-    public static final boolean debugMode = true;
+    //Settings File Location
+    public static final String SETTINGS_LINUX = "~/thermopi/config.json";
+    public static final String SETTINGS_WINDOWS = "%appdata%/thermopi/config.json";
+    public static final String SETTINGS_OSX = "~/Library/Preferences/thermopi/config.json";
+
+    //Modes
+    public static boolean debugMode = false;
+    public static boolean safeMode = false;
 
     //Pins
     public static final Pin SPEAKER_PIN = RaspiPin.GPIO_27;
-    //public final int
 
     //Tone frequencies
     public static final int BUTTON_TONE = 1047;  //C6
@@ -36,7 +41,6 @@ public class Config {
     public static final int STATUS_UNARMED = -1;
     public static final int STATUS_ARMED_AWAY = 0;
     public static final int STATUS_ARMED_HOME = 0;
-
 
     //Status
     public static int STATUS = STATUS_ARMED_HOME;
