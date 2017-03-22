@@ -133,7 +133,7 @@ public class Main extends JFrame{
         }else{
             graphicsDevice.setFullScreenWindow(null); //TODO Test on RPi
             this.pack();
-            this.setExtendedState(MAXIMIZED_BOTH);
+            //this.setExtendedState(MAXIMIZED_BOTH);
             this.setVisible(true);
             isFullscreen = false;
             Debug.println(Debug.HIGH, "Exiting Fullscreen Mode");

@@ -35,6 +35,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     private JPasswordField oldPasswordField;
     private JPanel buttonPanel;
     private JButton openDebuggerButton;
+    private JPanel testingPanel;
 
     JTextField[] passwordFields = {confirmPasswordField, newPasswordField, oldPasswordField};
     JTextField[] zones = {zoneTextField1, zoneTextField2, zoneTextField3, zoneTextField4, zoneTextField5, zoneTextField6};

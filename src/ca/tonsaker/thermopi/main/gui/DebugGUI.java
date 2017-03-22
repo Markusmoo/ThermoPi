@@ -55,10 +55,12 @@ public class DebugGUI extends JFrame implements ActionListener{
                 main.switchGUI(main.securityGUI);
             }else if(src.equals(thermostatButton)){
                 //TODO main.switchGUI(main.thermostatGUI);
+                Debug.wipPopup();
             }else if(src.equals(weatherButton)){
                 //TODO main.switchGUI(main.weatherGUI);
+                Debug.wipPopup();
             }else if(src.equals(settingsButton)){
-                //TODO main.switchGUI(main.settingsGUI);
+                main.switchGUI(main.settingsGUI);
             }
         }
     }
