@@ -6,10 +6,10 @@ import ca.tonsaker.thermopi.main.gui.popup.OptionPaneGUI;
 import com.bulenkov.darcula.DarculaLaf;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 /**
  * Acceptable runtime parameters
@@ -81,6 +81,12 @@ public class Main extends JFrame{
     public void init(){
         //Initiate in this order: helper classes > GUI > exc.
         Utilities.init();
+        Utilities.initializeFiles();
+        try{
+            Config.setSettingsVariables(Utilities.loadSettings());
+        }catch(FileNotFoundException e){
+            Debug.println(Debug.ERROR, "Failed to load settings file.");
+        }
 
         keyboardGUI = new KeyboardGUI(this);
         optionPaneGUI = new OptionPaneGUI(this);
@@ -106,6 +112,7 @@ public class Main extends JFrame{
         currentGUI = gui;
         getContentPane().setVisible(true);
         validate();
+        gui.switchPerformed();
         Debug.println(Debug.LOW, "Switching GUI to: "+gui.toString());
     }
 

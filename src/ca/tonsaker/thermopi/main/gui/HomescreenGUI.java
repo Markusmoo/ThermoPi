@@ -38,6 +38,9 @@ public class HomescreenGUI implements GUI, ActionListener{
     }
 
     @Override
+    public void switchPerformed(){}
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
 

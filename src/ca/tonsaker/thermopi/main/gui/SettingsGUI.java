@@ -1,12 +1,15 @@
 package ca.tonsaker.thermopi.main.gui;
 
+import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
 
 /**
  * Created by Marku on 2017-03-17.
@@ -45,6 +48,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     public SettingsGUI(Main main){
         this.main = main;
         fullscreenToggleButton.addActionListener(this);
+        applyButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addFocusListener(this);
         }
@@ -67,6 +71,26 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         }
     }
 
+    public void applySettings(){
+        Config.keypadTone = playKeypadToneCheckBox.isSelected();
+        Config.buttonTone = playButtonToneCheckBox.isSelected();
+        Config.consoleColors = showConsoleColoursCheckBox.isSelected();
+        String[] zoneNames = new String[zones.length];
+        for(int idx = 0; idx < zoneNames.length; idx++){
+            System.out.println(zoneNames.length);
+            System.out.println(idx);
+            zoneNames[idx] = zones[idx].getText();
+        }
+
+        //TODO Send and test new password (if any) to ThermoHQ
+
+        try{
+            Utilities.saveSettings(Config.createConfigFile());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Invoked when an action occurs.
@@ -85,6 +109,8 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
                 }else{
                     fullscreenToggleButton.setText("Enter Fullscreen");
                 }
+            }else if(src.equals(applyButton)){
+                applySettings();
             }
         }
     }
@@ -119,4 +145,11 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
      */
     @Override
     public void focusLost(FocusEvent e) {}
+
+    @Override
+    public void switchPerformed() {
+        playButtonToneCheckBox.setSelected(Config.buttonTone);
+        playKeypadToneCheckBox.setSelected(Config.keypadTone);
+        showConsoleColoursCheckBox.setSelected(Config.consoleColors);
+    }
 }

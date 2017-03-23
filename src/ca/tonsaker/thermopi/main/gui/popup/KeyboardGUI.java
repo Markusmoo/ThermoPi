@@ -179,4 +179,9 @@ public class KeyboardGUI implements ActionListener, GUI {
     public void init() {
 
     }
+
+    @Override
+    public void switchPerformed() {
+
+    }
 }

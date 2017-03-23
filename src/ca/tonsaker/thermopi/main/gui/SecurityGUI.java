@@ -72,6 +72,9 @@ public class SecurityGUI implements GUI, ActionListener{
         }
     }
 
+    @Override
+    public void switchPerformed() {}
+
     private  void armHome(){
         Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION) return;

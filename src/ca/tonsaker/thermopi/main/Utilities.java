@@ -30,16 +30,27 @@ public class Utilities{
         soundPin.pulse(100);
     }
 
+    public static void initializeFiles(){
+        String path = getSettingsFilePath();
+        if(path == null){
+            Debug.println(Debug.ERROR, "Failed to create settings file..");
+            return;
+        }
+        File file = new File(path);
+        if(!file.exists()){
+            file.mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static ConfigFile loadSettings() throws FileNotFoundException{
-        String path;
-        if(SystemUtils.IS_OS_LINUX){
-            path = Config.SETTINGS_LINUX;
-        }else if(SystemUtils.IS_OS_WINDOWS){
-            path = Config.SETTINGS_WINDOWS;
-        }else if(SystemUtils.IS_OS_MAC){
-            path = Config.SETTINGS_OSX;
-        }else{
-            Debug.println(Debug.ERROR, "System \""+ SystemUtils.OS_NAME +"\"is not of type: LINUX, WINDOWS, MAC");
+        String path = getSettingsFilePath();
+        if(path == null){
+            Debug.println(Debug.ERROR, "Failed to load settings file..");
             return null;
         }
 
@@ -49,15 +60,9 @@ public class Utilities{
     }
 
     public static void saveSettings(ConfigFile cf) throws IOException{
-        String path;
-        if(SystemUtils.IS_OS_LINUX){
-            path = Config.SETTINGS_LINUX;
-        }else if(SystemUtils.IS_OS_WINDOWS){
-            path = Config.SETTINGS_WINDOWS;
-        }else if(SystemUtils.IS_OS_MAC){
-            path = Config.SETTINGS_OSX;
-        }else{
-            Debug.println(Debug.ERROR, "System \""+ SystemUtils.OS_NAME +"\"is not of type: LINUX, WINDOWS, MAC");
+        String path = getSettingsFilePath();
+        if(path == null){
+            Debug.println(Debug.ERROR, "Failed to save settings file..");
             return;
         }
         new File(path).mkdirs();
@@ -69,6 +74,21 @@ public class Utilities{
         writer.close();
 
         Debug.println(Debug.HIGH, "ThermoPi Settings successfully saved to: \"" + path + "\"");
+    }
+
+    private static String getSettingsFilePath(){
+        String path;
+        if(SystemUtils.IS_OS_LINUX){
+            path = Config.SETTINGS_LINUX;
+        }else if(SystemUtils.IS_OS_WINDOWS){
+            path = Config.SETTINGS_WINDOWS;
+        }else if(SystemUtils.IS_OS_MAC){
+            path = Config.SETTINGS_OSX;
+        }else{
+            Debug.println(Debug.ERROR, "System \""+ SystemUtils.OS_NAME +"\"is not of type: LINUX, WINDOWS, MAC");
+            return null;
+        }
+        return path;
     }
 
     public static void init(){

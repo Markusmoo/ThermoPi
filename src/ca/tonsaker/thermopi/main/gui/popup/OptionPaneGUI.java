@@ -52,6 +52,11 @@ public class OptionPaneGUI implements GUI, ActionListener{
 
     }
 
+    @Override
+    public void switchPerformed() {
+
+    }
+
     /**
      * Invoked when an action occurs.
      *

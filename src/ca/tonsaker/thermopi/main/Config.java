@@ -1,5 +1,6 @@
 package ca.tonsaker.thermopi.main;
 
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.RaspiPin;
 
@@ -44,5 +45,28 @@ public class Config {
 
     //Status
     public static int STATUS = STATUS_ARMED_HOME;
+
+    //**********SETTINGS***********
+    public static String[] zoneNames;
+
+    public static boolean buttonTone = false;
+    public static boolean keypadTone = false;
+    public static boolean consoleColors = false;
+
+    public static void setSettingsVariables(ConfigFile configFile){
+        Config.zoneNames = configFile.zoneNames;
+        Config.buttonTone = configFile.options.buttonTone;
+        Config.keypadTone = configFile.options.keypadTone;
+        Config.consoleColors = configFile.options.consoleColors;
+    }
+
+    public static ConfigFile createConfigFile(){
+        ConfigFile cfg = new ConfigFile();
+        cfg.zoneNames = Config.zoneNames;
+        cfg.options.buttonTone = Config.buttonTone;
+        cfg.options.keypadTone = Config.keypadTone;
+        cfg.options.consoleColors = Config.consoleColors;
+        return cfg;
+    }
 
 }

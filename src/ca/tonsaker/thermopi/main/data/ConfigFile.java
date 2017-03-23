@@ -7,18 +7,14 @@ import com.google.gson.annotations.Expose;
  */
 public class ConfigFile {
 
-    @Expose public ZoneName[] zoneNames;
+    @Expose public String[] zoneNames;
 
-    public class ZoneName{
-        @Expose String name;
-    }
-
-    @Expose Options options;
+    @Expose public Options options;
 
     public class Options{
-        @Expose boolean buttonTone;
-        @Expose boolean keypadTone;
-        @Expose boolean consoleColors;
+        @Expose public boolean buttonTone;
+        @Expose public boolean keypadTone;
+        @Expose public boolean consoleColors;
     }
 
 }
