@@ -52,13 +52,14 @@ public class Config {
     public static int STATUS = STATUS_ARMED_HOME;
 
     //**********SETTINGS***********
-    public static String[] zoneNames;
+    public static String[] zoneNames = {""};
 
     public static boolean buttonTone = false;
     public static boolean keypadTone = false;
     public static boolean consoleColors = false;
 
     public static void setSettingsVariables(ConfigFile configFile){
+        if(configFile == null) return;
         Config.zoneNames = configFile.zoneNames;
         Config.buttonTone = configFile.options.buttonTone;
         Config.keypadTone = configFile.options.keypadTone;

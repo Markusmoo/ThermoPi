@@ -11,7 +11,7 @@ public class ConfigFile {
         options = new Options();
     }
 
-    @Expose public String[] zoneNames;
+    @Expose public String[] zoneNames = {"Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6"};
 
     @Expose public Options options;
 
