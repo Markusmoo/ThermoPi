@@ -13,13 +13,13 @@ public class Config {
 
     //Settings File Location
     public static final String SETTING_FILENAME = "config.json";
-    public static final String SETTINGS_LINUX = "~\\ThermoPi\\";
+    public static final String SETTINGS_LINUX = "~\\ThermoPi\\"; //TODO Test
     public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
-    public static final String SETTINGS_OSX = "~\\Library\\Preferences\\ThermoPi\\";
+    public static final String SETTINGS_OSX = "~\\Library\\Preferences\\ThermoPi\\"; //TODO Test
 
     //Time
     public static int timezone = -7;
-    public static boolean timeFormat12hour = true;
+    public static boolean timeFormat12hour = false;
 
     //Modes
     public static boolean debugMode = false;
