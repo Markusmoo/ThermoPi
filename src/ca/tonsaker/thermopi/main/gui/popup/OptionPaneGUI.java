@@ -53,7 +53,7 @@ public class OptionPaneGUI implements GUI, ActionListener{
     }
 
     @Override
-    public void switchPerformed() {
+    public void switchPerformed(GUI oldGUI) {
 
     }
 

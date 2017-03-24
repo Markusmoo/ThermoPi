@@ -12,9 +12,14 @@ import java.awt.*;
 public class Config {
 
     //Settings File Location
-    public static final String SETTINGS_LINUX = "~/thermopi/config.json";
-    public static final String SETTINGS_WINDOWS = "%appdata%/thermopi/config.json";
-    public static final String SETTINGS_OSX = "~/Library/Preferences/thermopi/config.json";
+    public static final String SETTING_FILENAME = "config.json";
+    public static final String SETTINGS_LINUX = "~\\ThermoPi\\";
+    public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
+    public static final String SETTINGS_OSX = "~\\Library\\Preferences\\ThermoPi\\";
+
+    //Time
+    public static int timezone = -7;
+    public static boolean timeFormat12hour = true;
 
     //Modes
     public static boolean debugMode = false;

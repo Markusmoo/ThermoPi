@@ -72,10 +72,10 @@ public class Main extends JFrame{
     public Main(){
         super("SecurityGUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setUndecorated(true);
+        if(!Config.debugMode) this.setUndecorated(true);
         init();
 
-        setFullscreen(true);
+        if(!Config.debugMode) setFullscreen(true); else pack();
     }
 
     public void init(){
@@ -109,10 +109,12 @@ public class Main extends JFrame{
     public void switchGUI(GUI gui){
         getContentPane().setVisible(false);
         setContentPane(gui.getGUI());
+        GUI oldGUI = currentGUI;
         currentGUI = gui;
         getContentPane().setVisible(true);
         validate();
-        gui.switchPerformed();
+        if(Config.debugMode) pack();
+        gui.switchPerformed(oldGUI);
         Debug.println(Debug.LOW, "Switching GUI to: "+gui.toString());
     }
 
@@ -140,7 +142,6 @@ public class Main extends JFrame{
         }else{
             graphicsDevice.setFullScreenWindow(null); //TODO Test on RPi
             this.pack();
-            //this.setExtendedState(MAXIMIZED_BOTH);
             this.setVisible(true);
             isFullscreen = false;
             Debug.println(Debug.HIGH, "Exiting Fullscreen Mode");

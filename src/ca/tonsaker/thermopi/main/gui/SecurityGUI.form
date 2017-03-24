@@ -119,14 +119,7 @@
         </constraints>
         <properties>
           <background color="-13486793"/>
-          <model>
-            <item value="Zone 1"/>
-            <item value="Zone 2"/>
-            <item value="Zone 3"/>
-            <item value="Zone 4"/>
-            <item value="Zone 5"/>
-            <item value="Zone 6"/>
-          </model>
+          <model/>
           <selectionBackground color="-16777216"/>
           <selectionForeground color="-6946816"/>
         </properties>

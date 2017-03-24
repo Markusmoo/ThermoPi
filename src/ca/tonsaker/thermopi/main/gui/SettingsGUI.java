@@ -3,6 +3,7 @@ package ca.tonsaker.thermopi.main.gui;
 import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
+import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -77,11 +78,9 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         Config.consoleColors = showConsoleColoursCheckBox.isSelected();
         String[] zoneNames = new String[zones.length];
         for(int idx = 0; idx < zoneNames.length; idx++){
-            System.out.println(zoneNames.length);
-            System.out.println(idx);
             zoneNames[idx] = zones[idx].getText();
         }
-
+        Config.zoneNames = zoneNames;
         //TODO Send and test new password (if any) to ThermoHQ
 
         try{
@@ -147,9 +146,18 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     public void focusLost(FocusEvent e) {}
 
     @Override
-    public void switchPerformed() {
+    public void switchPerformed(GUI oldGUI) {
+        if(oldGUI instanceof KeyboardGUI) return; //If switched from keyboard, do not reset settings.
         playButtonToneCheckBox.setSelected(Config.buttonTone);
         playKeypadToneCheckBox.setSelected(Config.keypadTone);
         showConsoleColoursCheckBox.setSelected(Config.consoleColors);
+        int idx = 0;
+        for(JTextField f : zones){
+            f.setText(Config.zoneNames[idx]);
+            idx++;
+        }
+        oldPasswordField.setText("");
+        newPasswordField.setText("");
+        confirmPasswordField.setText("");
     }
 }

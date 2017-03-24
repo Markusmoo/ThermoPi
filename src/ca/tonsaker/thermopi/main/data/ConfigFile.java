@@ -7,6 +7,10 @@ import com.google.gson.annotations.Expose;
  */
 public class ConfigFile {
 
+    public ConfigFile(){
+        options = new Options();
+    }
+
     @Expose public String[] zoneNames;
 
     @Expose public Options options;

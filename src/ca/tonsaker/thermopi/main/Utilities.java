@@ -9,7 +9,6 @@ import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
 
-import static ca.tonsaker.thermopi.main.Config.SETTINGS_LINUX;
 
 /**
  * Created by Markus Tonsaker on 2017-03-08.
@@ -40,7 +39,9 @@ public class Utilities{
         if(!file.exists()){
             file.mkdirs();
             try {
+                file = new File(path+Config.SETTING_FILENAME);
                 file.createNewFile();
+                Debug.println(Debug.MEDIUM, "Created config file at: " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,7 +55,7 @@ public class Utilities{
             return null;
         }
 
-        Reader reader = new InputStreamReader(new FileInputStream(path));
+        Reader reader = new InputStreamReader(new FileInputStream(path+Config.SETTING_FILENAME));
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         return gson.fromJson(reader, ConfigFile.class);
     }
@@ -65,8 +66,7 @@ public class Utilities{
             Debug.println(Debug.ERROR, "Failed to save settings file..");
             return;
         }
-        new File(path).mkdirs();
-        Writer writer = new OutputStreamWriter(new FileOutputStream(path));
+        Writer writer = new OutputStreamWriter(new FileOutputStream(path+Config.SETTING_FILENAME));
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
         writer.write(gson.toJson(cf));

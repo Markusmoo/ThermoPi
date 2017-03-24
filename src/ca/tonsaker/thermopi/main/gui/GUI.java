@@ -9,6 +9,6 @@ public interface GUI {
 
     JPanel getGUI();
     void init();
-    void switchPerformed();
+    void switchPerformed(GUI oldScreen);
 
 }

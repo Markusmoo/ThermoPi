@@ -5,7 +5,6 @@ import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,6 +28,7 @@ public class SecurityGUI implements GUI, ActionListener{
     public  JPanel securityPanel;
     private JPasswordField codeField;
     private JList zoneList;
+    private DefaultListModel<String> zoneListModel;
     private JLabel statusLabel;
     private JLabel variableStatusLabel;
 
@@ -57,7 +57,7 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     public void init(){
-
+        initUIComponents();
     }
 
     private void armAway(){
@@ -73,7 +73,9 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     @Override
-    public void switchPerformed() {}
+    public void switchPerformed(GUI oldGUI) {
+        initUIComponents();
+    }
 
     private  void armHome(){
         Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
@@ -177,5 +179,13 @@ public class SecurityGUI implements GUI, ActionListener{
             ARMAwayOrEnterButton.setVisible(false);
         }
         //Debug.println(Debug.DEBUG, String.valueOf(codeField.getPassword())); //TODO Remove this for security reasons
+    }
+
+    private void initUIComponents() {
+        zoneListModel = new DefaultListModel<>();
+        for(int idx = 0; idx < Config.zoneNames.length; idx++){
+            zoneListModel.add(idx, Config.zoneNames[idx]);
+        }
+        zoneList.setModel(zoneListModel);
     }
 }

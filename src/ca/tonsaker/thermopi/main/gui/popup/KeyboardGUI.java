@@ -181,7 +181,7 @@ public class KeyboardGUI implements ActionListener, GUI {
     }
 
     @Override
-    public void switchPerformed() {
+    public void switchPerformed(GUI oldGUI) {
 
     }
 }
