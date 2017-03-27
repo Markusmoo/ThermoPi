@@ -152,8 +152,9 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         playKeypadToneCheckBox.setSelected(Config.keypadTone);
         showConsoleColoursCheckBox.setSelected(Config.consoleColors);
         int idx = 0;
+        if(zones != null)
         for(JTextField f : zones){
-            f.setText(Config.zoneNames[idx]);
+            if(Config.zoneNames[idx] != null) f.setText(Config.zoneNames[idx]);
             idx++;
         }
         oldPasswordField.setText("");

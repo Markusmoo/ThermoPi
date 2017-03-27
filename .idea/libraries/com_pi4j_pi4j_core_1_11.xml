@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="com.pi4j:pi4j-core:1.11" type="repository">
+    <properties maven-id="com.pi4j:pi4j-core:1.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/pi4j-core-1.1.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib/pi4j-native-1.1-raspberrypi-static.so" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/pi4j-core-1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/pi4j-core-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

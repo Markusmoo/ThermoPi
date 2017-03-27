@@ -10,7 +10,8 @@
     <orderEntry type="library" name="darcula" level="project" />
     <orderEntry type="library" name="com.pi4j:pi4j-core:Latest" level="project" />
     <orderEntry type="library" name="org.apache.maven.plugins:maven-compiler-plugin:3.6.1" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:Latest" level="project" />
-    <orderEntry type="library" name="org.apache.commons:commons-lang3:Latest" level="project" />
+    <orderEntry type="library" name="com.pi4j:pi4j-core:1.11" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.5" level="project" />
   </component>
 </module>

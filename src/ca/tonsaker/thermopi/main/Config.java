@@ -26,7 +26,8 @@ public class Config {
     public static boolean safeMode = false;
 
     //Pins
-    public static final Pin SPEAKER_PIN = RaspiPin.GPIO_27;
+    public static final Pin PIN_SPEAKER = RaspiPin.GPIO_27;
+    public static final Pin PIN_TEMP = RaspiPin.GPIO_00; //TODO Change to acceptable pin
 
     //Tone frequencies
     public static final int BUTTON_TONE = 1047;  //C6

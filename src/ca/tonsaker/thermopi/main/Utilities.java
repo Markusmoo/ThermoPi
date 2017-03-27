@@ -18,13 +18,13 @@ public class Utilities{
     private static GpioPinDigitalOutput soundPin;
 
     public static void tone(int durationMillis){
-        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.SPEAKER_PIN + ", Duration: " + durationMillis + " milliseconds");
+        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.PIN_SPEAKER + ", Duration: " + durationMillis + " milliseconds");
         if(Config.debugMode) return;
         soundPin.pulse(durationMillis);
     }
 
     public static void buttonTone(){
-        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.SPEAKER_PIN + ", Duration: " + 100 + " milliseconds");
+        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.PIN_SPEAKER + ", Duration: " + 100 + " milliseconds");
         if(Config.debugMode) return;
         soundPin.pulse(100);
     }
@@ -93,7 +93,7 @@ public class Utilities{
 
     public static void init(){
         if(!Config.debugMode){
-            soundPin = Main.gpio.provisionDigitalOutputPin(Config.SPEAKER_PIN, PinState.LOW); //TODO Enable for RPi Testing
+            soundPin = Main.gpio.provisionDigitalOutputPin(Config.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
         }
     }
 }
