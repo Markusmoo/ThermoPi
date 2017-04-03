@@ -88,7 +88,7 @@ public class HomescreenGUI implements GUI, ActionListener{
             if(src.equals(securityBtn)){
                 main.switchGUI(main.securityGUI);
             }else if(src.equals(thermostatButton)){
-                //TODO Switch to Thermostat
+                main.switchGUI(main.thermostatGUI);
             }else if(src.equals(settingsButton)){
                 main.switchGUI(main.settingsGUI);
             }else if(src.equals(weatherButton)){

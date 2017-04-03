@@ -38,6 +38,7 @@ public class Main extends JFrame{
     public HomescreenGUI homescreenGUI;
     public SecurityGUI securityGUI;
     public SettingsGUI settingsGUI;
+    public ThermostatGUI thermostatGUI;
     public static DebugGUI debugGUI;
 
     boolean isFullscreen;
@@ -92,8 +93,10 @@ public class Main extends JFrame{
         optionPaneGUI = new OptionPaneGUI(this);
         homescreenGUI = new HomescreenGUI(this);
         securityGUI = new SecurityGUI();
+        thermostatGUI = new ThermostatGUI();
         settingsGUI = new SettingsGUI(this);
 
+        thermostatGUI.init();
         keyboardGUI.init();
         optionPaneGUI.init();
         homescreenGUI.init();
