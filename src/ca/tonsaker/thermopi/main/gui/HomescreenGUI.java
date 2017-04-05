@@ -1,6 +1,7 @@
 package ca.tonsaker.thermopi.main.gui;
 
 import ca.tonsaker.thermopi.main.Config;
+import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
 
 import javax.swing.*;
@@ -35,7 +36,6 @@ public class HomescreenGUI implements GUI, ActionListener{
         clockUpdater = new Timer(1000, this);
         clockUpdater.start();
     }
-
 
     public void updateClock(){
         long millis = System.currentTimeMillis();
@@ -108,6 +108,7 @@ public class HomescreenGUI implements GUI, ActionListener{
                 main.switchGUI(main.settingsGUI);
             }else if(src.equals(weatherButton)){
                 //TODO Switch to Weather
+                Debug.wipPopup();
             }
         }
     }

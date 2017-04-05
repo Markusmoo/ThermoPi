@@ -7,9 +7,13 @@ import ca.tonsaker.thermopi.main.Utilities;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Markus Tonsaker on 2017-03-07.
+ * TODO Prevent user from being able to select zones
  */
 public class SecurityGUI implements GUI, ActionListener{
 
@@ -34,6 +38,8 @@ public class SecurityGUI implements GUI, ActionListener{
 
     private JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
 
+    private boolean[] selectedZones;
+
     boolean isTyping = false;
 
     public SecurityGUI(){
@@ -54,6 +60,8 @@ public class SecurityGUI implements GUI, ActionListener{
         //TODO Receive current state
 
         this.actionPerformed(new ActionEvent(new Object(), 0, "")); //Initialize
+        Timer t = new Timer(1000, e -> highlightZone(new Random().nextInt(5), new Random().nextBoolean())); //TODO For testing demos only
+        t.start(); //TODO For testing demos only
     }
 
     public void init(){
@@ -75,6 +83,16 @@ public class SecurityGUI implements GUI, ActionListener{
     @Override
     public void switchToGUI(GUI oldGUI) {
         initUIComponents();
+    }
+
+    public void highlightZone(int idx, boolean highlighted) {
+        selectedZones[idx] = highlighted;
+        int length = 0;
+        for(boolean b : selectedZones) if(b) length++;
+        int[] arrayList = new int[length];
+        int arrayIdx = 0;
+        for(int i = 0; i < selectedZones.length; i++) if(selectedZones[i]) arrayList[arrayIdx++] = i;
+        zoneList.setSelectedIndices(arrayList);
     }
 
     private  void armHome(){
@@ -202,5 +220,9 @@ public class SecurityGUI implements GUI, ActionListener{
             zoneListModel.add(idx, Config.zoneNames[idx]);
         }
         zoneList.setModel(zoneListModel);
+        selectedZones = new boolean[zoneListModel.size()];
+        for(int i = 0; i < selectedZones.length; i++){
+            selectedZones[i] = false;
+        }
     }
 }
