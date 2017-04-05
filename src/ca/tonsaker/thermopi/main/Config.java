@@ -11,6 +11,9 @@ import java.awt.*;
  */
 public class Config {
 
+    //Display
+    public static int screenTimeoutTime = 15;
+
     //Settings File Location
     public static final String SETTING_FILENAME = "config.json";
     public static final String SETTINGS_LINUX = "~\\ThermoPi\\"; //TODO Test

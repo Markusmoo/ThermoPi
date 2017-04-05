@@ -115,6 +115,8 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     }
 
     /**
+     * TODO Fix a bug where if tbe textfield regains focus from something other than mouse
+     * TODO click, it goes back into keyboard
      * Invoked when a component gains the keyboard focus.
      *
      * @param e
@@ -146,7 +148,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     public void focusLost(FocusEvent e) {}
 
     @Override
-    public void switchPerformed(GUI oldGUI) {
+    public void switchToGUI(GUI oldGUI) {
         if(oldGUI instanceof KeyboardGUI) return; //If switched from keyboard, do not reset settings.
         playButtonToneCheckBox.setSelected(Config.buttonTone);
         playKeypadToneCheckBox.setSelected(Config.keypadTone);
@@ -160,5 +162,20 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         oldPasswordField.setText("");
         newPasswordField.setText("");
         confirmPasswordField.setText("");
+    }
+
+    @Override
+    public void switchAwayGUI(GUI newScreen) {
+
+    }
+
+    @Override
+    public void screenWakeup() {
+
+    }
+
+    @Override
+    public void screenSleep() {
+
     }
 }

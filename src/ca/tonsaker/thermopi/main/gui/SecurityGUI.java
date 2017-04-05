@@ -73,7 +73,7 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     @Override
-    public void switchPerformed(GUI oldGUI) {
+    public void switchToGUI(GUI oldGUI) {
         initUIComponents();
     }
 
@@ -87,6 +87,21 @@ public class SecurityGUI implements GUI, ActionListener{
         for(JButton b : numPad){
             b.setEnabled(true);
         }
+    }
+
+    @Override
+    public void switchAwayGUI(GUI newScreen) {
+
+    }
+
+    @Override
+    public void screenWakeup() {
+
+    }
+
+    @Override
+    public void screenSleep() {
+
     }
 
     public void unlockAndUnArm(char[] code){

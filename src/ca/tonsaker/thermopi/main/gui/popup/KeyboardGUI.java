@@ -181,7 +181,22 @@ public class KeyboardGUI implements ActionListener, GUI {
     }
 
     @Override
-    public void switchPerformed(GUI oldGUI) {
+    public void switchAwayGUI(GUI newScreen) {
+
+    }
+
+    @Override
+    public void screenWakeup() {
+
+    }
+
+    @Override
+    public void screenSleep() {
+
+    }
+
+    @Override
+    public void switchToGUI(GUI oldGUI) {
 
     }
 }

@@ -70,8 +70,23 @@ public class HomescreenGUI implements GUI, ActionListener{
     }
 
     @Override
-    public void switchPerformed(GUI oldGUI){
+    public void switchAwayGUI(GUI newScreen) {
+        clockUpdater.stop();
+    }
 
+    @Override
+    public void switchToGUI(GUI oldGUI){
+        clockUpdater.restart();
+    }
+
+    @Override
+    public void screenWakeup() {
+        clockUpdater.restart();
+    }
+
+    @Override
+    public void screenSleep() {
+        clockUpdater.stop();
     }
 
     @Override

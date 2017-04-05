@@ -33,13 +33,17 @@ public class Main extends JFrame{
     public static GpioController gpio;
 
     public static GUI currentGUI;
-    public OptionPaneGUI optionPaneGUI;
-    public KeyboardGUI keyboardGUI;
-    public HomescreenGUI homescreenGUI;
-    public SecurityGUI securityGUI;
-    public SettingsGUI settingsGUI;
-    public ThermostatGUI thermostatGUI;
+
+    public OptionPaneGUI optionPaneGUI = new OptionPaneGUI(this);
+    public KeyboardGUI keyboardGUI = new KeyboardGUI(this);
+    public HomescreenGUI homescreenGUI = new HomescreenGUI(this);
+    public SecurityGUI securityGUI = new SecurityGUI();
+    public SettingsGUI settingsGUI = new SettingsGUI(this);
+    public ThermostatGUI thermostatGUI = new ThermostatGUI();
     public static DebugGUI debugGUI;
+
+    //Doesn't include debugGUI because debugGUI is in it's own window.
+    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI, settingsGUI, thermostatGUI};
 
     boolean isFullscreen;
 
@@ -89,24 +93,50 @@ public class Main extends JFrame{
             Debug.println(Debug.ERROR, "Failed to load settings file.");
         }
 
-        keyboardGUI = new KeyboardGUI(this);
+        /*keyboardGUI = new KeyboardGUI(this);
         optionPaneGUI = new OptionPaneGUI(this);
-        homescreenGUI = new HomescreenGUI(this);
+        homescreenGUI = new HomescreenGUI(this); //TODO Test
         securityGUI = new SecurityGUI();
         thermostatGUI = new ThermostatGUI();
-        settingsGUI = new SettingsGUI(this);
+        settingsGUI = new SettingsGUI(this);*/
 
-        thermostatGUI.init();
-        keyboardGUI.init();
-        optionPaneGUI.init();
-        homescreenGUI.init();
-        securityGUI.init();
-        settingsGUI.init();
+        /*guiList = new GUI[6];
+        guiList[0] = optionPaneGUI;
+        guiList[1] = keyboardGUI;
+        guiList[2] = homescreenGUI; //TODO Test
+        guiList[3] = securityGUI;
+        guiList[4] = settingsGUI;
+        guiList[5] = thermostatGUI;*/
 
+        for(GUI g : guiList){
+            g.init();
+        }
+//        thermostatGUI.init();
+//        keyboardGUI.init();
+//        optionPaneGUI.init();  //TODO Test for removal
+//        homescreenGUI.init();
+//        securityGUI.init();
+//        settingsGUI.init();
+
+        currentGUI = homescreenGUI;
         this.switchGUI(homescreenGUI);
         if(Config.debugMode){
             debugGUI.setVisible(true);
         }
+    }
+
+    public void setScreenOff(){
+        //TODO Turn screen off
+        for(GUI g : guiList){
+            g.screenSleep();
+        }
+    }
+
+    public void setScreenOn(){
+        for(GUI g : guiList){
+            g.screenWakeup();
+        }
+        //TODO Turn screen on
     }
 
     public void switchGUI(GUI gui){
@@ -117,7 +147,8 @@ public class Main extends JFrame{
         getContentPane().setVisible(true);
         validate();
         if(Config.debugMode) pack();
-        gui.switchPerformed(oldGUI);
+        oldGUI.switchAwayGUI(gui);
+        gui.switchToGUI(oldGUI);
         Debug.println(Debug.LOW, "Switching GUI to: "+gui.toString());
     }
 

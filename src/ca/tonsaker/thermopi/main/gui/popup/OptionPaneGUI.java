@@ -53,7 +53,22 @@ public class OptionPaneGUI implements GUI, ActionListener{
     }
 
     @Override
-    public void switchPerformed(GUI oldGUI) {
+    public void switchToGUI(GUI oldGUI) {
+
+    }
+
+    @Override
+    public void switchAwayGUI(GUI newScreen) {
+
+    }
+
+    @Override
+    public void screenWakeup() {
+
+    }
+
+    @Override
+    public void screenSleep() {
 
     }
 
