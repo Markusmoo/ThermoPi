@@ -7,6 +7,8 @@ import ca.tonsaker.thermopi.main.Utilities;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,6 +64,12 @@ public class SecurityGUI implements GUI, ActionListener{
         this.actionPerformed(new ActionEvent(new Object(), 0, "")); //Initialize
         Timer t = new Timer(1000, e -> highlightZone(new Random().nextInt(5), new Random().nextBoolean())); //TODO For testing demos only
         t.start(); //TODO For testing demos only
+        for(MouseListener m : zoneList.getMouseListeners()){
+            zoneList.removeMouseListener(m);
+        }
+        for(MouseMotionListener m : zoneList.getMouseMotionListeners()){
+            zoneList.removeMouseMotionListener(m);
+        }
     }
 
     public void init(){
