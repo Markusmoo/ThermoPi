@@ -33,6 +33,7 @@ public class HomescreenGUI implements GUI, ActionListener{
     }
 
     public void initClock(){
+        updateClock();
         clockUpdater = new Timer(1000, this);
         clockUpdater.start();
     }
@@ -76,11 +77,13 @@ public class HomescreenGUI implements GUI, ActionListener{
 
     @Override
     public void switchToGUI(GUI oldGUI){
+        updateClock();
         clockUpdater.restart();
     }
 
     @Override
     public void screenWakeup() {
+        updateClock();
         clockUpdater.restart();
     }
 

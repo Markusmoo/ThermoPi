@@ -93,30 +93,9 @@ public class Main extends JFrame{
             Debug.println(Debug.ERROR, "Failed to load settings file.");
         }
 
-        /*keyboardGUI = new KeyboardGUI(this);
-        optionPaneGUI = new OptionPaneGUI(this);
-        homescreenGUI = new HomescreenGUI(this); //TODO Test
-        securityGUI = new SecurityGUI();
-        thermostatGUI = new ThermostatGUI();
-        settingsGUI = new SettingsGUI(this);*/
-
-        /*guiList = new GUI[6];
-        guiList[0] = optionPaneGUI;
-        guiList[1] = keyboardGUI;
-        guiList[2] = homescreenGUI; //TODO Test
-        guiList[3] = securityGUI;
-        guiList[4] = settingsGUI;
-        guiList[5] = thermostatGUI;*/
-
         for(GUI g : guiList){
             g.init();
         }
-//        thermostatGUI.init();
-//        keyboardGUI.init();
-//        optionPaneGUI.init();  //TODO Test for removal
-//        homescreenGUI.init();
-//        securityGUI.init();
-//        settingsGUI.init();
 
         currentGUI = homescreenGUI;
         this.switchGUI(homescreenGUI);
@@ -179,6 +158,7 @@ public class Main extends JFrame{
             this.setVisible(true);
             isFullscreen = false;
             Debug.println(Debug.HIGH, "Exiting Fullscreen Mode");
+            debugGUI.toFront();
             return true;
         }
     }

@@ -6,16 +6,13 @@ import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.io.IOException;
 
 /**
  * Created by Marku on 2017-03-17.
  */
-public class SettingsGUI implements GUI, ActionListener, FocusListener{
+public class SettingsGUI implements GUI, ActionListener, MouseListener{
     private JButton restartThermoPiButton;
     private JButton fullscreenToggleButton;
     private JButton applyButton;
@@ -51,10 +48,10 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         fullscreenToggleButton.addActionListener(this);
         applyButton.addActionListener(this);
         for(JTextField zone : zones){
-            zone.addFocusListener(this);
+            zone.addMouseListener(this);
         }
         for(JTextField pass : passwordFields){
-            pass.addFocusListener(this);
+            pass.addMouseListener(this);
         }
     }
 
@@ -65,11 +62,7 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
 
     @Override
     public void init() {
-        if(main.isFullscreen()){
-            fullscreenToggleButton.setText("Exit Fullscreen");
-        }else{
-            fullscreenToggleButton.setText("Enter Fullscreen");
-        }
+
     }
 
     public void applySettings(){
@@ -114,39 +107,6 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         }
     }
 
-    /**
-     * TODO Fix a bug where if tbe textfield regains focus from something other than mouse
-     * TODO click, it goes back into keyboard
-     * Invoked when a component gains the keyboard focus.
-     *
-     * @param e
-     */
-    @Override
-    public void focusGained(FocusEvent e) {
-        Object src = e.getSource();
-        if(src instanceof JTextField){
-            for(JTextField zone : zones){
-                if(src.equals(zone)){
-                    main.keyboardGUI.enterText(zone);
-                    break;
-                }
-            }
-            for(JTextField pass : passwordFields){
-                if(src.equals(pass)){
-                    main.keyboardGUI.enterText(pass, true);
-                }
-            }
-        }
-    }
-
-    /**
-     * Invoked when a component loses the keyboard focus.
-     *
-     * @param e
-     */
-    @Override
-    public void focusLost(FocusEvent e) {}
-
     @Override
     public void switchToGUI(GUI oldGUI) {
         if(oldGUI instanceof KeyboardGUI) return; //If switched from keyboard, do not reset settings.
@@ -162,6 +122,12 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
         oldPasswordField.setText("");
         newPasswordField.setText("");
         confirmPasswordField.setText("");
+
+        if(main.isFullscreen()){
+            fullscreenToggleButton.setText("Exit Fullscreen");
+        }else{
+            fullscreenToggleButton.setText("Enter Fullscreen");
+        }
     }
 
     @Override
@@ -178,4 +144,34 @@ public class SettingsGUI implements GUI, ActionListener, FocusListener{
     public void screenSleep() {
 
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object src = e.getSource();
+        if(src instanceof JTextField){
+            for(JTextField zone : zones){
+                if(src.equals(zone)){
+                    main.keyboardGUI.enterText(zone);
+                    break;
+                }
+            }
+            for(JTextField pass : passwordFields){
+                if(src.equals(pass)){
+                    main.keyboardGUI.enterText(pass, true);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }

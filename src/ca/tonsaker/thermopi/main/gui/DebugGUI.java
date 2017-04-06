@@ -5,6 +5,7 @@ import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.gui.helper.JColorTextPane;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +31,8 @@ public class DebugGUI extends JFrame implements ActionListener{
         setContentPane(this.contentPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
+        int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
+        if(height >= 100) setBounds(0,0,this.getWidth(), height);
         Debug.setFilters(true, true, true, true);
         Debug.consoleColorVisible(true);
 

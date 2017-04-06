@@ -16,9 +16,9 @@ public class Config {
 
     //Settings File Location
     public static final String SETTING_FILENAME = "config.json";
-    public static final String SETTINGS_LINUX = "~\\ThermoPi\\"; //TODO Test
+    public static final String SETTINGS_LINUX = System.getProperty("user.home") + "/ThermoPi/"; //TODO Test
     public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
-    public static final String SETTINGS_OSX = "~\\Library\\Preferences\\ThermoPi\\"; //TODO Test
+    public static final String SETTINGS_OSX = "~/Library/Preferences/ThermoPi/"; //TODO Test
 
     //Time
     public static int timezone = -7;
