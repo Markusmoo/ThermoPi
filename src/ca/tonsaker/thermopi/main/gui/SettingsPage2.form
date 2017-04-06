@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ca.tonsaker.thermopi.main.gui.SettingsPage2">
+  <grid id="27dc6" binding="settingsPage2" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="true" same-size-vertically="true" hgap="-1" vgap="-1">
+    <margin top="5" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="20" y="20" width="598" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="405cc" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="bevel-raised" title="Time Settings"/>
+        <children>
+          <vspacer id="e6a90">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="f1ebf" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="24hr/12hr:"/>
+            </properties>
+          </component>
+          <component id="2ad53" class="javax.swing.JRadioButton" binding="a12HourClockExampleRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="12 hour clock (Example: 2:45pm)"/>
+            </properties>
+          </component>
+          <component id="f9836" class="javax.swing.JRadioButton" binding="a24HourClockExampleRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="24 hour clock (Example: 14:45)"/>
+            </properties>
+          </component>
+          <component id="43b74" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Timezone:"/>
+            </properties>
+          </component>
+          <component id="6e504" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="UTC−12:00"/>
+                <item value="UTC−11:00"/>
+                <item value="UTC−10:00"/>
+                <item value="UTC−09:30"/>
+                <item value="UTC−09:00"/>
+                <item value="UTC−08:00"/>
+                <item value="UTC−07:00 (Vancouver - PDT)"/>
+                <item value="UTC−06:00 (Edmonton - MDT)"/>
+                <item value="UTC−05:00 (Winnipeg - CDT)"/>
+                <item value="UTC−04:00 (Toronto -EDT)"/>
+                <item value="UTC−03:00 (Halifax - ADT)"/>
+                <item value="UTC−02:00"/>
+                <item value="UTC−01:00"/>
+                <item value="UTC±00:00"/>
+                <item value="UTC+01:00"/>
+                <item value="UTC+02:00"/>
+                <item value="UTC+03:00"/>
+                <item value="UTC+04:00"/>
+                <item value="UTC+05:00"/>
+                <item value="UTC+06:00"/>
+                <item value="UTC+07:00"/>
+                <item value="UTC+08:00"/>
+                <item value="UTC+09:00"/>
+                <item value="UTC+10:00"/>
+                <item value="UTC+11:00"/>
+                <item value="UTC+12:00"/>
+                <item value="UTC+13:00"/>
+                <item value="UTC+14:00"/>
+              </model>
+            </properties>
+          </component>
+          <component id="2de25" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="DST:"/>
+            </properties>
+          </component>
+          <component id="1f2d5" class="javax.swing.JCheckBox" binding="checkBox1" default-binding="true">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="460b9" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="bevel-raised" title="Temperature Settings"/>
+        <children>
+          <vspacer id="b385">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="63410" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Unit:"/>
+            </properties>
+          </component>
+          <component id="49f40" class="javax.swing.JRadioButton" binding="celsiusEx23CRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Celsius (Ex: 23°C)"/>
+            </properties>
+          </component>
+          <component id="c0ff6" class="javax.swing.JRadioButton" binding="farenheitEx73FRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Farenheit (Ex: 73°F)"/>
+            </properties>
+          </component>
+          <component id="10f51" class="javax.swing.JRadioButton" binding="rankineEx528RRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Rankine (Ex: 528°R)"/>
+            </properties>
+          </component>
+          <component id="d4c9e" class="javax.swing.JRadioButton" binding="kelvinEx294KRadioButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Kelvin (Ex: 294K)"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

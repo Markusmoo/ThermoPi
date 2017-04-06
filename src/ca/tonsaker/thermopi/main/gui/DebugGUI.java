@@ -31,7 +31,7 @@ public class DebugGUI extends JFrame implements ActionListener{
     public DebugGUI(){
         super("ThermoPi Debugger");
         setContentPane(this.contentPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
         if(height >= 100) setBounds(0,0,this.getWidth(), height);

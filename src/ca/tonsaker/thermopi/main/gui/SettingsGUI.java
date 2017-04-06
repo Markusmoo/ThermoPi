@@ -19,7 +19,6 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     private JCheckBox playKeypadToneCheckBox;
     private JCheckBox playButtonToneCheckBox;
     private JCheckBox showConsoleColoursCheckBox;
-    private JButton testThermoHQButton;
     private JButton testFurnaceButton;
     private JButton testAlarmButton;
     private JTextField zoneTextField1;
@@ -37,6 +36,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     private JPanel buttonPanel;
     private JButton openDebuggerButton;
     private JPanel testingPanel;
+    private JButton nextPageButton;
 
     JTextField[] passwordFields = {confirmPasswordField, newPasswordField, oldPasswordField};
     JTextField[] zones = {zoneTextField1, zoneTextField2, zoneTextField3, zoneTextField4, zoneTextField5, zoneTextField6};
@@ -48,6 +48,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
         fullscreenToggleButton.addActionListener(this);
         openDebuggerButton.addActionListener(this);
         applyButton.addActionListener(this);
+        nextPageButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addMouseListener(this);
         }
@@ -106,6 +107,8 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 applySettings();
             }else if(src.equals(openDebuggerButton)){
                 main.debugGUI.setVisible(true);
+                main.debugGUI.setExtendedState(JFrame.NORMAL);
+                main.debugGUI.toFront();
             }
         }
     }

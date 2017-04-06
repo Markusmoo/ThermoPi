@@ -9,6 +9,7 @@ import com.pi4j.io.gpio.GpioFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
 /**
@@ -74,13 +75,22 @@ public class Main extends JFrame{
         //TODO On ThermoPi startup, contact ThermoHQ and receive current ThermoPi Security State
     }
 
-    public Main(){
+    public Main() {
         super("SecurityGUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        if(!Config.debugMode) this.setUndecorated(true);
+
+//        if(Config.debugMode) {
+//            this.hideCursor();
+//        }
+
         init();
 
-        if(!Config.debugMode) setFullscreen(true); else pack();
+        if(!Config.debugMode){
+            this.setUndecorated(true);
+            setFullscreen(true);
+        }else {
+            pack();
+        }
     }
 
     public void init(){
@@ -102,6 +112,10 @@ public class Main extends JFrame{
         if(Config.debugMode){
             debugGUI.setVisible(true);
         }
+    }
+
+    public void hideCursor(){
+        this.setCursor(this.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
     }
 
     public void setScreenOff(){
