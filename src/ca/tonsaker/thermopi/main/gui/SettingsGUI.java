@@ -46,6 +46,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     public SettingsGUI(Main main){
         this.main = main;
         fullscreenToggleButton.addActionListener(this);
+        openDebuggerButton.addActionListener(this);
         applyButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addMouseListener(this);
@@ -103,6 +104,8 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 }
             }else if(src.equals(applyButton)){
                 applySettings();
+            }else if(src.equals(openDebuggerButton)){
+                main.debugGUI.setVisible(true);
             }
         }
     }

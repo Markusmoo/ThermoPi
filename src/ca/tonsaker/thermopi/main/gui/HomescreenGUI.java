@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 /**
- * Created by Marku on 2017-03-13.
+ * Created by Markus Tonsaker on 2017-03-13.
+ *
+ * TODO Add clock offset
  */
 public class HomescreenGUI implements GUI, ActionListener{
     private JButton securityBtn;

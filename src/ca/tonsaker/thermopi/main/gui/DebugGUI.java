@@ -10,7 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Marku on 2017-03-13.
+ * Created by Markus Tonsaker on 2017-03-13.
+ *
+ * TODO Change close button on GUI to set visible to false instead of closing application
  */
 public class DebugGUI extends JFrame implements ActionListener{
 
