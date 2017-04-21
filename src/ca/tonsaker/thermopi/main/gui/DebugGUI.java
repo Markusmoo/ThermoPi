@@ -36,7 +36,6 @@ public class DebugGUI extends JFrame implements ActionListener{
         int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 100;
         if(height >= 100) setBounds(0,0,this.getWidth(), height);
         Debug.setFilters(true, true, true, true);
-        Debug.consoleColorVisible(true);
 
         for(JButton btn : buttons) btn.addActionListener(this);
     }

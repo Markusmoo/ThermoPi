@@ -3,6 +3,7 @@ package ca.tonsaker.thermopi.main.gui;
 import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -107,12 +108,16 @@ public class HomescreenGUI implements GUI, ActionListener{
         if(src instanceof JButton){
             if(src.equals(securityBtn)){
                 main.switchGUI(main.securityGUI);
+                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(thermostatButton)){
                 main.switchGUI(main.thermostatGUI);
+                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(settingsButton)){
                 main.switchGUI(main.settingsGUI);
+                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(weatherButton)){
                 //TODO Switch to Weather
+                if(Config.buttonTone) Utilities.buttonTone();
                 Debug.wipPopup();
             }
         }

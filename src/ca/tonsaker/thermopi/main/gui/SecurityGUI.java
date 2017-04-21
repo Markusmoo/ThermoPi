@@ -181,7 +181,7 @@ public class SecurityGUI implements GUI, ActionListener{
             for(int idx = 0; idx < numPad.length; idx++){
                 if(src.equals(numPad[idx])){
                     codeField.setText(String.copyValueOf(codeField.getPassword())+idx);
-                    Utilities.buttonTone();
+                    if(Config.keypadTone) Utilities.tone(100);
                     break;
                 }
             }
@@ -189,7 +189,7 @@ public class SecurityGUI implements GUI, ActionListener{
             if(src.equals(ARMHomeOrBackButton)){
                 if(isTyping){
                     backspaceCode();
-                    Utilities.tone(100);
+                    if(Config.keypadTone) Utilities.tone(100);
                 }else if(Config.STATUS == Config.STATUS_UNARMED){
                     //TODO ARM HOME
                     armHome();
@@ -197,6 +197,7 @@ public class SecurityGUI implements GUI, ActionListener{
             }else if(src.equals(ARMAwayOrEnterButton)){
                 if(isTyping){
                     unlockAndUnArm(codeField.getPassword());
+                    if(Config.keypadTone) Utilities.tone(100);
                 }else{
                     //TODO Implement ARM AWAY
                     armAway();

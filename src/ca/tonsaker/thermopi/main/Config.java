@@ -31,6 +31,7 @@ public class Config {
     //Pins
     public static final Pin PIN_SPEAKER = RaspiPin.GPIO_27;
     public static final Pin PIN_TEMP = RaspiPin.GPIO_00; //TODO Change to acceptable pin
+    public static final Pin PIN_HOME = RaspiPin.GPIO_26;
 
     //Tone frequencies
     public static final int BUTTON_TONE = 1047;  //C6
@@ -60,14 +61,14 @@ public class Config {
 
     public static boolean buttonTone = false;
     public static boolean keypadTone = false;
-    public static boolean consoleColors = false;
+    public static boolean showConsoleColors = false;
 
     public static void setSettingsVariables(ConfigFile configFile){
         if(configFile == null) return;
         Config.zoneNames = configFile.zoneNames;
         Config.buttonTone = configFile.options.buttonTone;
         Config.keypadTone = configFile.options.keypadTone;
-        Config.consoleColors = configFile.options.consoleColors;
+        Config.showConsoleColors = configFile.options.consoleColors;
     }
 
     public static ConfigFile createConfigFile(){
@@ -75,7 +76,7 @@ public class Config {
         cfg.zoneNames = Config.zoneNames;
         cfg.options.buttonTone = Config.buttonTone;
         cfg.options.keypadTone = Config.keypadTone;
-        cfg.options.consoleColors = Config.consoleColors;
+        cfg.options.consoleColors = Config.showConsoleColors;
         return cfg;
     }
 

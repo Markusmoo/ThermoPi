@@ -1,6 +1,8 @@
 package ca.tonsaker.thermopi.main.gui;
 
+import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Debug;
+import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -118,9 +120,11 @@ public class ThermostatGUI implements GUI, ActionListener{
         if(src instanceof JButton){
             if(src.equals(increaseButton)){
                 setTemperatureSet(getTemperatureSet()+1);
+                if(Config.buttonTone) Utilities.buttonTone();
             }
             if(src.equals(decreaseButton)){
                 setTemperatureSet(getTemperatureSet()-1);
+                if(Config.buttonTone) Utilities.buttonTone();
             }
         }else if(src instanceof Timer){
             if(src.equals(updater)){

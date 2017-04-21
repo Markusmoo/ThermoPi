@@ -32,8 +32,6 @@ public abstract class Debug {
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
 
-    private static boolean showConsoleColors = true;
-
     private static DebugGUI debugGUI;
 
     public static void setDebugGUI(DebugGUI debugGUI){
@@ -47,7 +45,7 @@ public abstract class Debug {
         }
 
         if(lvl == Debug.DEBUG && Debug.showDebug){
-            if(showConsoleColors){
+            if(Config.showConsoleColors){
                 System.out.println(Debug.ANSI_CYAN + "[DEBUG]: " + txt + Debug.ANSI_RESET);
                 debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_CYAN, "[DEBUG]: " + txt);
             }else{
@@ -55,7 +53,7 @@ public abstract class Debug {
                 debugGUI.getConsole().appendToPane("[DEBUG]: " + txt);
             }
         }else if(lvl == Debug.LOW && Debug.showLow) {
-            if(showConsoleColors){
+            if(Config.showConsoleColors){
                 System.out.println(Debug.ANSI_BLUE + "[LOW]: " + txt + Debug.ANSI_RESET);
                 debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_BLUE, "[LOW]: " + txt);
             }else{
@@ -63,7 +61,7 @@ public abstract class Debug {
                 debugGUI.getConsole().appendToPane("[LOW]: " + txt);
             }
         }else if(lvl == Debug.MEDIUM && Debug.showMedium) {
-            if(showConsoleColors){
+            if(Config.showConsoleColors){
                 System.out.println(ANSI_GREEN + "[MEDIUM]: " + txt + Debug.ANSI_RESET);
                 debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_GREEN, "[MEDIUM]: " + txt);
             }else{
@@ -71,7 +69,7 @@ public abstract class Debug {
                 debugGUI.getConsole().appendToPane("[MEDIUM]: " + txt);
             }
         }else if(lvl == Debug.HIGH && Debug.showHigh){
-            if(showConsoleColors){
+            if(Config.showConsoleColors){
                 System.out.println(Debug.ANSI_YELLOW + "[HIGH]: " + txt + Debug.ANSI_RESET);
                 debugGUI.getConsole().appendToPane(Config.COLOR_TEXT_YELLOW, "[HIGH]: " + txt);
             }else{
@@ -90,11 +88,6 @@ public abstract class Debug {
         Debug.showMedium = showMedium;
         Debug.showLow = showLow;
     }
-
-    public static void consoleColorVisible(boolean isVisible){
-        Debug.showConsoleColors = isVisible;
-    }
-
 
     public static void wipPopup(){
         JOptionPane.showMessageDialog(Main.getCurrentGUI().getGUI(), "Feature Unavailable (WIP)");

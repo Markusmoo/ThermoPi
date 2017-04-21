@@ -11,8 +11,8 @@ public class SettingsPage2 {
     private JCheckBox checkBox1;
     private JRadioButton a12HourClockExampleRadioButton;
     private JRadioButton a24HourClockExampleRadioButton;
-    private JRadioButton celsiusEx23CRadioButton;
-    private JRadioButton farenheitEx73FRadioButton;
-    private JRadioButton rankineEx528RRadioButton;
+    private JRadioButton tempCRadioButton;
+    private JRadioButton tempFRadioButton;
+    private JRadioButton tempRRadioButton;
     private JRadioButton kelvinEx294KRadioButton;
 }

@@ -129,7 +129,7 @@
               <text value="Unit:"/>
             </properties>
           </component>
-          <component id="49f40" class="javax.swing.JRadioButton" binding="celsiusEx23CRadioButton" default-binding="true">
+          <component id="49f40" class="javax.swing.JRadioButton" binding="tempCRadioButton">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -137,7 +137,7 @@
               <text value="Celsius (Ex: 23°C)"/>
             </properties>
           </component>
-          <component id="c0ff6" class="javax.swing.JRadioButton" binding="farenheitEx73FRadioButton" default-binding="true">
+          <component id="c0ff6" class="javax.swing.JRadioButton" binding="tempFRadioButton">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -145,7 +145,7 @@
               <text value="Farenheit (Ex: 73°F)"/>
             </properties>
           </component>
-          <component id="10f51" class="javax.swing.JRadioButton" binding="rankineEx528RRadioButton" default-binding="true">
+          <component id="10f51" class="javax.swing.JRadioButton" binding="tempRRadioButton">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

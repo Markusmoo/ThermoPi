@@ -32,6 +32,7 @@ public class Main extends JFrame{
     GraphicsDevice graphicsDevice;
 
     public static GpioController gpio;
+    public static Utilities util;
 
     public static GUI currentGUI;
 
@@ -58,7 +59,7 @@ public class Main extends JFrame{
                 Config.debugMode = true;
             }
         }
-
+        if(Config.buttonTone) Utilities.buttonTone();  //TODO TEST
         UIManager.getFont("Label.font");
         UIManager.setLookAndFeel(new DarculaLaf());
 
@@ -79,6 +80,8 @@ public class Main extends JFrame{
         super("SecurityGUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+        util = new Utilities(this);
+
 //        if(Config.debugMode) {
 //            this.hideCursor();
 //        }
@@ -95,7 +98,6 @@ public class Main extends JFrame{
 
     public void init(){
         //Initiate in this order: helper classes > GUI > exc.
-        Utilities.init();
         Utilities.initializeFiles();
         try{
             Config.setSettingsVariables(Utilities.loadSettings());

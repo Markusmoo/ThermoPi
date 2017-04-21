@@ -70,7 +70,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     public void applySettings(){
         Config.keypadTone = playKeypadToneCheckBox.isSelected();
         Config.buttonTone = playButtonToneCheckBox.isSelected();
-        Config.consoleColors = showConsoleColoursCheckBox.isSelected();
+        Config.showConsoleColors = showConsoleColoursCheckBox.isSelected();
         String[] zoneNames = new String[zones.length];
         for(int idx = 0; idx < zoneNames.length; idx++){
             zoneNames[idx] = zones[idx].getText();
@@ -103,12 +103,15 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 }else{
                     fullscreenToggleButton.setText("Enter Fullscreen");
                 }
+                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(applyButton)){
                 applySettings();
+                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(openDebuggerButton)){
                 main.debugGUI.setVisible(true);
                 main.debugGUI.setExtendedState(JFrame.NORMAL);
                 main.debugGUI.toFront();
+                if(Config.buttonTone) Utilities.buttonTone();
             }
         }
     }
@@ -118,7 +121,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
         if(oldGUI instanceof KeyboardGUI) return; //If switched from keyboard, do not reset settings.
         playButtonToneCheckBox.setSelected(Config.buttonTone);
         playKeypadToneCheckBox.setSelected(Config.keypadTone);
-        showConsoleColoursCheckBox.setSelected(Config.consoleColors);
+        showConsoleColoursCheckBox.setSelected(Config.showConsoleColors);
         int idx = 0;
         if(zones != null)
         for(JTextField f : zones){

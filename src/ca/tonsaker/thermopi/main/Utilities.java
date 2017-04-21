@@ -3,8 +3,12 @@ package ca.tonsaker.thermopi.main;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
@@ -13,9 +17,22 @@ import java.io.*;
 /**
  * Created by Markus Tonsaker on 2017-03-08.
  */
-public class Utilities{
+public class Utilities implements GpioPinListenerDigital {
+
+    Main mainFrame;
 
     private static GpioPinDigitalOutput soundPin;
+    private static GpioPinDigitalInput homePin;
+
+    public Utilities(Main main){
+        mainFrame = main;
+        if(!Config.debugMode){
+            soundPin = Main.gpio.provisionDigitalOutputPin(Config.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
+            homePin = Main.gpio.provisionDigitalInputPin(Config.PIN_HOME, PinPullResistance.PULL_UP);
+
+            homePin.addListener(this);
+        }
+    }
 
     public static void tone(int durationMillis){
         Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.PIN_SPEAKER + ", Duration: " + durationMillis + " milliseconds");
@@ -91,9 +108,14 @@ public class Utilities{
         return path;
     }
 
-    public static void init(){
-        if(!Config.debugMode){
-            soundPin = Main.gpio.provisionDigitalOutputPin(Config.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
+    @Override
+    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent e) {
+        Object src = e.getPin().getPin();
+
+        if(src.equals(homePin.getPin()) && homePin.getState() == PinState.HIGH){
+            mainFrame.switchGUI(mainFrame.homescreenGUI);
+            if(Config.buttonTone) Utilities.buttonTone();
+
         }
     }
 }
