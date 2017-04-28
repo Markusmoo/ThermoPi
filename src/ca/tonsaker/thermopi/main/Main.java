@@ -41,6 +41,7 @@ public class Main extends JFrame{
     public HomescreenGUI homescreenGUI = new HomescreenGUI(this);
     public SecurityGUI securityGUI = new SecurityGUI();
     public SettingsGUI settingsGUI = new SettingsGUI(this);
+    public Settings2GUI settings2GUI = new Settings2GUI(this);
     public ThermostatGUI thermostatGUI = new ThermostatGUI();
     public static DebugGUI debugGUI;
 

@@ -66,17 +66,17 @@ public class Config {
     public static void setSettingsVariables(ConfigFile configFile){
         if(configFile == null) return;
         Config.zoneNames = configFile.zoneNames;
-        Config.buttonTone = configFile.options.buttonTone;
-        Config.keypadTone = configFile.options.keypadTone;
-        Config.showConsoleColors = configFile.options.consoleColors;
+        Config.buttonTone = configFile.options.isButtonTone;
+        Config.keypadTone = configFile.options.isKeypadTone;
+        Config.showConsoleColors = configFile.options.isConsoleColors;
     }
 
     public static ConfigFile createConfigFile(){
         ConfigFile cfg = new ConfigFile();
         cfg.zoneNames = Config.zoneNames;
-        cfg.options.buttonTone = Config.buttonTone;
-        cfg.options.keypadTone = Config.keypadTone;
-        cfg.options.consoleColors = Config.showConsoleColors;
+        cfg.options.isButtonTone = Config.buttonTone;
+        cfg.options.isKeypadTone = Config.keypadTone;
+        cfg.options.isConsoleColors = Config.showConsoleColors;
         return cfg;
     }
 

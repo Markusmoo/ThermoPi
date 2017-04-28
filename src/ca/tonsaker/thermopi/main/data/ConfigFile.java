@@ -7,6 +7,11 @@ import com.google.gson.annotations.Expose;
  */
 public class ConfigFile {
 
+    public static final int TEMP_C = 0;
+    public static final int TEMP_F = 1;
+    public static final int TEMP_R = 2;
+    public static final int TEMP_K = 3;
+
     public ConfigFile(){
         options = new Options();
     }
@@ -16,9 +21,13 @@ public class ConfigFile {
     @Expose public Options options;
 
     public class Options{
-        @Expose public boolean buttonTone;
-        @Expose public boolean keypadTone;
-        @Expose public boolean consoleColors;
+        @Expose public boolean isButtonTone;
+        @Expose public boolean isKeypadTone;
+        @Expose public boolean isConsoleColors;
+        @Expose public boolean is12Hours;
+        @Expose public boolean isDST;
+        @Expose public int timeZoneUTC;
+        @Expose public int temperatureUnit;
     }
 
 }

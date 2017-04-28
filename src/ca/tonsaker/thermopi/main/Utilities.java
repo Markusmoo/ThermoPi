@@ -73,7 +73,7 @@ public class Utilities implements GpioPinListenerDigital {
         }
 
         Reader reader = new InputStreamReader(new FileInputStream(path+Config.SETTING_FILENAME));
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         return gson.fromJson(reader, ConfigFile.class);
     }
 
@@ -84,7 +84,7 @@ public class Utilities implements GpioPinListenerDigital {
             return;
         }
         Writer writer = new OutputStreamWriter(new FileOutputStream(path+Config.SETTING_FILENAME));
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 
         writer.write(gson.toJson(cf));
         writer.flush();

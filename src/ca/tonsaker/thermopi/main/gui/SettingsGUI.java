@@ -112,13 +112,15 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 main.debugGUI.setExtendedState(JFrame.NORMAL);
                 main.debugGUI.toFront();
                 if(Config.buttonTone) Utilities.buttonTone();
+            }else if(src.equals(nextPageButton)){
+                main.switchGUI(main.settings2GUI);
             }
         }
     }
 
     @Override
     public void switchToGUI(GUI oldGUI) {
-        if(oldGUI instanceof KeyboardGUI) return; //If switched from keyboard, do not reset settings.
+        if(oldGUI instanceof KeyboardGUI || oldGUI instanceof Settings2GUI) return; //If switched from keyboard or SettingsPanel, do not reset settings.
         playButtonToneCheckBox.setSelected(Config.buttonTone);
         playKeypadToneCheckBox.setSelected(Config.keypadTone);
         showConsoleColoursCheckBox.setSelected(Config.showConsoleColors);
