@@ -1,7 +1,7 @@
 package ca.tonsaker.thermopi.main.gui;
 
-import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Debug;
+import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
 
 import javax.swing.*;
@@ -86,8 +86,6 @@ public class ThermostatGUI implements GUI, ActionListener{
 
     @Override
     public void switchToGUI(GUI oldScreen) {
-        System.out.println("old "+ oldScreen);
-        //if(!oldScreen.equals(this)) return;
         inFocus = true;
         updateTemp();
         updater.restart();
@@ -95,8 +93,6 @@ public class ThermostatGUI implements GUI, ActionListener{
 
     @Override
     public void switchAwayGUI(GUI newScreen) {
-        System.out.println("new "+newScreen);
-        //if(newScreen.equals(this)) return;
         inFocus = false;
         updater.stop();
     }
@@ -120,12 +116,11 @@ public class ThermostatGUI implements GUI, ActionListener{
         if(src instanceof JButton){
             if(src.equals(increaseButton)){
                 setTemperatureSet(getTemperatureSet()+1);
-                if(Config.buttonTone) Utilities.buttonTone();
             }
             if(src.equals(decreaseButton)){
                 setTemperatureSet(getTemperatureSet()-1);
-                if(Config.buttonTone) Utilities.buttonTone();
             }
+            if(Main.cfg.options.isButtonTone) Utilities.buttonTone();
         }else if(src instanceof Timer){
             if(src.equals(updater)){
                 updateTemp();

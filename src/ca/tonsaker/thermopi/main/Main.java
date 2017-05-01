@@ -1,5 +1,6 @@
 package ca.tonsaker.thermopi.main;
 
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 import ca.tonsaker.thermopi.main.gui.*;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 import ca.tonsaker.thermopi.main.gui.popup.OptionPaneGUI;
@@ -31,6 +32,8 @@ public class Main extends JFrame{
 
     GraphicsDevice graphicsDevice;
 
+    public static ConfigFile cfg = new ConfigFile();
+
     public static GpioController gpio;
     public static Utilities util;
 
@@ -55,21 +58,20 @@ public class Main extends JFrame{
             if(arg.equals("-safemode")){
                 Main.debugGUI = new DebugGUI();
                 Debug.setDebugGUI(Main.debugGUI);
-                Config.safeMode = true;
+                ConfigFile.safeMode = true;
             }else if(arg.equals("-debugmode")){
-                Config.debugMode = true;
+                ConfigFile.debugMode = true;
             }
         }
-        if(Config.buttonTone) Utilities.buttonTone();  //TODO TEST
         UIManager.getFont("Label.font");
         UIManager.setLookAndFeel(new DarculaLaf());
 
-        if(!Config.safeMode) {
+        if(!ConfigFile.safeMode) {
             Main.debugGUI = new DebugGUI();
             Debug.setDebugGUI(Main.debugGUI);
         }
 
-        if (!Config.debugMode) gpio = GpioFactory.getInstance();
+        if (!ConfigFile.debugMode) gpio = GpioFactory.getInstance();
 
         Main main = new Main();
         Main.debugGUI.setMain(main);
@@ -89,7 +91,7 @@ public class Main extends JFrame{
 
         init();
 
-        if(!Config.debugMode){
+        if(!ConfigFile.debugMode){
             this.setUndecorated(true);
             setFullscreen(true);
         }else {
@@ -101,7 +103,7 @@ public class Main extends JFrame{
         //Initiate in this order: helper classes > GUI > exc.
         Utilities.initializeFiles();
         try{
-            Config.setSettingsVariables(Utilities.loadSettings());
+            cfg.setSettingsVariables(Utilities.loadSettings());
         }catch(FileNotFoundException e){
             Debug.println(Debug.ERROR, "Failed to load settings file.");
         }
@@ -112,7 +114,7 @@ public class Main extends JFrame{
 
         currentGUI = homescreenGUI;
         this.switchGUI(homescreenGUI);
-        if(Config.debugMode){
+        if(ConfigFile.debugMode){
             debugGUI.setVisible(true);
         }
     }
@@ -142,7 +144,7 @@ public class Main extends JFrame{
         currentGUI = gui;
         getContentPane().setVisible(true);
         validate();
-        if(Config.debugMode) pack();
+        if(ConfigFile.debugMode) pack();
         oldGUI.switchAwayGUI(gui);
         gui.switchToGUI(oldGUI);
         Debug.println(Debug.LOW, "Switching GUI to: "+gui.toString());

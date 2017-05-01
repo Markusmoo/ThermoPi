@@ -1,6 +1,10 @@
 package ca.tonsaker.thermopi.main.data;
 
 import com.google.gson.annotations.Expose;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.RaspiPin;
+
+import java.awt.*;
 
 /**
  * Created by Marku on 2017-03-21.
@@ -12,22 +16,67 @@ public class ConfigFile {
     public static final int TEMP_R = 2;
     public static final int TEMP_K = 3;
 
-    public ConfigFile(){
-        options = new Options();
+    //Display
+    public static int screenTimeoutTime = 15;
+
+    //Settings File Location
+    public static final String SETTING_FILENAME = "config.json";
+    public static final String SETTINGS_LINUX = System.getProperty("user.home") + "/ThermoPi/"; //TODO Test
+    public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
+    public static final String SETTINGS_OSX = "~/Library/Preferences/ThermoPi/"; //TODO Test
+
+    //Time
+    public static int timezone = -7;
+    public static boolean timeFormat12hour = false;
+
+    //Modes
+    public static boolean debugMode = false;
+    public static boolean safeMode = false;
+
+    //Pins
+    public static final Pin PIN_SPEAKER = RaspiPin.GPIO_27;
+    public static final Pin PIN_TEMP = RaspiPin.GPIO_00; //TODO Change to acceptable pin
+    public static final Pin PIN_HOME = RaspiPin.GPIO_26;
+
+    //Tone frequencies
+    public static final int BUTTON_TONE = 1047;  //C6
+
+    //Colour
+    public static final Color COLOR_TEXT_RED = new Color(100, 0 ,0);
+    public static final Color COLOR_TEXT_WHITE = new Color(187, 187, 187);
+    public static final Color COLOR_TEXT_GREEN = new Color(50, 110, 50);
+    public static final Color COLOR_TEXT_CYAN = new Color(85, 222, 255);
+    public static final Color COLOR_TEXT_YELLOW = Color.YELLOW;
+    public static final Color COLOR_TEXT_BLUE = new Color(0, 0, 100);
+
+    //Status States
+    public static final int STATUS_UNARMED = -1;
+    public static final int STATUS_ARMED_AWAY = 0;
+    public static final int STATUS_ARMED_HOME = 0;
+
+    //Status
+    public static int STATUS = STATUS_ARMED_HOME;
+
+    public void setSettingsVariables(ConfigFile configFile){
+        if(configFile == null) return;
+        this.zoneNames = configFile.zoneNames;
+        options.isButtonTone = configFile.options.isButtonTone;
+        options.isKeypadTone = configFile.options.isKeypadTone;
+        options.isConsoleColors = configFile.options.isConsoleColors;
     }
 
     @Expose public String[] zoneNames = {"Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6"};
 
-    @Expose public Options options;
+    @Expose public Options options = new Options();
 
     public class Options{
-        @Expose public boolean isButtonTone;
-        @Expose public boolean isKeypadTone;
-        @Expose public boolean isConsoleColors;
-        @Expose public boolean is12Hours;
-        @Expose public boolean isDST;
-        @Expose public int timeZoneUTC;
-        @Expose public int temperatureUnit;
+        @Expose public boolean isButtonTone = false;
+        @Expose public boolean isKeypadTone = true;
+        @Expose public boolean isConsoleColors = true;
+        @Expose public boolean is12Hours = true;
+        @Expose public boolean isDST = false;
+        @Expose public int timeZoneUTC = 0;
+        @Expose public int temperatureUnit = ConfigFile.TEMP_C;
     }
 
 }

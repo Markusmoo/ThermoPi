@@ -26,23 +26,23 @@ public class Utilities implements GpioPinListenerDigital {
 
     public Utilities(Main main){
         mainFrame = main;
-        if(!Config.debugMode){
-            soundPin = Main.gpio.provisionDigitalOutputPin(Config.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
-            homePin = Main.gpio.provisionDigitalInputPin(Config.PIN_HOME, PinPullResistance.PULL_UP);
+        if(!ConfigFile.debugMode){
+            soundPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
+            homePin = Main.gpio.provisionDigitalInputPin(ConfigFile.PIN_HOME, PinPullResistance.PULL_UP);
 
             homePin.addListener(this);
         }
     }
 
     public static void tone(int durationMillis){
-        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.PIN_SPEAKER + ", Duration: " + durationMillis + " milliseconds");
-        if(Config.debugMode) return;
+        Debug.println(Debug.LOW, "Playing tone.. Pin: " + ConfigFile.PIN_SPEAKER + ", Duration: " + durationMillis + " milliseconds");
+        if(ConfigFile.debugMode) return;
         soundPin.pulse(durationMillis);
     }
 
     public static void buttonTone(){
-        Debug.println(Debug.LOW, "Playing tone.. Pin: " + Config.PIN_SPEAKER + ", Duration: " + 100 + " milliseconds");
-        if(Config.debugMode) return;
+        Debug.println(Debug.LOW, "Playing tone.. Pin: " + ConfigFile.PIN_SPEAKER + ", Duration: " + 100 + " milliseconds");
+        if(ConfigFile.debugMode) return;
         soundPin.pulse(100);
     }
 
@@ -56,7 +56,7 @@ public class Utilities implements GpioPinListenerDigital {
         if(!file.exists()){
             file.mkdirs();
             try {
-                file = new File(path+Config.SETTING_FILENAME);
+                file = new File(path+ConfigFile.SETTING_FILENAME);
                 file.createNewFile();
                 Debug.println(Debug.MEDIUM, "Created config file at: " + file.getAbsolutePath());
             } catch (IOException e) {
@@ -72,7 +72,7 @@ public class Utilities implements GpioPinListenerDigital {
             return null;
         }
 
-        Reader reader = new InputStreamReader(new FileInputStream(path+Config.SETTING_FILENAME));
+        Reader reader = new InputStreamReader(new FileInputStream(path+ConfigFile.SETTING_FILENAME));
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         return gson.fromJson(reader, ConfigFile.class);
     }
@@ -83,7 +83,7 @@ public class Utilities implements GpioPinListenerDigital {
             Debug.println(Debug.ERROR, "Failed to save settings file..");
             return;
         }
-        Writer writer = new OutputStreamWriter(new FileOutputStream(path+Config.SETTING_FILENAME));
+        Writer writer = new OutputStreamWriter(new FileOutputStream(path+ConfigFile.SETTING_FILENAME));
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 
         writer.write(gson.toJson(cf));
@@ -96,11 +96,11 @@ public class Utilities implements GpioPinListenerDigital {
     private static String getSettingsFilePath(){
         String path;
         if(SystemUtils.IS_OS_LINUX){
-            path = Config.SETTINGS_LINUX;
+            path = ConfigFile.SETTINGS_LINUX;
         }else if(SystemUtils.IS_OS_WINDOWS){
-            path = Config.SETTINGS_WINDOWS;
+            path = ConfigFile.SETTINGS_WINDOWS;
         }else if(SystemUtils.IS_OS_MAC){
-            path = Config.SETTINGS_OSX;
+            path = ConfigFile.SETTINGS_OSX;
         }else{
             Debug.println(Debug.ERROR, "System \""+ SystemUtils.OS_NAME +"\"is not of type: LINUX, WINDOWS, MAC");
             return null;
@@ -114,7 +114,7 @@ public class Utilities implements GpioPinListenerDigital {
 
         if(src.equals(homePin.getPin()) && homePin.getState() == PinState.HIGH){
             mainFrame.switchGUI(mainFrame.homescreenGUI);
-            if(Config.buttonTone) Utilities.buttonTone();
+            if(mainFrame.cfg.options.isButtonTone) Utilities.buttonTone();
 
         }
     }

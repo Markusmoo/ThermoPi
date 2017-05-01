@@ -1,6 +1,5 @@
 package ca.tonsaker.thermopi.main.gui;
 
-import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
@@ -68,18 +67,18 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     }
 
     public void applySettings(){
-        Config.keypadTone = playKeypadToneCheckBox.isSelected();
-        Config.buttonTone = playButtonToneCheckBox.isSelected();
-        Config.showConsoleColors = showConsoleColoursCheckBox.isSelected();
+        main.cfg.options.isKeypadTone = playKeypadToneCheckBox.isSelected();
+        main.cfg.options.isButtonTone = playButtonToneCheckBox.isSelected();
+        main.cfg.options.isConsoleColors = showConsoleColoursCheckBox.isSelected();
         String[] zoneNames = new String[zones.length];
         for(int idx = 0; idx < zoneNames.length; idx++){
             zoneNames[idx] = zones[idx].getText();
         }
-        Config.zoneNames = zoneNames;
+        main.cfg.zoneNames = zoneNames;
         //TODO Send and test new password (if any) to ThermoHQ
 
         try{
-            Utilities.saveSettings(Config.createConfigFile());
+            Utilities.saveSettings(main.cfg);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -103,31 +102,29 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 }else{
                     fullscreenToggleButton.setText("Enter Fullscreen");
                 }
-                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(applyButton)){
                 applySettings();
-                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(openDebuggerButton)){
                 main.debugGUI.setVisible(true);
                 main.debugGUI.setExtendedState(JFrame.NORMAL);
                 main.debugGUI.toFront();
-                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(nextPageButton)){
                 main.switchGUI(main.settings2GUI);
             }
+            if(main.cfg.options.isButtonTone) Utilities.buttonTone();
         }
     }
 
     @Override
     public void switchToGUI(GUI oldGUI) {
         if(oldGUI instanceof KeyboardGUI || oldGUI instanceof Settings2GUI) return; //If switched from keyboard or SettingsPanel, do not reset settings.
-        playButtonToneCheckBox.setSelected(Config.buttonTone);
-        playKeypadToneCheckBox.setSelected(Config.keypadTone);
-        showConsoleColoursCheckBox.setSelected(Config.showConsoleColors);
+        playButtonToneCheckBox.setSelected(main.cfg.options.isButtonTone);
+        playKeypadToneCheckBox.setSelected(main.cfg.options.isKeypadTone);
+        showConsoleColoursCheckBox.setSelected(main.cfg.options.isConsoleColors);
         int idx = 0;
         if(zones != null)
         for(JTextField f : zones){
-            if(Config.zoneNames[idx] != null) f.setText(Config.zoneNames[idx]);
+            if(main.cfg.zoneNames[idx] != null) f.setText(main.cfg.zoneNames[idx]);
             idx++;
         }
         oldPasswordField.setText("");

@@ -1,6 +1,5 @@
 package ca.tonsaker.thermopi.main.gui;
 
-import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
@@ -8,7 +7,6 @@ import ca.tonsaker.thermopi.main.Utilities;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 /**
  * Created by Markus Tonsaker on 2017-03-13.
@@ -45,9 +43,9 @@ public class HomescreenGUI implements GUI, ActionListener{
         long millis = System.currentTimeMillis();
         long minute = (millis / (1000 * 60)) % 60;
         long hour = (millis / (1000 * 60 * 60)) % 24;
-        hour += Config.timezone;
+        hour += main.cfg.timezone;
         boolean inTheAm = false;
-        if(Config.timeFormat12hour) {
+        if(main.cfg.timeFormat12hour) {
             inTheAm = (hour <= 11) || hour == 24;
             if (hour > 12) hour -= 12;
             if (hour == 0) hour = 12;
@@ -59,7 +57,7 @@ public class HomescreenGUI implements GUI, ActionListener{
             }
         }
         String timestamp = "";
-        if(inTheAm && Config.timeFormat12hour) timestamp = " AM"; else if(Config.timeFormat12hour) timestamp = " PM";
+        if(inTheAm && main.cfg.timeFormat12hour) timestamp = " AM"; else if(main.cfg.timeFormat12hour) timestamp = " PM";
         time.setText(String.format("%02d:%02d", hour, minute)+timestamp);
     }
 
@@ -108,18 +106,16 @@ public class HomescreenGUI implements GUI, ActionListener{
         if(src instanceof JButton){
             if(src.equals(securityBtn)){
                 main.switchGUI(main.securityGUI);
-                if(Config.buttonTone) Utilities.buttonTone();
+
             }else if(src.equals(thermostatButton)){
                 main.switchGUI(main.thermostatGUI);
-                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(settingsButton)){
                 main.switchGUI(main.settingsGUI);
-                if(Config.buttonTone) Utilities.buttonTone();
             }else if(src.equals(weatherButton)){
                 //TODO Switch to Weather
-                if(Config.buttonTone) Utilities.buttonTone();
                 Debug.wipPopup();
             }
+            if(main.cfg.options.isButtonTone) Utilities.buttonTone();
         }
     }
 

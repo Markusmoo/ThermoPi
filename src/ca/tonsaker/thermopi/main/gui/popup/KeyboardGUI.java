@@ -1,7 +1,7 @@
 package ca.tonsaker.thermopi.main.gui.popup;
 
-import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 import ca.tonsaker.thermopi.main.gui.GUI;
 
 import javax.swing.*;
@@ -85,7 +85,7 @@ public class KeyboardGUI implements ActionListener, GUI {
 
     public KeyboardGUI(Main mainFrame){
         this.mainFrame = mainFrame;
-        CAPSButton.setForeground(Config.COLOR_TEXT_RED);
+        CAPSButton.setForeground(ConfigFile.COLOR_TEXT_RED);
         for(JButton btn : keyboardButtons){
             btn.addActionListener(this);
             btn.setText(btn.getText().toLowerCase());
@@ -150,12 +150,12 @@ public class KeyboardGUI implements ActionListener, GUI {
             }else if(src.equals(CAPSButton)){
                 capsLock = !capsLock;
                 if(capsLock){
-                    CAPSButton.setForeground(Config.COLOR_TEXT_GREEN);
+                    CAPSButton.setForeground(ConfigFile.COLOR_TEXT_GREEN);
                     for(JButton btn : keyboardButtons){
                         btn.setText(btn.getText().toUpperCase());
                     }
                 }else{
-                    CAPSButton.setForeground(Config.COLOR_TEXT_RED);
+                    CAPSButton.setForeground(ConfigFile.COLOR_TEXT_RED);
                     for(JButton btn : keyboardButtons){
                         btn.setText(btn.getText().toLowerCase());
                     }

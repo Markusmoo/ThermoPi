@@ -1,16 +1,15 @@
 package ca.tonsaker.thermopi.main.gui;
 
-import ca.tonsaker.thermopi.main.Config;
 import ca.tonsaker.thermopi.main.Debug;
+import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -80,9 +79,9 @@ public class SecurityGUI implements GUI, ActionListener{
         Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION) return;
         Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - AWAY..");
-        Config.STATUS = Config.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
         variableStatusLabel.setText("ARM - AWAY");
-        variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
         for(JButton b : numPad){
             b.setEnabled(true);
         }
@@ -107,9 +106,9 @@ public class SecurityGUI implements GUI, ActionListener{
         Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION) return;
         Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
-        Config.STATUS = Config.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
         variableStatusLabel.setText("ARM - HOME");
-        variableStatusLabel.setForeground(Config.COLOR_TEXT_RED);
+        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
         for(JButton b : numPad){
             b.setEnabled(true);
         }
@@ -131,7 +130,7 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     public void unlockAndUnArm(char[] code){
-        if(Config.STATUS == Config.STATUS_UNARMED){
+        if(ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){
             Debug.println(Debug.LOW, "ThermoPi is already UNARMED");
             JOptionPane.showMessageDialog(securityPanel, "ThermoPi is already unarmed!");
             return;
@@ -142,9 +141,9 @@ public class SecurityGUI implements GUI, ActionListener{
         //TODO Send code and wait for response.
         //TODO Add failed unlock attempt counter.
         Debug.println(Debug.HIGH, "Code ACCEPTED - Unlocking ThermoPi..");
-        Config.STATUS = Config.STATUS_UNARMED;
+        ConfigFile.STATUS = ConfigFile.STATUS_UNARMED;
         variableStatusLabel.setText("UNARMED");
-        variableStatusLabel.setForeground(Config.COLOR_TEXT_GREEN);
+        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_GREEN);
         for(JButton b : numPad){
             b.setEnabled(false);
         }
@@ -155,9 +154,9 @@ public class SecurityGUI implements GUI, ActionListener{
         isTyping = typing;
         if(typing){
             ARMHomeOrBackButton.setText("Backspace");
-            ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_GREEN);
+            ARMHomeOrBackButton.setForeground(ConfigFile.COLOR_TEXT_GREEN);
             ARMAwayOrEnterButton.setText("Enter");
-            ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_GREEN);
+            ARMAwayOrEnterButton.setForeground(ConfigFile.COLOR_TEXT_GREEN);
         }else{
 
         }
@@ -181,7 +180,6 @@ public class SecurityGUI implements GUI, ActionListener{
             for(int idx = 0; idx < numPad.length; idx++){
                 if(src.equals(numPad[idx])){
                     codeField.setText(String.copyValueOf(codeField.getPassword())+idx);
-                    if(Config.keypadTone) Utilities.tone(100);
                     break;
                 }
             }
@@ -189,29 +187,27 @@ public class SecurityGUI implements GUI, ActionListener{
             if(src.equals(ARMHomeOrBackButton)){
                 if(isTyping){
                     backspaceCode();
-                    if(Config.keypadTone) Utilities.tone(100);
-                }else if(Config.STATUS == Config.STATUS_UNARMED){
+                }else if(ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){
                     //TODO ARM HOME
                     armHome();
                 }
             }else if(src.equals(ARMAwayOrEnterButton)){
                 if(isTyping){
                     unlockAndUnArm(codeField.getPassword());
-                    if(Config.keypadTone) Utilities.tone(100);
                 }else{
                     //TODO Implement ARM AWAY
                     armAway();
                 }
             }
-
+            if(Main.cfg.options.isButtonTone) Utilities.buttonTone();
         }
 
-        if(codeField.getPassword().length <= 0 && Config.STATUS == Config.STATUS_UNARMED){
+        if(codeField.getPassword().length <= 0 && ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){
             isTyping = false;
             ARMHomeOrBackButton.setText("ARM - Home");
-            ARMHomeOrBackButton.setForeground(Config.COLOR_TEXT_RED);
+            ARMHomeOrBackButton.setForeground(ConfigFile.COLOR_TEXT_RED);
             ARMAwayOrEnterButton.setText("ARM - Away");
-            ARMAwayOrEnterButton.setForeground(Config.COLOR_TEXT_RED);
+            ARMAwayOrEnterButton.setForeground(ConfigFile.COLOR_TEXT_RED);
         }else if(codeField.getPassword().length > 0){
             if(!isTyping) setTyping(true);
             ARMHomeOrBackButton.setVisible(true);
@@ -225,8 +221,8 @@ public class SecurityGUI implements GUI, ActionListener{
 
     private void initUIComponents() {
         zoneListModel = new DefaultListModel<>();
-        for(int idx = 0; idx < Config.zoneNames.length; idx++){
-            zoneListModel.add(idx, Config.zoneNames[idx]);
+        for(int idx = 0; idx < Main.cfg.zoneNames.length; idx++){
+            zoneListModel.add(idx, Main.cfg.zoneNames[idx]);
         }
         zoneList.setModel(zoneListModel);
         selectedZones = new boolean[zoneListModel.size()];
