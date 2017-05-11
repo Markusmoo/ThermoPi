@@ -3,8 +3,11 @@ package ca.tonsaker.thermopi.main.gui.popup;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
 import ca.tonsaker.thermopi.main.gui.GUI;
+import ca.tonsaker.thermopi.main.gui.helper.TextFilter;
 
 import javax.swing.*;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -67,6 +70,8 @@ public class KeyboardGUI implements ActionListener, GUI {
     private GUI lastGUI;
     private JTextField projectTextfield;
 
+    private TextFilter textFilter;
+
     private boolean capsLock = false;
     private boolean numOnly = false;
 
@@ -93,22 +98,49 @@ public class KeyboardGUI implements ActionListener, GUI {
         for(JButton btn : actionButtons){
             btn.addActionListener(this);
         }
+        PlainDocument pd = (PlainDocument) keyboardDisplay.getDocument();
+        textFilter = new TextFilter(numOnly, -1);
+        pd.setDocumentFilter(textFilter);
+    }
+
+    public void setDocumentFilter(boolean numOnly, int maxLength){
+        textFilter.setNumOnly(numOnly);
+        textFilter.setMaxLength(maxLength);
     }
 
     public void enterText(JTextField textField){
-        enterText(textField, false);
+        TextFilter tf = (TextFilter) ((PlainDocument) textField.getDocument()).getDocumentFilter();
+        enterText(textField, tf.isNumOnly(), tf.getMaxLength());
     }
 
-    public void enterText(JTextField textField, boolean numOnly){
+    public void enterText(JTextField textField, int maxLength) { enterText(textField, false, maxLength); }
+
+    public void enterText(JTextField textField, boolean numOnly){ enterText(textField, numOnly, -1); }
+
+    public void enterText(JTextField textField, boolean numOnly, int maxLength){
         this.numOnly = numOnly;
         if(numOnly){
             for(JButton btn : keyboardLetterButtons){
                 btn.setEnabled(false);
             }
+            CAPSButton.setEnabled(false);
         }
+        this.setDocumentFilter(numOnly, maxLength);
         lastGUI = mainFrame.getCurrentGUI();
+        keyboardDisplay.setText(textField.getText());
         projectTextfield = textField;
         mainFrame.switchGUI(mainFrame.keyboardGUI);
+    }
+
+    public void reset(){
+        lastGUI = null;
+        projectTextfield = null;
+        if(numOnly){
+            for(JButton btn : keyboardLetterButtons){
+                btn.setEnabled(true);
+                btn.setEnabled(true);
+            }
+        }
     }
 
     /**
@@ -125,13 +157,7 @@ public class KeyboardGUI implements ActionListener, GUI {
             //TODO Implement Action Buttons
             for(JButton btn : keyboardButtons){
                 if(src.equals(btn)){
-                    String typed;
-                    if(capsLock){
-                        typed = btn.getText().toUpperCase();
-                    }else{
-                        typed = btn.getText().toLowerCase();
-                    }
-                    keyboardDisplay.setText(keyboardDisplay.getText() + typed);
+                    keyboardDisplay.setText(keyboardDisplay.getText() + btn.getText());
                     break;
                 }
             }
@@ -140,13 +166,6 @@ public class KeyboardGUI implements ActionListener, GUI {
                 projectTextfield.setText(keyboardDisplay.getText());
                 keyboardDisplay.setText("");
                 mainFrame.switchGUI(lastGUI);
-                lastGUI = null;
-                projectTextfield = null;
-                if(numOnly){
-                    for(JButton btn : keyboardLetterButtons){
-                        btn.setEnabled(true);
-                    }
-                }
             }else if(src.equals(CAPSButton)){
                 capsLock = !capsLock;
                 if(capsLock){
@@ -182,7 +201,7 @@ public class KeyboardGUI implements ActionListener, GUI {
 
     @Override
     public void switchAwayGUI(GUI newScreen) {
-
+        reset();
     }
 
     @Override

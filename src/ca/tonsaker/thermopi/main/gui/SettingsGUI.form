@@ -139,7 +139,7 @@
               </grid>
             </constraints>
             <properties>
-              <columns value="8"/>
+              <columns value="0"/>
               <horizontalAlignment value="10"/>
               <margin top="0" left="0" bottom="0" right="0"/>
             </properties>
@@ -159,7 +159,7 @@
               </grid>
             </constraints>
             <properties>
-              <columns value="8"/>
+              <columns value="0"/>
             </properties>
           </component>
           <component id="ea6b3" class="javax.swing.JPasswordField" binding="oldPasswordField">
@@ -169,7 +169,7 @@
               </grid>
             </constraints>
             <properties>
-              <columns value="8"/>
+              <columns value="0"/>
               <margin top="0" left="0" bottom="0" right="0"/>
             </properties>
           </component>

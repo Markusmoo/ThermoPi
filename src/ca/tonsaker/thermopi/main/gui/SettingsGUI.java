@@ -2,10 +2,16 @@ package ca.tonsaker.thermopi.main.gui;
 
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 import ca.tonsaker.thermopi.main.data.communication.CommLink;
+import ca.tonsaker.thermopi.main.gui.helper.TextFilter;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -56,8 +62,12 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
         testFurnaceButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addMouseListener(this);
+            PlainDocument pd = (PlainDocument) zone.getDocument();
+            pd.setDocumentFilter(new TextFilter(false, 10));
         }
         for(JPasswordField pass : passwordFields){
+            PlainDocument pd = (PlainDocument) pass.getDocument();
+            pd.setDocumentFilter(new TextFilter(true, 8));
             pass.addMouseListener(this);
             //TODO Allow maximum 8 NUMBERS ONLY
         }
@@ -118,9 +128,9 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
             }else if (src.equals(nextPageButton)){
                 main.switchGUI(main.settings2GUI);
             }else if (src.equals(testAlarmButton)) {
-                CommLink.sendTestAlarm();
+                if(!ConfigFile.debugMode) CommLink.sendTestAlarm();
             }else if (src.equals(testFurnaceButton)){
-                CommLink.sendTestFurnace();
+                if(!ConfigFile.debugMode) CommLink.sendTestFurnace();
             }
 
             if(main.cfg.options.isButtonTone) Utilities.buttonTone();
@@ -166,7 +176,10 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         Object src = e.getSource();
         if(src instanceof JTextField){
             for(JTextField zone : zones){
@@ -175,16 +188,14 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                     break;
                 }
             }
-            for(JTextField pass : passwordFields){
+            for(JPasswordField pass : passwordFields){
                 if(src.equals(pass)){
-                    main.keyboardGUI.enterText(pass, true);
+                    main.keyboardGUI.enterText(pass);
+                    break;
                 }
             }
         }
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent e) {}

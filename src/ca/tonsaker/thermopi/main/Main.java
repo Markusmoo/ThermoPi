@@ -87,7 +87,7 @@ public class Main extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         util = new Utilities(this);
-        lnk = new CommLink(this);
+        if(!ConfigFile.debugMode) lnk = new CommLink(this);
 
 //        if(Config.debugMode) {
 //            this.hideCursor();
