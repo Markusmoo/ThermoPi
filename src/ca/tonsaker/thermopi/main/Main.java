@@ -1,6 +1,7 @@
 package ca.tonsaker.thermopi.main;
 
 import ca.tonsaker.thermopi.main.data.ConfigFile;
+import ca.tonsaker.thermopi.main.data.communication.CommLink;
 import ca.tonsaker.thermopi.main.gui.*;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 import ca.tonsaker.thermopi.main.gui.popup.OptionPaneGUI;
@@ -31,6 +32,8 @@ public class Main extends JFrame{
      */
 
     GraphicsDevice graphicsDevice;
+
+    public CommLink lnk;
 
     public static ConfigFile cfg = new ConfigFile();
 
@@ -84,6 +87,7 @@ public class Main extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //TODO Replace with setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         util = new Utilities(this);
+        lnk = new CommLink(this);
 
 //        if(Config.debugMode) {
 //            this.hideCursor();
@@ -114,7 +118,7 @@ public class Main extends JFrame{
 
         currentGUI = homescreenGUI;
         this.switchGUI(homescreenGUI);
-        if(ConfigFile.debugMode){
+        if(ConfigFile.debugMode) {
             debugGUI.setVisible(true);
         }
     }

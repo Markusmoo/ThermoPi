@@ -7,7 +7,7 @@ import com.pi4j.io.gpio.RaspiPin;
 import java.awt.*;
 
 /**
- * Created by Marku on 2017-03-21.
+ * Created by Markus Tonsaker on 2017-03-21.
  */
 public class ConfigFile {
 

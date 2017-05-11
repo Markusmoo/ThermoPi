@@ -61,8 +61,6 @@ public class SecurityGUI implements GUI, ActionListener{
         //TODO Receive current state
 
         this.actionPerformed(new ActionEvent(new Object(), 0, "")); //Initialize
-        Timer t = new Timer(1000, e -> highlightZone(new Random().nextInt(5), new Random().nextBoolean())); //TODO For testing demos only
-        t.start(); //TODO For testing demos only
         for(MouseListener m : zoneList.getMouseListeners()){
             zoneList.removeMouseListener(m);
         }
@@ -199,7 +197,7 @@ public class SecurityGUI implements GUI, ActionListener{
                     armAway();
                 }
             }
-            if(Main.cfg.options.isButtonTone) Utilities.buttonTone();
+            if(Main.cfg.options.isKeypadTone) Utilities.buttonTone();
         }
 
         if(codeField.getPassword().length <= 0 && ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){

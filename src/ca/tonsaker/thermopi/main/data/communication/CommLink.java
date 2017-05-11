@@ -1,6 +1,9 @@
 package ca.tonsaker.thermopi.main.data.communication;
 
+import ca.tonsaker.thermopi.main.Debug;
+import ca.tonsaker.thermopi.main.Main;
 import com.pi4j.io.serial.*;
+import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 
@@ -15,12 +18,14 @@ import java.io.IOException;
  */
 public class CommLink implements SerialDataEventListener{
 
-    Serial serial;
-    SerialConfig serialConfig;
+    static Serial serial;
+    static SerialConfig serialConfig;
+    Main main;
 
-    public CommLink(){
+    public CommLink(Main main){
+        this.main = main;
         serial = SerialFactory.createInstance();
-        //TODO Finish implementation
+        setupSerial();
     }
 
     public void setupSerial(){
@@ -46,12 +51,101 @@ public class CommLink implements SerialDataEventListener{
         }
     }
 
-    private void sendData(String str){
+    private static boolean waitForResponse(){
+        try {
+            int timeout = 1000;
+            while(true){
+                String received = new String(serial.read());
+                if(!received.equals("")){
+                    if(received.contains("DENIED")) return false;
+                    if(received.contains("ACCEPTED")) return true;
+                }
+                timeout--;
+                if(timeout <= 0){
+                    Debug.println(Debug.ERROR, "Never received a response from ThermoHQ!");
+                    System.exit(-1);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    public static void sendTestAlarm(){
+        sendData("<TEST:ALARM>");
+    }
+
+    public static void sendTestFurnace(){
+        sendData("<TEST:FURNACE>");
+    }
+
+
+    public static void sendTemperatureSet(byte temp){
+        char posOrNeg = 'P';
+        if(temp < 0){
+            posOrNeg = 'N';
+        }
+        String command = "<TEMP:SET:" + posOrNeg + temp + ">";
+        sendData(command);
+    }
+
+    public static boolean sendPassChange(char[] newCode, char[] oldCode){
+        if(String.copyValueOf(newCode).equals("")) return false; //TODO Redundant???
+        if(String.copyValueOf(oldCode).equals("")) return false; //TODO Redundant???
+        if(String.copyValueOf(oldCode).equals(String.copyValueOf(newCode))) return false; //TODO Redundant??? Place elsewhere???
+        String command = "<PASSCHANGE:" + String.copyValueOf(oldCode) + ":" + String.copyValueOf(newCode) + ">";
+        sendData(command);
+        return waitForResponse();
+    }
+
+    public static boolean sendUnarm(char[] code){
+        if(String.copyValueOf(code).equals("")) return false; //TODO Redundant???
+        String command = "<UNARM:" + String.copyValueOf(code) + ">";
+        sendData(command);
+        return waitForResponse();
+    }
+
+    public static void sendData(String str){
+        try {
+            serial.write(str);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Contract(pure = true)
+    private boolean integerToBoolean(int i){
+        if(i == 0) return false; else return true;
+    }
+
+    public void applyFunction(String s){
+        String[] commands = s.split(":");
+        if (commands.length <= 0){
+            Debug.println(Debug.ERROR, "Error, function received does not contain anything therefore it could not be applied.");
+            return;
+        }
+
+        if(commands[0].contains("ZONE")){
+            for(int i = 0; i < commands[1].toCharArray().length; i++){
+                main.securityGUI.highlightZone(i, integerToBoolean(Character.getNumericValue(commands[1].toCharArray()[i])));
+
+            }
+        }
     }
 
     @Override
-    public void dataReceived(SerialDataEvent serialDataEvent) {
-        //serialDataEvent.
+    public void dataReceived(SerialDataEvent e) {
+        try {
+            byte[] received = e.getSerial().read();
+            String rStr = new String(received);
+            Debug.println(Debug.DEBUG, "Serial Port Received: "+rStr);
+
+            String[] commands = rStr.split("<");
+            for(String command : commands) applyFunction(command.replace(">", ""));
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }

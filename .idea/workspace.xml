@@ -7,17 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0d90d20c-69bc-4e96-ad1c-5bdbff4d9276" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsPage2.form" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.form" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsPage2.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Config.class" afterPath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Config.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/Comm.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Main.class" afterPath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Utilities.class" afterPath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/Utilities.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/gui/SecurityGUI.class" afterPath="$PROJECT_DIR$/out/production/ThermoPi/ca/tonsaker/thermopi/main/gui/SecurityGUI.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.form" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.form" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.java" afterPath="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,6 +27,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ThermoPi$Run___Debug.coverage" NAME="Run - Debug Coverage Results" MODIFIED="1494282705629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -37,18 +39,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="63" column="31" lean-forward="false" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
+            <state relative-caret-position="-663">
+              <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,9 +49,24 @@
       <file leaf-file-name="ConfigFile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-              <folding />
+            <state relative-caret-position="85">
+              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommLink.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="656">
+              <caret line="128" column="16" lean-forward="false" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
+              <folding>
+                <element signature="e#3907#3908#0" expanded="true" />
+                <element signature="e#3964#3965#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +74,8 @@
       <file leaf-file-name="Utilities.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-211">
-              <caret line="80" column="44" lean-forward="true" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
+            <state relative-caret-position="204">
+              <caret line="23" column="49" lean-forward="false" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -77,8 +84,8 @@
       <file leaf-file-name="HomescreenGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="108" column="27" lean-forward="false" selection-start-line="108" selection-start-column="27" selection-end-line="108" selection-end-column="27" />
+            <state relative-caret-position="17">
+              <caret line="60" column="73" lean-forward="false" selection-start-line="60" selection-start-column="73" selection-end-line="60" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -87,34 +94,20 @@
       <file leaf-file-name="Debug.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Debug.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="923">
-              <caret line="89" column="5" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
+            <state relative-caret-position="809">
+              <caret line="76" column="40" lean-forward="false" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsGUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SettingsGUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="72" column="75" lean-forward="false" selection-start-line="72" selection-start-column="75" selection-end-line="72" selection-end-column="75" />
+            <state relative-caret-position="608">
+              <caret line="61" column="47" lean-forward="false" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
               <folding>
-                <marker date="1493404020004" expanded="true" signature="5860:5861" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Settings2GUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="80" column="45" lean-forward="false" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1352#1353#0" expanded="true" />
-                <element signature="e#1388#1389#0" expanded="true" />
+                <marker date="1494461216641" expanded="true" signature="6230:6231" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -127,10 +120,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Settings2GUI.form" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.form">
-          <provider selected="true" editor-type-id="ui-designer">
-            <state />
+      <file leaf-file-name="SecurityGUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="95" column="54" lean-forward="true" selection-start-line="95" selection-start-column="54" selection-end-line="95" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThermostatGUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/ThermostatGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1326">
+              <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1976#1977#0" expanded="false" />
+                <element signature="e#2006#2007#0" expanded="false" />
+                <element signature="e#2046#2047#0" expanded="false" />
+                <element signature="e#2079#2080#0" expanded="false" />
+                <element signature="e#2120#2121#0" expanded="false" />
+                <element signature="e#2154#2155#0" expanded="false" />
+                <element signature="e#2198#2199#0" expanded="false" />
+                <element signature="e#2236#2237#0" expanded="false" />
+                <element signature="e#2276#2277#0" expanded="false" />
+                <element signature="e#2304#2305#0" expanded="false" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -182,26 +200,26 @@
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/helper/JColorTextPane.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/helper/SwitchListener.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/GUI.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/popup/KeyboardGUI.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/popup/OptionPaneGUI.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/CommLink.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/Comm.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.form" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.form" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.form" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/ThermostatGUI.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Debug.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/DebugGUI.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsPage2.form" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.form" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Debug.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/popup/KeyboardGUI.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/ThermostatGUI.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/Comm.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java" />
+        <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.form" />
         <option value="$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.java" />
       </list>
     </option>
@@ -233,6 +251,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
@@ -323,8 +342,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Settings2GUI" />
+              <option name="myItemId" value="SettingsGUI" />
               <option name="myItemType" value="com.intellij.uiDesigner.projectView.FormNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SecurityGUI" />
+              <option name="myItemType" value="com.intellij.uiDesigner.projectView.FormNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="popup" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -349,9 +420,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThermoPi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="communication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -699,7 +795,21 @@
       <option name="project" value="LOCAL" />
       <updated>1492813747609</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update 0.6f&#10;!WARNING UNSTABLE UPDATE!">
+      <created>1493418664717</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1493418664717</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update 0.6g&#10;Refactored/Merged Config.java into ConfigFile.java">
+      <created>1493675643527</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1493675643527</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -727,13 +837,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5025707" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32885906" sideWeight="0.49755502" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49755502" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.4922879" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23266219" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2903423" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30501223" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -746,7 +856,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294621" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -796,11 +907,13 @@
     <MESSAGE value="Update 0.6e&#10;- Minor hotfixes" />
     <MESSAGE value="Update 07d&#10;- Added settings page 2 (WIP)&#10;- Rescaled UI for better touchscreen usability&#10;- Fixed debugGUI not showing up after minimization&#10;- Fixed debugGUI exit button exiting application" />
     <MESSAGE value="Update 07e&#10;- Added more GPIO functionality.&#10;- Fixed tone settings not affecting system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update 07e&#10;- Added more GPIO functionality.&#10;- Fixed tone settings not affecting system." />
+    <MESSAGE value="Update 0.6f&#10;!WARNING UNSTABLE UPDATE!" />
+    <MESSAGE value="Update 0.6g&#10;Refactored/Merged Config.java into ConfigFile.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update 0.6g&#10;Refactored/Merged Config.java into ConfigFile.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -861,13 +974,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="48" lean-forward="false" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -902,13 +1009,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="16" column="58" lean-forward="false" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -943,13 +1044,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="36" lean-forward="false" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -977,13 +1072,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/javax/swing/JRootPane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -998,13 +1087,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/helper/JColorTextPane.java" />
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/helper/SwitchListener.java" />
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/popup/KeyboardGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="806">
-          <caret line="184" column="8" lean-forward="false" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1026,44 +1108,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/Comm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="47" lean-forward="false" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/ThermostatGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1042">
-          <caret line="126" column="61" lean-forward="false" selection-start-line="126" selection-start-column="61" selection-end-line="126" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="183" column="62" lean-forward="false" selection-start-line="183" selection-start-column="62" selection-end-line="183" selection-end-column="62" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/DebugGUI.java">
@@ -1074,35 +1126,111 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="80" column="45" lean-forward="false" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1352#1353#0" expanded="false" />
+            <element signature="e#1388#1389#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java" />
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/ThermostatGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1976#1977#0" expanded="false" />
+            <element signature="e#2006#2007#0" expanded="false" />
+            <element signature="e#2046#2047#0" expanded="false" />
+            <element signature="e#2079#2080#0" expanded="false" />
+            <element signature="e#2120#2121#0" expanded="false" />
+            <element signature="e#2154#2155#0" expanded="false" />
+            <element signature="e#2198#2199#0" expanded="false" />
+            <element signature="e#2236#2237#0" expanded="false" />
+            <element signature="e#2276#2277#0" expanded="false" />
+            <element signature="e#2304#2305#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/Comm.java" />
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="23" column="49" lean-forward="false" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/popup/KeyboardGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="809">
+          <caret line="87" column="43" lean-forward="false" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
+        <state relative-caret-position="-663">
+          <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/HomescreenGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="108" column="27" lean-forward="false" selection-start-line="108" selection-start-column="27" selection-end-line="108" selection-end-column="27" />
+        <state relative-caret-position="17">
+          <caret line="60" column="73" lean-forward="false" selection-start-line="60" selection-start-column="73" selection-end-line="60" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Utilities.java">
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SecurityGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-211">
-          <caret line="80" column="44" lean-forward="true" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
+        <state relative-caret-position="206">
+          <caret line="95" column="54" lean-forward="true" selection-start-line="95" selection-start-column="54" selection-end-line="95" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Debug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="923">
-          <caret line="89" column="5" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
+        <state relative-caret-position="809">
+          <caret line="76" column="40" lean-forward="false" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/communication/CommLink.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="128" column="16" lean-forward="false" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
+          <folding>
+            <element signature="e#3907#3908#0" expanded="true" />
+            <element signature="e#3964#3965#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1111,46 +1239,13 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/Settings2GUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="80" column="45" lean-forward="false" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1352#1353#0" expanded="true" />
-            <element signature="e#1388#1389#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/gui/SettingsGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="72" column="75" lean-forward="false" selection-start-line="72" selection-start-column="75" selection-end-line="72" selection-end-column="75" />
+        <state relative-caret-position="608">
+          <caret line="61" column="47" lean-forward="false" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
           <folding>
-            <marker date="1493404020004" expanded="true" signature="5860:5861" ph="{...}" />
+            <marker date="1494461216641" expanded="true" signature="6230:6231" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/data/ConfigFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ca/tonsaker/thermopi/main/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="63" column="31" lean-forward="false" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>

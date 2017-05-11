@@ -2,9 +2,11 @@ package ca.tonsaker.thermopi.main.gui;
 
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
+import ca.tonsaker.thermopi.main.data.communication.CommLink;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -37,10 +39,12 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     private JPanel testingPanel;
     private JButton nextPageButton;
 
-    JTextField[] passwordFields = {confirmPasswordField, newPasswordField, oldPasswordField};
+    JPasswordField[] passwordFields = {confirmPasswordField, newPasswordField, oldPasswordField};
     JTextField[] zones = {zoneTextField1, zoneTextField2, zoneTextField3, zoneTextField4, zoneTextField5, zoneTextField6};
 
     Main main;
+
+    //TODO Add WIP to buttons
 
     public SettingsGUI(Main main){
         this.main = main;
@@ -48,11 +52,14 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
         openDebuggerButton.addActionListener(this);
         applyButton.addActionListener(this);
         nextPageButton.addActionListener(this);
+        testAlarmButton.addActionListener(this);
+        testFurnaceButton.addActionListener(this);
         for(JTextField zone : zones){
             zone.addMouseListener(this);
         }
-        for(JTextField pass : passwordFields){
+        for(JPasswordField pass : passwordFields){
             pass.addMouseListener(this);
+            //TODO Allow maximum 8 NUMBERS ONLY
         }
     }
 
@@ -94,23 +101,28 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
 
-        if(src instanceof JButton){
-            if(src.equals(fullscreenToggleButton)){
+        if(src instanceof JButton) {
+            if (src.equals(fullscreenToggleButton)) {
                 main.setFullscreen(!main.isFullscreen());
-                if(main.isFullscreen()){
+                if (main.isFullscreen()) {
                     fullscreenToggleButton.setText("Exit Fullscreen");
-                }else{
+                } else {
                     fullscreenToggleButton.setText("Enter Fullscreen");
                 }
-            }else if(src.equals(applyButton)){
+            }else if (src.equals(applyButton)) {
                 applySettings();
-            }else if(src.equals(openDebuggerButton)){
+            }else if (src.equals(openDebuggerButton)) {
                 main.debugGUI.setVisible(true);
                 main.debugGUI.setExtendedState(JFrame.NORMAL);
                 main.debugGUI.toFront();
-            }else if(src.equals(nextPageButton)){
+            }else if (src.equals(nextPageButton)){
                 main.switchGUI(main.settings2GUI);
+            }else if (src.equals(testAlarmButton)) {
+                CommLink.sendTestAlarm();
+            }else if (src.equals(testFurnaceButton)){
+                CommLink.sendTestFurnace();
             }
+
             if(main.cfg.options.isButtonTone) Utilities.buttonTone();
         }
     }
