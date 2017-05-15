@@ -5,6 +5,7 @@ import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.RaspiPin;
 
 import java.awt.*;
+import java.util.Optional;
 
 /**
  * Created by Markus Tonsaker on 2017-03-21.
@@ -63,6 +64,11 @@ public class ConfigFile {
         options.isButtonTone = configFile.options.isButtonTone;
         options.isKeypadTone = configFile.options.isKeypadTone;
         options.isConsoleColors = configFile.options.isConsoleColors;
+        options.timeZoneUTC = configFile.options.timeZoneUTC;
+        options.temperatureUnit = configFile.options.temperatureUnit;
+        options.isDST = configFile.options.isDST;
+        options.is12Hours = configFile.options.is12Hours;
+        options.isTempsOn = configFile.options.isTempsOn;
     }
 
     @Expose public String[] zoneNames = {"Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6"};
@@ -77,6 +83,7 @@ public class ConfigFile {
         @Expose public boolean isDST = false;
         @Expose public int timeZoneUTC = 0;
         @Expose public int temperatureUnit = ConfigFile.TEMP_C;
+        @Expose public boolean[] isTempsOn = {false, false, false};  //In order of Outside, Inside, Furnace
     }
 
 }

@@ -59,19 +59,18 @@
             </constraints>
             <properties>
               <model>
-                <item value="UTC−12:00"/>
-                <item value="UTC−11:00"/>
-                <item value="UTC−10:00"/>
-                <item value="UTC−09:30"/>
-                <item value="UTC−09:00"/>
-                <item value="UTC−08:00"/>
-                <item value="UTC−07:00 (Vancouver - PDT)"/>
-                <item value="UTC−06:00 (Edmonton - MDT)"/>
-                <item value="UTC−05:00 (Winnipeg - CDT)"/>
-                <item value="UTC−04:00 (Toronto -EDT)"/>
-                <item value="UTC−03:00 (Halifax - ADT)"/>
-                <item value="UTC−02:00"/>
-                <item value="UTC−01:00"/>
+                <item value="UTC-12:00"/>
+                <item value="UTC-11:00"/>
+                <item value="UTC-10:00"/>
+                <item value="UTC-09:00"/>
+                <item value="UTC-08:00"/>
+                <item value="UTC-07:00 (Vancouver - PDT)"/>
+                <item value="UTC-06:00 (Edmonton - MDT)"/>
+                <item value="UTC-05:00 (Winnipeg - CDT)"/>
+                <item value="UTC-04:00 (Toronto - EDT)"/>
+                <item value="UTC-03:00 (Halifax - ADT)"/>
+                <item value="UTC-02:00"/>
+                <item value="UTC-01:00"/>
                 <item value="UTC±00:00"/>
                 <item value="UTC+01:00"/>
                 <item value="UTC+02:00"/>
@@ -164,7 +163,7 @@
               <text value="Kelvin (Ex: 294K)"/>
             </properties>
           </component>
-          <component id="811a1" class="javax.swing.JCheckBox" binding="tempEnabled">
+          <component id="811a1" class="javax.swing.JCheckBox" binding="outsideCheckbox">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

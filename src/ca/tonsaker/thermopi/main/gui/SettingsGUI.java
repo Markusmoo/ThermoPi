@@ -1,5 +1,6 @@
 package ca.tonsaker.thermopi.main.gui;
 
+import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
@@ -8,6 +9,7 @@ import ca.tonsaker.thermopi.main.gui.helper.TextFilter;
 import ca.tonsaker.thermopi.main.gui.popup.KeyboardGUI;
 
 import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
@@ -84,19 +86,30 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     }
 
     public void applySettings(){
-        main.cfg.options.isKeypadTone = playKeypadToneCheckBox.isSelected();
-        main.cfg.options.isButtonTone = playButtonToneCheckBox.isSelected();
-        main.cfg.options.isConsoleColors = showConsoleColoursCheckBox.isSelected();
-        String[] zoneNames = new String[zones.length];
-        for(int idx = 0; idx < zoneNames.length; idx++){
-            zoneNames[idx] = zones[idx].getText();
-        }
-        main.cfg.zoneNames = zoneNames;
-        //TODO Send and test new password (if any) to ThermoHQ
-
         try{
+            main.cfg.options.isKeypadTone = playKeypadToneCheckBox.isSelected();
+            main.cfg.options.isButtonTone = playButtonToneCheckBox.isSelected();
+            main.cfg.options.isConsoleColors = showConsoleColoursCheckBox.isSelected();
+            main.cfg.options.is12Hours = main.settings2GUI.is12Hours();
+            main.cfg.options.isDST = main.settings2GUI.isDST();
+            main.cfg.options.timeZoneUTC = main.settings2GUI.getTimezone();
+            main.cfg.options.isTempsOn = main.settings2GUI.getTempsOn();
+            int tempUnit = main.settings2GUI.getTempUnit();
+            if(tempUnit == -1){ throw new IOException("Failed to write temperature unit."); }
+            main.cfg.options.temperatureUnit = tempUnit;
+            String[] zoneNames = new String[zones.length];
+            for(int idx = 0; idx < zoneNames.length; idx++){
+                zoneNames[idx] = zones[idx].getText();
+            }
+            main.cfg.zoneNames = zoneNames;
+            //TODO Send and test new password (if any) to ThermoHQ
+
             Utilities.saveSettings(main.cfg);
+            JOptionPane.showMessageDialog(main, "Your settings were saved successfully!", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
         }catch (IOException e){
+            FAIL:
+            JOptionPane.showMessageDialog(main, "Error, your settings did NOT save!", "Error", JOptionPane.ERROR_MESSAGE);
+            Debug.println(Debug.ERROR, "Settings failed to save!");
             e.printStackTrace();
         }
     }
@@ -138,8 +151,8 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
     }
 
     @Override
-    public void switchToGUI(GUI oldGUI) {
-        if(oldGUI instanceof KeyboardGUI || oldGUI instanceof Settings2GUI) return; //If switched from keyboard or SettingsPanel, do not reset settings.
+    public void switchToGUI(GUI oldScreen) {
+        if(oldScreen instanceof KeyboardGUI || oldScreen instanceof Settings2GUI) return; //If switched from keyboard or SettingsPanel, do not reset settings.
         playButtonToneCheckBox.setSelected(main.cfg.options.isButtonTone);
         playKeypadToneCheckBox.setSelected(main.cfg.options.isKeypadTone);
         showConsoleColoursCheckBox.setSelected(main.cfg.options.isConsoleColors);

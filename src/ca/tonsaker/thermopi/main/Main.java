@@ -52,7 +52,7 @@ public class Main extends JFrame{
     public static DebugGUI debugGUI;
 
     //Doesn't include debugGUI because debugGUI is in it's own window.
-    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI, settingsGUI, thermostatGUI};
+    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI, settingsGUI, settings2GUI, thermostatGUI};
 
     boolean isFullscreen;
 

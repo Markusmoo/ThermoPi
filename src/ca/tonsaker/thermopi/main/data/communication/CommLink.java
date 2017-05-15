@@ -82,11 +82,7 @@ public class CommLink implements SerialDataEventListener{
 
 
     public static void sendTemperatureSet(byte temp){
-        char posOrNeg = 'P';
-        if(temp < 0){
-            posOrNeg = 'N';
-        }
-        String command = "<TEMP:SET:" + posOrNeg + temp + ">";
+        String command = "<TEMP:SET:" + Math.abs(temp) + ">";
         sendData(command);
     }
 
@@ -114,26 +110,70 @@ public class CommLink implements SerialDataEventListener{
         }
     }
 
+    private boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
     @Contract(pure = true)
     private boolean integerToBoolean(int i){
         if(i == 0) return false; else return true;
     }
 
+    /**
+     * TODO * - Means done
+     * TODO
+     * TODO * Temperature IN
+     * TODO * Temperature OUT
+     * TODO * Temperature SET
+     * TODO * ZONES
+     * TODO Armed - AWAY
+     * TODO Armed - HOME
+     * TODO Unarmed
+     *
+     * @param s
+     */
     public void applyFunction(String s){
         String[] commands = s.split(":");
         if (commands.length <= 0){
-            Debug.println(Debug.ERROR, "Error, function received does not contain anything therefore it could not be applied.");
+            Debug.println(Debug.ERROR, "Error, serial received does not contain anything therefore it could not be applied.");
             return;
         }
 
-        if(commands[0].contains("ZONE")){
+        if(commands[0].contains("ZONE")){ //Set which zones are activated
             for(int i = 0; i < commands[1].toCharArray().length; i++){
                 main.securityGUI.highlightZone(i, integerToBoolean(Character.getNumericValue(commands[1].toCharArray()[i])));
-
+            }
+        }else if(commands[0].contains("TEMP")){ //Set the temperature displays
+            if(commands[1].contains("IN")) { //Inside temperature
+                if (isInteger(commands[2])) {
+                    main.thermostatGUI.setTemperatureInside(Integer.parseInt(commands[2]));
+                } else {
+                    Debug.println(Debug.ERROR, "Serial received a corrupted temperature command: " + s);
+                }
+            }else if(commands[1].contains("OUT")){ //Outside temperature
+                if (isInteger(commands[2])) {
+                    main.thermostatGUI.setTemperatureOutside(Integer.parseInt(commands[2]));
+                } else {
+                    Debug.println(Debug.ERROR, "Serial received a corrupted temperature command: " + s);
+                }
+            }else if(commands[1].contains("SET")){ //Desired temperature
+                if (isInteger(commands[2])) {
+                    main.thermostatGUI.setTemperatureSet(Integer.parseInt(commands[2]));
+                } else {
+                    Debug.println(Debug.ERROR, "Serial received a corrupted temperature command: " + s);
+                }
+            }else{
+                Debug.println(Debug.ERROR, "Serial received a corrupted temperature command: " + s);
             }
         }
-    }
 
+    }
     @Override
     public void dataReceived(SerialDataEvent e) {
         try {
