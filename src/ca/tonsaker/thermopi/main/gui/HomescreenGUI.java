@@ -43,9 +43,10 @@ public class HomescreenGUI implements GUI, ActionListener{
         long millis = System.currentTimeMillis();
         long minute = (millis / (1000 * 60)) % 60;
         long hour = (millis / (1000 * 60 * 60)) % 24;
-        hour += main.cfg.timezone;
+        hour += main.cfg.options.timeZoneUTC;
+        if(main.cfg.options.isDST) hour++;
         boolean inTheAm = false;
-        if(main.cfg.timeFormat12hour) {
+        if(main.cfg.options.is12Hours) {
             inTheAm = (hour <= 11) || hour == 24;
             if (hour > 12) hour -= 12;
             if (hour == 0) hour = 12;
@@ -57,8 +58,14 @@ public class HomescreenGUI implements GUI, ActionListener{
             }
         }
         String timestamp = "";
-        if(inTheAm && main.cfg.timeFormat12hour) timestamp = " AM"; else if(main.cfg.timeFormat12hour) timestamp = " PM";
-        time.setText(String.format("%02d:%02d", hour, minute)+timestamp);
+        if(inTheAm && main.cfg.options.is12Hours) timestamp = " AM"; else if(main.cfg.options.is12Hours) timestamp = " PM";
+        if(main.cfg.options.is12Hours) {
+            String t = String.format("%02d:%02d", hour, minute) + timestamp;
+            if(t.indexOf('0') == 0) t = t.substring(1);
+            time.setText(t);
+        }else {
+            time.setText(String.format("%02d:%02d", hour, minute) + timestamp);
+        }
     }
 
     @Override
@@ -106,9 +113,14 @@ public class HomescreenGUI implements GUI, ActionListener{
         if(src instanceof JButton){
             if(src.equals(securityBtn)){
                 main.switchGUI(main.securityGUI);
-
             }else if(src.equals(thermostatButton)){
-                main.switchGUI(main.thermostatGUI);
+                if(main.cfg.options.isTempsOn[0] || main.cfg.options.isTempsOn[1] || main.cfg.options.isTempsOn[2]) {
+                    main.switchGUI(main.thermostatGUI);
+                }else{
+                    JOptionPane.showMessageDialog(main, "Thermostat is disabled! \n\n (Info: To enable thermostat goto settings and \n"+
+                            "under \"Temperature\" select which units to be on. \n"+
+                            "Make sure your ThermoHQ has support for \nthis feature.  Contact your installer.)");
+                }
             }else if(src.equals(settingsButton)){
                 main.switchGUI(main.settingsGUI);
             }else if(src.equals(weatherButton)){

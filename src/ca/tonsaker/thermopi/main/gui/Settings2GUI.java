@@ -64,7 +64,8 @@ public class Settings2GUI implements GUI, ActionListener{
     protected int getTimezone(){
         String tz = (String) timezoneComboBox.getSelectedItem();
         tz = tz.substring(3,6).replace("±", "").replace("+","");
-        if(tz.charAt(1) == '0') tz = tz.replace("0","");
+        if(tz.charAt(0) == '0' && tz.charAt(1) != '0') tz = tz.replace("0","");
+        else if(tz.contains("00")) tz = "0";
         return Integer.parseInt(tz);
     }
 

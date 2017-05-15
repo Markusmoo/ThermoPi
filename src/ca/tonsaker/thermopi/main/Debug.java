@@ -5,6 +5,8 @@ import ca.tonsaker.thermopi.main.gui.DebugGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Marku on 2017-03-09.
@@ -45,41 +47,50 @@ public abstract class Debug {
             System.err.println(lvl + " -Is not a valid lvl for println!");
         }
 
+        String timestamp = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss] ").format(new Date());
+        if(Main.cfg.options.isConsoleColors){
+            System.out.print(Debug.ANSI_WHITE + timestamp + Debug.ANSI_RESET);
+            debugGUI.getConsole().appendToPane(Color.GRAY, timestamp);
+        }else{
+            System.out.print(timestamp);
+            debugGUI.getConsole().appendToPane(timestamp);
+        }
+
         if(lvl == Debug.DEBUG && Debug.showDebug){
             if(Main.cfg.options.isConsoleColors){
                 System.out.println(Debug.ANSI_CYAN + "[DEBUG]: " + txt + Debug.ANSI_RESET);
-                debugGUI.getConsole().appendToPane(ConfigFile.COLOR_TEXT_CYAN, "[DEBUG]: " + txt);
+                debugGUI.getConsole().appendLnToPane(ConfigFile.COLOR_TEXT_CYAN, "[DEBUG]: " + txt);
             }else{
                 System.out.println("[DEBUG]: " + txt);
-                debugGUI.getConsole().appendToPane("[DEBUG]: " + txt);
+                debugGUI.getConsole().appendLnToPane("[DEBUG]: " + txt);
             }
         }else if(lvl == Debug.LOW && Debug.showLow) {
             if(Main.cfg.options.isConsoleColors){
                 System.out.println(Debug.ANSI_BLUE + "[LOW]: " + txt + Debug.ANSI_RESET);
-                debugGUI.getConsole().appendToPane(ConfigFile.COLOR_TEXT_BLUE, "[LOW]: " + txt);
+                debugGUI.getConsole().appendLnToPane(ConfigFile.COLOR_TEXT_BLUE, "[LOW]: " + txt);
             }else{
                 System.out.println("[LOW]: " + txt);
-                debugGUI.getConsole().appendToPane("[LOW]: " + txt);
+                debugGUI.getConsole().appendLnToPane("[LOW]: " + txt);
             }
         }else if(lvl == Debug.MEDIUM && Debug.showMedium) {
             if(Main.cfg.options.isConsoleColors){
                 System.out.println(ANSI_GREEN + "[MEDIUM]: " + txt + Debug.ANSI_RESET);
-                debugGUI.getConsole().appendToPane(ConfigFile.COLOR_TEXT_GREEN, "[MEDIUM]: " + txt);
+                debugGUI.getConsole().appendLnToPane(ConfigFile.COLOR_TEXT_GREEN, "[MEDIUM]: " + txt);
             }else{
                 System.out.println("[MEDIUM]: " + txt);
-                debugGUI.getConsole().appendToPane("[MEDIUM]: " + txt);
+                debugGUI.getConsole().appendLnToPane("[MEDIUM]: " + txt);
             }
         }else if(lvl == Debug.HIGH && Debug.showHigh){
             if(Main.cfg.options.isConsoleColors){
                 System.out.println(Debug.ANSI_YELLOW + "[HIGH]: " + txt + Debug.ANSI_RESET);
-                debugGUI.getConsole().appendToPane(ConfigFile.COLOR_TEXT_YELLOW, "[HIGH]: " + txt);
+                debugGUI.getConsole().appendLnToPane(ConfigFile.COLOR_TEXT_YELLOW, "[HIGH]: " + txt);
             }else{
                 System.out.println("[HIGH]: " + txt);
-                debugGUI.getConsole().appendToPane("[HIGH]: " + txt);
+                debugGUI.getConsole().appendLnToPane("[HIGH]: " + txt);
             }
         }else if(lvl == Debug.ERROR) {
             System.out.println(Debug.ANSI_RED + "[ERROR]: " + txt + Debug.ANSI_RESET);
-            debugGUI.getConsole().appendToPane(ConfigFile.COLOR_TEXT_RED, "[ERROR]: " + txt);
+            debugGUI.getConsole().appendLnToPane(ConfigFile.COLOR_TEXT_RED, "[ERROR]: " + txt);
         }
     }
 

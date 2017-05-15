@@ -48,38 +48,52 @@ public class Main extends JFrame{
     public SecurityGUI securityGUI = new SecurityGUI();
     public SettingsGUI settingsGUI = new SettingsGUI(this);
     public Settings2GUI settings2GUI = new Settings2GUI(this);
-    public ThermostatGUI thermostatGUI = new ThermostatGUI();
+    public ThermostatGUI thermostatGUI = new ThermostatGUI(this);
     public static DebugGUI debugGUI;
 
     //Doesn't include debugGUI because debugGUI is in it's own window.
-    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI, settingsGUI, settings2GUI, thermostatGUI};
+    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI,
+            thermostatGUI, settingsGUI, settings2GUI};
 
     boolean isFullscreen;
 
-    public static void main(String[] args) throws UnsupportedLookAndFeelException{
-        for(String arg : args){
-            if(arg.equals("-safemode")){
-                Main.debugGUI = new DebugGUI();
-                Debug.setDebugGUI(Main.debugGUI);
-                ConfigFile.safeMode = true;
-            }else if(arg.equals("-debugmode")){
-                ConfigFile.debugMode = true;
+    public static void main(String[] args){
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run(){
+                for(String arg : args){
+                    if(arg.equals("-safemode")){
+                        Main.debugGUI = new DebugGUI();
+                        Debug.setDebugGUI(Main.debugGUI);
+                        ConfigFile.safeMode = true;
+                    }else if(arg.equals("-debugmode")){
+                        ConfigFile.debugMode = true;
+                    }
+                }
+                UIManager.getFont("Label.font");
+                try {
+                    UIManager.setLookAndFeel(new DarculaLaf());
+                } catch (UnsupportedLookAndFeelException e) {
+                    Debug.println(Debug.ERROR, "This operating system does not support the look and feel!  " +
+                            "Try running with -safemode");
+                    e.printStackTrace();
+                }
+
+                if(!ConfigFile.safeMode) {
+                    Main.debugGUI = new DebugGUI();
+                    Debug.setDebugGUI(Main.debugGUI);
+                }
+
+                if (!ConfigFile.debugMode) gpio = GpioFactory.getInstance();
+
+                Main main = new Main();
+                Main.debugGUI.setMain(main);
+                main.setVisible(true);
+                //TODO On ThermoPi startup, contact ThermoHQ and receive current ThermoPi Security State
             }
-        }
-        UIManager.getFont("Label.font");
-        UIManager.setLookAndFeel(new DarculaLaf());
+        });
 
-        if(!ConfigFile.safeMode) {
-            Main.debugGUI = new DebugGUI();
-            Debug.setDebugGUI(Main.debugGUI);
-        }
-
-        if (!ConfigFile.debugMode) gpio = GpioFactory.getInstance();
-
-        Main main = new Main();
-        Main.debugGUI.setMain(main);
-        main.setVisible(true);
-        //TODO On ThermoPi startup, contact ThermoHQ and receive current ThermoPi Security State
     }
 
     public Main() {
@@ -124,7 +138,8 @@ public class Main extends JFrame{
     }
 
     public void hideCursor(){
-        this.setCursor(this.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
+        this.setCursor(this.getToolkit().createCustomCursor(new BufferedImage(3, 3,
+                BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
     }
 
     public void setScreenOff(){
@@ -163,7 +178,8 @@ public class Main extends JFrame{
         if(fullscreen) {
             try {
                 if (!graphicsDevice.isFullScreenSupported()) {
-                    Debug.println(Debug.HIGH, "Fullscreen not supported.. Attempting to put application into Fullscreen mode anyways");
+                    Debug.println(Debug.HIGH, "Fullscreen not supported.. " +
+                            "Attempting to put application into Fullscreen mode anyways");
                 }
                 Debug.println(Debug.MEDIUM, "Entering Fullscreen Mode");
                 graphicsDevice.setFullScreenWindow(this);

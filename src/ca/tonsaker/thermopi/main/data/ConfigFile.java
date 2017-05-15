@@ -26,10 +26,6 @@ public class ConfigFile {
     public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
     public static final String SETTINGS_OSX = "~/Library/Preferences/ThermoPi/"; //TODO Test
 
-    //Time
-    public static int timezone = -7;
-    public static boolean timeFormat12hour = false;
-
     //Modes
     public static boolean debugMode = false;
     public static boolean safeMode = false;

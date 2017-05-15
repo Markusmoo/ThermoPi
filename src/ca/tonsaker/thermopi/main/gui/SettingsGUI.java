@@ -19,7 +19,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 /**
- * Created by Marku on 2017-03-17.
+ * Created by Markus Tonsaker on 2017-03-17.
  */
 public class SettingsGUI implements GUI, ActionListener, MouseListener{
     private JButton restartThermoPiButton;
@@ -65,7 +65,7 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
         for(JTextField zone : zones){
             zone.addMouseListener(this);
             PlainDocument pd = (PlainDocument) zone.getDocument();
-            pd.setDocumentFilter(new TextFilter(false, 10));
+            pd.setDocumentFilter(new TextFilter(false, 20));
         }
         for(JPasswordField pass : passwordFields){
             PlainDocument pd = (PlainDocument) pass.getDocument();

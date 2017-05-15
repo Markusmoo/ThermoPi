@@ -3,6 +3,9 @@ package ca.tonsaker.thermopi.main.gui;
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
+import ca.tonsaker.thermopi.main.data.ConfigFile;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,9 +34,24 @@ public class ThermostatGUI implements GUI, ActionListener{
     private int tempInside = 0;
     private int tempOutside = 0;
 
-    public ThermostatGUI(){
+    private Main main;
+
+    public ThermostatGUI(Main main){
+        this.main = main;
         increaseButton.addActionListener(this);
         decreaseButton.addActionListener(this);
+    }
+
+    @NotNull
+    @Contract(pure = true)
+    private String convertTemp(int temp){
+        switch(main.cfg.options.temperatureUnit){
+            case(ConfigFile.TEMP_C): return temp + " °C";
+            case(ConfigFile.TEMP_F): return ((9/5) * temp + 32) + " °F";
+            case(ConfigFile.TEMP_R): return ((temp+273.15)*(9/5)) + " °R";
+            case(ConfigFile.TEMP_K): return (temp+273.15) + " K";
+            default: return temp + " °C";
+        }
     }
 
     public void updateTemp(){
@@ -43,21 +61,21 @@ public class ThermostatGUI implements GUI, ActionListener{
 
     public void setTemperatureSet(int temp){
         if(isSleep || !inFocus) return;
-        setToVar.setText(temp + " °C");
+        setToVar.setText(convertTemp(temp));
         tempSet = temp;
-        Debug.println(Debug.MEDIUM, "Setting inside temperature to :"+temp+" degrees celsius");
+        Debug.println(Debug.MEDIUM, "Setting inside temperature to: "+temp+" degrees celsius");
     }
 
     public void setTemperatureInside(int temp){
         if(isSleep || !inFocus) return;
-        insideVar.setText(temp + " °C");
+        insideVar.setText(convertTemp(temp));
         tempInside = temp;
         Debug.println(Debug.DEBUG, "Inside temperature changed to: "+temp+" degrees celsius");
     }
 
     public void setTemperatureOutside(int temp){
         if(isSleep || !inFocus) return;
-        outsideVar.setText(temp + " °C");
+        outsideVar.setText(convertTemp(temp));
         tempOutside = temp;
         Debug.println(Debug.DEBUG, "Outside temperature changed to: "+temp+" degrees celsius");
     }
@@ -88,6 +106,9 @@ public class ThermostatGUI implements GUI, ActionListener{
     public void switchToGUI(GUI oldScreen) {
         inFocus = true;
         updateTemp();
+        setTemperatureSet(getTemperatureSet());
+        setTemperatureInside(getTemperatureInside());
+        setTemperatureOutside(getTemperatureOutside());
         updater.restart();
     }
 
