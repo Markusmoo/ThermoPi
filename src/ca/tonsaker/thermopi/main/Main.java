@@ -11,6 +11,7 @@ import com.pi4j.io.gpio.GpioFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
@@ -21,7 +22,7 @@ import java.io.FileNotFoundException;
  *
  * Created by Markus Tonsaker on 2017-03-07.
  */
-public class Main extends JFrame{
+public class Main extends JFrame implements ActionListener, MouseMotionListener{
 
     /*
     TODO  - Create a logger that saves to a txt file.
@@ -32,6 +33,9 @@ public class Main extends JFrame{
      */
 
     GraphicsDevice graphicsDevice;
+
+    protected Timer screenTimeoutTimer = new Timer(10000, this);
+    protected Point lastMouseLocation = new Point(0,0);
 
     public CommLink lnk;
 
@@ -107,6 +111,8 @@ public class Main extends JFrame{
 //            this.hideCursor();
 //        }
 
+        screenTimeoutTimer.setRepeats(false);
+
         init();
 
         if(!ConfigFile.debugMode){
@@ -135,6 +141,7 @@ public class Main extends JFrame{
         if(ConfigFile.debugMode) {
             debugGUI.setVisible(true);
         }
+        screenTimeoutTimer.start();
     }
 
     public void hideCursor(){
@@ -143,17 +150,17 @@ public class Main extends JFrame{
     }
 
     public void setScreenOff(){
-        //TODO Turn screen off
         for(GUI g : guiList){
             g.screenSleep();
         }
+        ConfigFile.screenOn = false;
     }
 
     public void setScreenOn(){
         for(GUI g : guiList){
             g.screenWakeup();
         }
-        //TODO Turn screen on
+        ConfigFile.screenOn = true;
     }
 
     public void switchGUI(GUI gui){
@@ -192,7 +199,7 @@ public class Main extends JFrame{
             }
             return true;
         }else{
-            graphicsDevice.setFullScreenWindow(null); //TODO Test on RPi
+            graphicsDevice.setFullScreenWindow(null);
             this.pack();
             this.setVisible(true);
             isFullscreen = false;
@@ -206,4 +213,23 @@ public class Main extends JFrame{
         return isFullscreen;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if(src.equals(screenTimeoutTimer)){
+            setScreenOff();
+        }
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if(ConfigFile.screenOn = false) setScreenOn();
+        screenTimeoutTimer.restart();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if(ConfigFile.screenOn = false) setScreenOn();
+        screenTimeoutTimer.restart();
+    }
 }

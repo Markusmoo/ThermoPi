@@ -21,17 +21,25 @@ public class Utilities implements GpioPinListenerDigital {
 
     Main mainFrame;
 
+    private static GpioPinDigitalOutput screenPin;
     private static GpioPinDigitalOutput soundPin;
     private static GpioPinDigitalInput homePin;
 
     public Utilities(Main main){
         mainFrame = main;
         if(!ConfigFile.debugMode){
-            soundPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SPEAKER, PinState.LOW); //TODO Enable for RPi Testing
+            soundPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SPEAKER, PinState.LOW);
+            screenPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SCREEN, PinState.LOW);
             homePin = Main.gpio.provisionDigitalInputPin(ConfigFile.PIN_HOME, PinPullResistance.PULL_UP);
 
             homePin.addListener(this);
         }
+    }
+
+    public static void setScreenState(boolean on){
+        Debug.println(Debug.LOW, "Changing screen state!  Screen on? = "+on);
+        if(ConfigFile.debugMode) return;
+        screenPin.setState(!on);
     }
 
     public static void tone(int durationMillis){

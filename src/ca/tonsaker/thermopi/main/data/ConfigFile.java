@@ -12,6 +12,8 @@ import java.util.Optional;
  */
 public class ConfigFile {
 
+    public static boolean screenOn = true;
+
     public static final int TEMP_C = 0;
     public static final int TEMP_F = 1;
     public static final int TEMP_R = 2;
@@ -31,9 +33,10 @@ public class ConfigFile {
     public static boolean safeMode = false;
 
     //Pins
+    public static final Pin PIN_SCREEN = RaspiPin.GPIO_26;
     public static final Pin PIN_SPEAKER = RaspiPin.GPIO_27;
-    public static final Pin PIN_TEMP = RaspiPin.GPIO_00; //TODO Change to acceptable pin
-    public static final Pin PIN_HOME = RaspiPin.GPIO_26;
+    public static final Pin PIN_HOME = RaspiPin.GPIO_28;
+    public static final Pin PIN_TEMP = RaspiPin.GPIO_29;
 
     //Tone frequencies
     public static final int BUTTON_TONE = 1047;  //C6
