@@ -2,6 +2,7 @@ package ca.tonsaker.thermopi.main.data.communication;
 
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.data.ConfigFile;
 import com.pi4j.io.serial.*;
 import org.jetbrains.annotations.Contract;
 
@@ -18,14 +19,17 @@ import java.io.IOException;
  */
 public class CommLink implements SerialDataEventListener{
 
+
     static Serial serial;
     static SerialConfig serialConfig;
     Main main;
 
     public CommLink(Main main){
         this.main = main;
-        serial = SerialFactory.createInstance();
-        setupSerial();
+        if(ConfigFile.serialOn) {
+            serial = SerialFactory.createInstance();
+            setupSerial();
+        }
     }
 
     public void setupSerial(){
@@ -104,6 +108,7 @@ public class CommLink implements SerialDataEventListener{
 
     public static void sendData(String str){
         try {
+            if(!ConfigFile.serialOn) return;
             serial.write(str);
         }catch(IOException e){
             e.printStackTrace();

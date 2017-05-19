@@ -13,6 +13,7 @@ import java.util.Optional;
 public class ConfigFile {
 
     public static boolean screenOn = true;
+    public static boolean serialOn = false;
 
     public static final int TEMP_C = 0;
     public static final int TEMP_F = 1;
