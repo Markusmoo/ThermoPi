@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ConfigFile {
 
     public static boolean screenOn = true;
-    public static boolean serialOn = false;
+    public static boolean serialOn = true;
 
     public static final int TEMP_C = 0;
     public static final int TEMP_F = 1;
@@ -21,11 +21,11 @@ public class ConfigFile {
     public static final int TEMP_K = 3;
 
     //Display
-    public static int screenTimeoutTime = 15;
+    public static int screenTimeoutTime = 15000;
 
     //Settings File Location
     public static final String SETTING_FILENAME = "config.json";
-    public static final String SETTINGS_LINUX = System.getProperty("user.home") + "/ThermoPi/"; //TODO Test
+    public static final String SETTINGS_LINUX = "/home/pi/.thermopi/"; //TODO Test
     public static final String SETTINGS_WINDOWS = System.getenv("APPDATA") + "\\ThermoPi\\";
     public static final String SETTINGS_OSX = "~/Library/Preferences/ThermoPi/"; //TODO Test
 

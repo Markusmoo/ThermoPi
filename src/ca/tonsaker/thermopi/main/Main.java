@@ -34,7 +34,7 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
 
     GraphicsDevice graphicsDevice;
 
-    protected Timer screenTimeoutTimer = new Timer(10000, this);
+    protected Timer screenTimeoutTimer = new Timer(ConfigFile.screenTimeoutTime, this);
     protected Point lastMouseLocation = new Point(0,0);
 
     public CommLink lnk;
@@ -138,6 +138,7 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
 
         currentGUI = homescreenGUI;
         this.switchGUI(homescreenGUI);
+        this.addMouseMotionListener(this);
         if(ConfigFile.debugMode) {
             debugGUI.setVisible(true);
         }
@@ -149,18 +150,10 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
                 BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
     }
 
-    public void setScreenOff(){
-        for(GUI g : guiList){
-            g.screenSleep();
-        }
-        ConfigFile.screenOn = false;
-    }
 
-    public void setScreenOn(){
-        for(GUI g : guiList){
-            g.screenWakeup();
-        }
-        ConfigFile.screenOn = true;
+
+    public GUI[] getGUIs(){
+        return guiList;
     }
 
     public void switchGUI(GUI gui){
@@ -217,19 +210,21 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
         if(src.equals(screenTimeoutTimer)){
-            setScreenOff();
+            Utilities.setScreenState(false);
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(ConfigFile.screenOn = false) setScreenOn();
+        if(ConfigFile.screenOn == false) Utilities.setScreenState(true);
+        screenTimeoutTimer.setDelay(ConfigFile.screenTimeoutTime);
         screenTimeoutTimer.restart();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(ConfigFile.screenOn = false) setScreenOn();
+        if(ConfigFile.screenOn == false) Utilities.setScreenState(true);
+        screenTimeoutTimer.setDelay(ConfigFile.screenTimeoutTime);
         screenTimeoutTimer.restart();
     }
 }

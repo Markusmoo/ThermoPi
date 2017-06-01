@@ -1,6 +1,7 @@
 package ca.tonsaker.thermopi.main;
 
 import ca.tonsaker.thermopi.main.data.ConfigFile;
+import ca.tonsaker.thermopi.main.gui.GUI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -19,7 +20,7 @@ import java.io.*;
  */
 public class Utilities implements GpioPinListenerDigital {
 
-    Main mainFrame;
+    private static Main mainFrame;
 
     private static GpioPinDigitalOutput screenPin;
     private static GpioPinDigitalOutput soundPin;
@@ -29,7 +30,7 @@ public class Utilities implements GpioPinListenerDigital {
         mainFrame = main;
         if(!ConfigFile.debugMode){
             soundPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SPEAKER, PinState.LOW);
-            screenPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SCREEN, PinState.LOW);
+            screenPin = Main.gpio.provisionDigitalOutputPin(ConfigFile.PIN_SCREEN, PinState.HIGH);
             homePin = Main.gpio.provisionDigitalInputPin(ConfigFile.PIN_HOME, PinPullResistance.PULL_UP);
 
             homePin.addListener(this);
@@ -38,8 +39,19 @@ public class Utilities implements GpioPinListenerDigital {
 
     public static void setScreenState(boolean on){
         Debug.println(Debug.LOW, "Changing screen state!  Screen on? = "+on);
+        ConfigFile.screenOn = on;
+        if(on) {
+            mainFrame.switchGUI(mainFrame.homescreenGUI);
+            for (GUI gui : mainFrame.getGUIs()) {
+                gui.screenWakeup();
+            }
+        }else{
+            for (GUI gui : mainFrame.getGUIs()) {
+                gui.screenSleep();
+            }
+        }
         if(ConfigFile.debugMode) return;
-        screenPin.setState(!on);
+        screenPin.setState(on);
     }
 
     public static void tone(int durationMillis){
@@ -82,6 +94,7 @@ public class Utilities implements GpioPinListenerDigital {
 
         Reader reader = new InputStreamReader(new FileInputStream(path+ConfigFile.SETTING_FILENAME));
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        Debug.println(Debug.MEDIUM, "Loading config file at: \""+path+ConfigFile.SETTING_FILENAME+"\"");
         return gson.fromJson(reader, ConfigFile.class);
     }
 

@@ -109,6 +109,7 @@ public class CommLink implements SerialDataEventListener{
     public static void sendData(String str){
         try {
             if(!ConfigFile.serialOn) return;
+            Debug.println(Debug.DEBUG, "Sent: "+str);
             serial.write(str);
         }catch(IOException e){
             e.printStackTrace();
