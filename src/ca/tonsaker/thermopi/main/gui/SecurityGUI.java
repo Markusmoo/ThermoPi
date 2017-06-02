@@ -4,6 +4,7 @@ import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
+import ca.tonsaker.thermopi.main.data.communication.CommLink;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,10 @@ import java.util.Random;
  * TODO Prevent user from being able to select zones
  */
 public class SecurityGUI implements GUI, ActionListener{
+
+    public static final int UNARMED = 22;
+    public static final int AWAY = 33;
+    public static final int HOME = 44;
 
     private JButton a0Button;
     private JButton a7Button;
@@ -35,9 +40,9 @@ public class SecurityGUI implements GUI, ActionListener{
     private JList zoneList;
     private DefaultListModel<String> zoneListModel;
     private JLabel statusLabel;
-    private JLabel variableStatusLabel;
+    public JLabel variableStatusLabel;
 
-    private JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
+    public JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
 
     private boolean[] selectedZones;
 
@@ -58,8 +63,6 @@ public class SecurityGUI implements GUI, ActionListener{
         //Add Listener to Code Field
         codeField.addActionListener(this);
 
-        //TODO Receive current state
-
         this.actionPerformed(new ActionEvent(new Object(), 0, "")); //Initialize
         for(MouseListener m : zoneList.getMouseListeners()){
             zoneList.removeMouseListener(m);
@@ -73,16 +76,18 @@ public class SecurityGUI implements GUI, ActionListener{
         initUIComponents();
     }
 
-    private void armAway(){
+    private void requestArmHome() {
+        Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
+        if (JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION)
+            return;
+        if(CommLink.sendArm(CommLink.HOME)) JOptionPane.showMessageDialog(securityPanel, "Arming for HOME");
+    }
+
+    private void requestArmAway(){
         Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
-        if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION) return;
-        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - AWAY..");
-        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
-        variableStatusLabel.setText("ARM - AWAY");
-        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
-        for(JButton b : numPad){
-            b.setEnabled(true);
-        }
+        if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION)
+            return;
+        if(CommLink.sendArm(CommLink.AWAY)) JOptionPane.showMessageDialog(securityPanel, "Arming for AWAY");
     }
 
     @Override
@@ -98,18 +103,6 @@ public class SecurityGUI implements GUI, ActionListener{
         int arrayIdx = 0;
         for(int i = 0; i < selectedZones.length; i++) if(selectedZones[i]) arrayList[arrayIdx++] = i;
         zoneList.setSelectedIndices(arrayList);
-    }
-
-    private  void armHome(){
-        Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
-        if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION) return;
-        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
-        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
-        variableStatusLabel.setText("ARM - HOME");
-        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
-        for(JButton b : numPad){
-            b.setEnabled(true);
-        }
     }
 
     @Override
@@ -136,16 +129,34 @@ public class SecurityGUI implements GUI, ActionListener{
         codeField.setText("");
         isTyping = false;
         Debug.println(Debug.HIGH, "Attempting to UNARM ThermoPi with inputted code..");
-        //TODO Send code and wait for response.
-        //TODO Add failed unlock attempt counter.
-        Debug.println(Debug.HIGH, "Code ACCEPTED - Unlocking ThermoPi..");
-        ConfigFile.STATUS = ConfigFile.STATUS_UNARMED;
-        variableStatusLabel.setText("UNARMED");
-        variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_GREEN);
-        for(JButton b : numPad){
-            b.setEnabled(false);
+        if(!CommLink.sendUnarm(code)) JOptionPane.showMessageDialog(securityPanel, "Invalid code!");
+    }
+
+    public void displayState(int state){
+        if(state == UNARMED){
+            System.out.println("1");
+            variableStatusLabel.setText("UNARMED");
+            variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_GREEN);
+            ARMHomeOrBackButton.setText("ARM - Home");
+            ARMHomeOrBackButton.setForeground(ConfigFile.COLOR_TEXT_RED);
+            ARMAwayOrEnterButton.setText("ARM - Away");
+            ARMAwayOrEnterButton.setForeground(ConfigFile.COLOR_TEXT_RED);
+            ARMHomeOrBackButton.setVisible(true);
+            ARMAwayOrEnterButton.setVisible(true);
+            codeField.setText("");
+        }else if(state == HOME){
+            System.out.println("2");
+            variableStatusLabel.setText("ARM - HOME");
+            variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
+            ARMHomeOrBackButton.setVisible(false);
+            ARMAwayOrEnterButton.setVisible(false);
+        }else if(state == AWAY){
+            System.out.println("3");
+            variableStatusLabel.setText("ARM - AWAY");
+            variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
+            ARMHomeOrBackButton.setVisible(false);
+            ARMAwayOrEnterButton.setVisible(false);
         }
-        JOptionPane.showMessageDialog(securityPanel, "ThermoPi is now UNARMED!");
     }
 
     public void setTyping(boolean typing){
@@ -155,8 +166,11 @@ public class SecurityGUI implements GUI, ActionListener{
             ARMHomeOrBackButton.setForeground(ConfigFile.COLOR_TEXT_GREEN);
             ARMAwayOrEnterButton.setText("Enter");
             ARMAwayOrEnterButton.setForeground(ConfigFile.COLOR_TEXT_GREEN);
+            ARMHomeOrBackButton.setVisible(true);
+            ARMAwayOrEnterButton.setVisible(true);
         }else{
-
+            ARMHomeOrBackButton.setVisible(false);
+            ARMAwayOrEnterButton.setVisible(false);
         }
     }
 
@@ -187,14 +201,14 @@ public class SecurityGUI implements GUI, ActionListener{
                     backspaceCode();
                 }else if(ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){
                     //TODO ARM HOME
-                    armHome();
+                    requestArmHome();
                 }
             }else if(src.equals(ARMAwayOrEnterButton)){
                 if(isTyping){
                     unlockAndUnArm(codeField.getPassword());
                 }else{
                     //TODO Implement ARM AWAY
-                    armAway();
+                    requestArmAway();
                 }
             }
             if(Main.cfg.options.isKeypadTone) Utilities.buttonTone();

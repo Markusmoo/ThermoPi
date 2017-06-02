@@ -2,11 +2,14 @@ package ca.tonsaker.thermopi.main.data.communication;
 
 import ca.tonsaker.thermopi.main.Debug;
 import ca.tonsaker.thermopi.main.Main;
+import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
 import com.pi4j.io.serial.*;
 import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by Markus Tonsaker on 2017-03-19.
@@ -19,6 +22,10 @@ import java.io.IOException;
  */
 public class CommLink implements SerialDataEventListener{
 
+    public static final int HOME = 32;
+    public static final int AWAY = 33;
+
+    private static Queue<String> last10SerialCommands = new LinkedList<>();
 
     static Serial serial;
     static SerialConfig serialConfig;
@@ -57,16 +64,25 @@ public class CommLink implements SerialDataEventListener{
 
     private static boolean waitForResponse(){
         try {
-            int timeout = 1000;
+            long timeout = 5000;
+            long currTime = System.currentTimeMillis();
             while(true){
-                String received = new String(serial.read());
-                if(!received.equals("")){
-                    if(received.contains("DENIED")) return false;
-                    if(received.contains("ACCEPTED")) return true;
+                int idx = 0;
+                for(String lc : last10SerialCommands) {
+                    if ((lc.equals("ACCEPTED") || lc.equals("DENIED"))) {
+                        if (lc.equals("DENIED")){
+                            last10SerialCommands.remove();
+                            return false;
+                        }
+                        if (lc.equals("ACCEPTED")){
+                            last10SerialCommands.remove();
+                            return true;
+                        }
+                    }
                 }
-                timeout--;
-                if(timeout <= 0){
-                    Debug.println(Debug.ERROR, "Never received a response from ThermoHQ!");
+                if(System.currentTimeMillis() - currTime > timeout){
+                    serial.close();
+                    Debug.println(Debug.ERROR, "Never received a response from ThermoHQ in 5 seconds.  Exiting ThermoPi..");
                     System.exit(-1);
                 }
             }
@@ -99,11 +115,21 @@ public class CommLink implements SerialDataEventListener{
         return waitForResponse();
     }
 
+    public static boolean sendArm(int status){
+        if(status == HOME) sendData("<ARM:HOME>"); else
+        if(status == AWAY) sendData("<ARM:AWAY>");
+        return waitForResponse();
+    }
+
     public static boolean sendUnarm(char[] code){
         if(String.copyValueOf(code).equals("")) return false; //TODO Redundant???
         String command = "<UNARM:" + String.copyValueOf(code) + ">";
         sendData(command);
         return waitForResponse();
+    }
+
+    public static void sendRefresh(){
+        sendData("<REFRESH>");
     }
 
     public static void sendData(String str){
@@ -151,6 +177,8 @@ public class CommLink implements SerialDataEventListener{
             return;
         }
 
+        last10SerialCommands.add(commands[0]);
+
         if(commands[0].contains("ZONE")){ //Set which zones are activated
             for(int i = 0; i < commands[1].toCharArray().length; i++){
                 main.securityGUI.highlightZone(i, integerToBoolean(Character.getNumericValue(commands[1].toCharArray()[i])));
@@ -176,6 +204,16 @@ public class CommLink implements SerialDataEventListener{
                 }
             }else{
                 Debug.println(Debug.ERROR, "Serial received a corrupted temperature command: " + s);
+            }
+        }else if(commands[0].contains("BEEP")) { //Beep
+            Utilities.buttonTone(); //TODO add way to turn off
+        }else if(commands[0].contains("ARMED")){ //Armed
+            if(commands[1].contains("HOME")){
+                Utilities.armHome();
+            }else if(commands[1].contains("AWAY")){
+                Utilities.armAway();
+            }else if(commands[1].contains("UNARMED")){
+                Utilities.unarm();
             }
         }
 

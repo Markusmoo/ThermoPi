@@ -2,6 +2,7 @@ package ca.tonsaker.thermopi.main;
 
 import ca.tonsaker.thermopi.main.data.ConfigFile;
 import ca.tonsaker.thermopi.main.gui.GUI;
+import ca.tonsaker.thermopi.main.gui.SecurityGUI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -12,6 +13,7 @@ import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import org.apache.commons.lang3.SystemUtils;
 
+import javax.swing.*;
 import java.io.*;
 
 
@@ -34,6 +36,35 @@ public class Utilities implements GpioPinListenerDigital {
             homePin = Main.gpio.provisionDigitalInputPin(ConfigFile.PIN_HOME, PinPullResistance.PULL_UP);
 
             homePin.addListener(this);
+        }
+    }
+
+    public static void armAway(){
+        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - AWAY..");
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
+        mainFrame.securityGUI.variableStatusLabel.setText("ARM - AWAY");
+        mainFrame.securityGUI.variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
+
+        for(JButton b : mainFrame.securityGUI.numPad){
+            b.setEnabled(true);
+        }
+    }
+
+    public static void armHome(){
+        Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
+        mainFrame.securityGUI.displayState(SecurityGUI.HOME);
+        for(JButton b : mainFrame.securityGUI.numPad){
+            b.setEnabled(true);
+        }
+    }
+
+    public static void unarm(){
+        Debug.println(Debug.HIGH, "Unlocking ThermoPi..");
+        ConfigFile.STATUS = ConfigFile.STATUS_UNARMED;
+        mainFrame.securityGUI.displayState(SecurityGUI.UNARMED);
+        for(JButton b : mainFrame.securityGUI.numPad){
+            b.setEnabled(false);
         }
     }
 
