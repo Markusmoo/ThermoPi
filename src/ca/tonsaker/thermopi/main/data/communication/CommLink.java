@@ -48,10 +48,10 @@ public class CommLink implements SerialDataEventListener{
                     .stopBits(StopBits._1)
                     .flowControl(FlowControl.NONE);
         }catch (IOException e){
-            //TODO Debug Error
+            Debug.println(Debug.ERROR, "Failed to setup serial!");
             e.printStackTrace();
         }catch (InterruptedException e2) {
-            //TODO Debug Error
+            Debug.println(Debug.ERROR, "Failed to setup serial!");
             e2.printStackTrace();
         }
         serial.addListener(this);
@@ -67,17 +67,14 @@ public class CommLink implements SerialDataEventListener{
             long timeout = 5000;
             long currTime = System.currentTimeMillis();
             while(true){
-                int idx = 0;
                 for(String lc : last10SerialCommands) {
-                    if ((lc.equals("ACCEPTED") || lc.equals("DENIED"))) {
-                        if (lc.equals("DENIED")){
-                            last10SerialCommands.remove();
-                            return false;
-                        }
-                        if (lc.equals("ACCEPTED")){
-                            last10SerialCommands.remove();
-                            return true;
-                        }
+                    if (lc.equals("DENIED")){
+                        last10SerialCommands.remove();
+                        return false;
+                    }
+                    if (lc.equals("ACCEPTED")){
+                        last10SerialCommands.remove();
+                        return true;
                     }
                 }
                 if(System.currentTimeMillis() - currTime > timeout){
@@ -107,9 +104,9 @@ public class CommLink implements SerialDataEventListener{
     }
 
     public static boolean sendPassChange(char[] newCode, char[] oldCode){
-        if(String.copyValueOf(newCode).equals("")) return false; //TODO Redundant???
-        if(String.copyValueOf(oldCode).equals("")) return false; //TODO Redundant???
-        if(String.copyValueOf(oldCode).equals(String.copyValueOf(newCode))) return false; //TODO Redundant??? Place elsewhere???
+        if(String.copyValueOf(newCode).equals("")) return false;
+        if(String.copyValueOf(oldCode).equals("")) return false;
+        if(String.copyValueOf(oldCode).equals(String.copyValueOf(newCode))) return false;
         String command = "<PASSCHANGE:" + String.copyValueOf(oldCode) + ":" + String.copyValueOf(newCode) + ">";
         sendData(command);
         return waitForResponse();
@@ -122,7 +119,7 @@ public class CommLink implements SerialDataEventListener{
     }
 
     public static boolean sendUnarm(char[] code){
-        if(String.copyValueOf(code).equals("")) return false; //TODO Redundant???
+        if(String.copyValueOf(code).equals("")) return false;
         String command = "<UNARM:" + String.copyValueOf(code) + ">";
         sendData(command);
         return waitForResponse();

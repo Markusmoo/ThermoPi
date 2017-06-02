@@ -19,8 +19,11 @@ public class HomescreenGUI implements GUI, ActionListener{
     private JLabel time;
     private JButton thermostatButton;
     private JButton weatherButton;
-    private JPanel weatherPanel;
     private JPanel homescreenPanel;
+    private JPanel buttonPanel;
+    private JPanel infoPanel;
+    public JLabel variableStatusLabel;
+    private JLabel statusLabel;
 
     private Timer clockUpdater;
 

@@ -48,15 +48,15 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
 
     public OptionPaneGUI optionPaneGUI = new OptionPaneGUI(this);
     public KeyboardGUI keyboardGUI = new KeyboardGUI(this);
+    public SecurityGUI securityGUI = new SecurityGUI(this);
     public HomescreenGUI homescreenGUI = new HomescreenGUI(this);
-    public SecurityGUI securityGUI = new SecurityGUI();
     public SettingsGUI settingsGUI = new SettingsGUI(this);
     public Settings2GUI settings2GUI = new Settings2GUI(this);
     public ThermostatGUI thermostatGUI = new ThermostatGUI(this);
     public static DebugGUI debugGUI;
 
     //Doesn't include debugGUI because debugGUI is in it's own window.
-    private GUI[] guiList = {optionPaneGUI, keyboardGUI, homescreenGUI, securityGUI,
+    private GUI[] guiList = {optionPaneGUI, keyboardGUI, securityGUI, homescreenGUI,
             thermostatGUI, settingsGUI, settings2GUI};
 
     boolean isFullscreen;

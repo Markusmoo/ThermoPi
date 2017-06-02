@@ -39,17 +39,21 @@ public class SecurityGUI implements GUI, ActionListener{
     private JPasswordField codeField;
     private JList zoneList;
     private DefaultListModel<String> zoneListModel;
-    private JLabel statusLabel;
+    public JLabel statusLabel;
     public JLabel variableStatusLabel;
 
     public JButton[] numPad = {a0Button, a1Button, a2Button, a3Button, a4Button, a5Button, a6Button, a7Button, a8Button, a9Button};
 
     private boolean[] selectedZones;
 
+    private Main mainFrame;
+
     boolean isTyping = false;
 
-    public SecurityGUI(){
+    public SecurityGUI(Main mainFrame){
         super();
+
+        this.mainFrame = mainFrame;
 
         //Add listeners to keypad 0-9
         for(JButton b : numPad){
@@ -77,6 +81,16 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     private void requestArmHome() {
+        String zones = "";
+        for(int idx = 0; idx < selectedZones.length; idx++){
+            if(selectedZones[idx] && idx == 0) zones+= zoneListModel.elementAt(idx); else
+            if(selectedZones[idx]) zones+= ", " + zoneListModel.elementAt(idx);
+        }
+        if(!zones.equals("")) {
+            JOptionPane.showMessageDialog(securityPanel, "FAILED to ARM because Zone(s): \"" + zones + "\" are active!",
+                    "FAILED TO ARM", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Debug.println(Debug.LOW, "Requesting to ARM - HOME..");
         if (JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - HOME?") != JOptionPane.OK_OPTION)
             return;
@@ -84,6 +98,23 @@ public class SecurityGUI implements GUI, ActionListener{
     }
 
     private void requestArmAway(){
+        String zones = "";
+        boolean addComma = false;
+        for(int idx = 0; idx < selectedZones.length; idx++){
+            if(selectedZones[idx] && idx == 0){
+                zones+= zoneListModel.elementAt(idx);
+                addComma = true;
+            } else if(selectedZones[idx]) {
+                if(addComma) zones += ", ";
+                zones += zoneListModel.elementAt(idx);
+                addComma = true;
+            }
+        }
+        if(!zones.equals("")) {
+            JOptionPane.showMessageDialog(securityPanel, "FAILED to ARM because Zone(s): \"" + zones + "\" is active!",
+                    "FAILED TO ARM", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Debug.println(Debug.LOW, "Requesting to ARM - AWAY..");
         if(JOptionPane.showConfirmDialog(securityPanel, "Are you sure you would like to ARM - AWAY?") != JOptionPane.OK_OPTION)
             return;
@@ -137,6 +168,8 @@ public class SecurityGUI implements GUI, ActionListener{
             System.out.println("1");
             variableStatusLabel.setText("UNARMED");
             variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_GREEN);
+            mainFrame.homescreenGUI.variableStatusLabel.setText("UNARMED");
+            mainFrame.homescreenGUI.variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_GREEN);
             ARMHomeOrBackButton.setText("ARM - Home");
             ARMHomeOrBackButton.setForeground(ConfigFile.COLOR_TEXT_RED);
             ARMAwayOrEnterButton.setText("ARM - Away");
@@ -148,12 +181,16 @@ public class SecurityGUI implements GUI, ActionListener{
             System.out.println("2");
             variableStatusLabel.setText("ARM - HOME");
             variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
+            mainFrame.homescreenGUI.variableStatusLabel.setText("ARM - HOME");
+            mainFrame.homescreenGUI.variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
             ARMHomeOrBackButton.setVisible(false);
             ARMAwayOrEnterButton.setVisible(false);
         }else if(state == AWAY){
             System.out.println("3");
             variableStatusLabel.setText("ARM - AWAY");
             variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
+            mainFrame.homescreenGUI.variableStatusLabel.setText("ARM - AWAY");
+            mainFrame.homescreenGUI.variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
             ARMHomeOrBackButton.setVisible(false);
             ARMAwayOrEnterButton.setVisible(false);
         }
@@ -200,14 +237,12 @@ public class SecurityGUI implements GUI, ActionListener{
                 if(isTyping){
                     backspaceCode();
                 }else if(ConfigFile.STATUS == ConfigFile.STATUS_UNARMED){
-                    //TODO ARM HOME
                     requestArmHome();
                 }
             }else if(src.equals(ARMAwayOrEnterButton)){
                 if(isTyping){
                     unlockAndUnArm(codeField.getPassword());
                 }else{
-                    //TODO Implement ARM AWAY
                     requestArmAway();
                 }
             }

@@ -41,10 +41,8 @@ public class Utilities implements GpioPinListenerDigital {
 
     public static void armAway(){
         Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - AWAY..");
-        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_AWAY;  //TODO (Mode: DEBUG) Request to arm
-        mainFrame.securityGUI.variableStatusLabel.setText("ARM - AWAY");
-        mainFrame.securityGUI.variableStatusLabel.setForeground(ConfigFile.COLOR_TEXT_RED);
-
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_AWAY;
+        mainFrame.securityGUI.displayState(SecurityGUI.AWAY);
         for(JButton b : mainFrame.securityGUI.numPad){
             b.setEnabled(true);
         }
@@ -52,7 +50,7 @@ public class Utilities implements GpioPinListenerDigital {
 
     public static void armHome(){
         Debug.println(Debug.HIGH, "Setting ThermoPi status to: ARM - HOME..");
-        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_HOME;  //TODO (Mode: DEBUG) Request to arm
+        ConfigFile.STATUS = ConfigFile.STATUS_ARMED_HOME;
         mainFrame.securityGUI.displayState(SecurityGUI.HOME);
         for(JButton b : mainFrame.securityGUI.numPad){
             b.setEnabled(true);
