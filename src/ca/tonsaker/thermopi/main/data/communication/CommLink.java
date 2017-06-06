@@ -97,13 +97,12 @@ public class CommLink implements SerialDataEventListener{
         sendData("<TEST:FURNACE>");
     }
 
-
     public static void sendTemperatureSet(byte temp){
         String command = "<TEMP:SET:" + Math.abs(temp) + ">";
         sendData(command);
     }
 
-    public static boolean sendPassChange(char[] newCode, char[] oldCode){
+    public static boolean sendPassChange(char[] oldCode, char[] newCode){
         if(String.copyValueOf(newCode).equals("")) return false;
         if(String.copyValueOf(oldCode).equals("")) return false;
         if(String.copyValueOf(oldCode).equals(String.copyValueOf(newCode))) return false;

@@ -17,6 +17,7 @@ import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by Markus Tonsaker on 2017-03-17.
@@ -87,6 +88,19 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
 
     public void applySettings(){
         try{
+            if(newPasswordField.getPassword().length > 0) {
+                if (Arrays.equals(newPasswordField.getPassword(), confirmPasswordField.getPassword())) {
+                    if(CommLink.sendPassChange(oldPasswordField.getPassword(), newPasswordField.getPassword())){
+
+                    }else{
+                        JOptionPane.showMessageDialog(main, "Settings did not save because old password\n" +
+                                "entered was not incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(main, "Passwords did not match!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
             main.cfg.options.isKeypadTone = playKeypadToneCheckBox.isSelected();
             main.cfg.options.isButtonTone = playButtonToneCheckBox.isSelected();
             main.cfg.options.isConsoleColors = showConsoleColoursCheckBox.isSelected();
@@ -107,7 +121,6 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
             Utilities.saveSettings(main.cfg);
             JOptionPane.showMessageDialog(main, "Your settings were saved successfully!", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
         }catch (IOException e){
-            FAIL:
             JOptionPane.showMessageDialog(main, "Error, your settings did NOT save!", "Error", JOptionPane.ERROR_MESSAGE);
             Debug.println(Debug.ERROR, "Settings failed to save!");
             e.printStackTrace();
@@ -134,6 +147,9 @@ public class SettingsGUI implements GUI, ActionListener, MouseListener{
                 }
             }else if (src.equals(applyButton)) {
                 applySettings();
+                oldPasswordField.setText("");
+                newPasswordField.setText("");
+                confirmPasswordField.setText("");
             }else if (src.equals(openDebuggerButton)) {
                 main.debugGUI.setVisible(true);
                 main.debugGUI.setExtendedState(JFrame.NORMAL);

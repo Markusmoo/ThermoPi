@@ -133,6 +133,7 @@ public class KeyboardGUI implements ActionListener, GUI {
     }
 
     public void reset(){
+        projectTextfield.setText("");
         lastGUI = null;
         projectTextfield = null;
         if(numOnly){

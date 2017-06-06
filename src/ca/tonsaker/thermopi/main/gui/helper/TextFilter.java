@@ -1,5 +1,6 @@
 package ca.tonsaker.thermopi.main.gui.helper;
 
+import ca.tonsaker.thermopi.main.Main;
 import ca.tonsaker.thermopi.main.Utilities;
 import ca.tonsaker.thermopi.main.data.ConfigFile;
 
@@ -49,19 +50,21 @@ public class TextFilter extends DocumentFilter {
             if (test(sb.toString()) && (maxLength < 0 || string.length() <= maxLength)) {
                 super.insertString(fb, offset, string, attr);
             } else {
-                if (!ConfigFile.debugMode) Utilities.buttonTone();
+                if (!Main.cfg.options.isButtonTone) Utilities.buttonTone();
             }
         }else{
             if(maxLength < 0 || string.length() < maxLength){
                 super.insertString(fb, offset, string, attr);
             } else {
-                if (!ConfigFile.debugMode) Utilities.buttonTone();
+                if (!Main.cfg.options.isButtonTone) Utilities.buttonTone();
             }
         }
     }
 
     private boolean test(String text) {
         try {
+            //if(text.equals("")) return true; //TODO Debug.  Needed because "null" is NaN.  When implemented, keyboard text doesn't forward
+            //TODO to display text.
             Integer.parseInt(text);
             return true;
         } catch (NumberFormatException e) {
@@ -80,13 +83,13 @@ public class TextFilter extends DocumentFilter {
             if (test(sb.toString()) && (maxLength < 0 || text.length() <= maxLength)) {
                 super.replace(fb, offset, length, text, attrs);
             } else {
-                if (!ConfigFile.debugMode) Utilities.buttonTone();
+                if (!Main.cfg.options.isButtonTone) Utilities.buttonTone();
             }
         }else{
             if(maxLength < 0 || text.length() < maxLength){
                 super.replace(fb, offset, length, text, attrs);
             } else {
-                if (!ConfigFile.debugMode) Utilities.buttonTone();
+                if (!Main.cfg.options.isButtonTone) Utilities.buttonTone();
             }
         }
     }
@@ -101,7 +104,7 @@ public class TextFilter extends DocumentFilter {
         if(maxLength < 0 || sb.toString().length() <= maxLength){
             super.remove(fb, offset, length);
         } else {
-            if (!ConfigFile.debugMode) Utilities.buttonTone();
+            if (!Main.cfg.options.isButtonTone) Utilities.buttonTone();
         }
     }
 }

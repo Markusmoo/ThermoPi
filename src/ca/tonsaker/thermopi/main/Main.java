@@ -144,7 +144,7 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener{
         }
         screenTimeoutTimer.start();
 
-        CommLink.sendRefresh();
+        if(!ConfigFile.debugMode) CommLink.sendRefresh();
     }
 
     public void hideCursor(){
